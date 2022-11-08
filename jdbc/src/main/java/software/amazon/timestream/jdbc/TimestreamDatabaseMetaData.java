@@ -171,9 +171,14 @@ public class TimestreamDatabaseMetaData implements java.sql.DatabaseMetaData {
   }
 
   @Override
-  public ResultSet getCatalogs() throws SQLException {
-    return new TimestreamDatabasesResultSet(this.connection);
+  public ResultSet getCatalogs(){
+    LOGGER.debug("Catalogs are not supported. Returning an empty result set.");
+    return new TimestreamSchemasResultSet();
   }
+
+/*  public ResultSet getCatalogs() throws SQLException {
+    return new TimestreamDatabasesResultSet(this.connection);
+  }*/
 
   @Override
   public ResultSet getClientInfoProperties() {
@@ -467,17 +472,30 @@ public class TimestreamDatabaseMetaData implements java.sql.DatabaseMetaData {
   }
 
   @Override
+  public ResultSet getSchemas() throws SQLException {
+    return new TimestreamDatabasesResultSet(this.connection);
+    //return new TimestreamDatabasesResultSet(this.connection, null);
+  }
+  /*
   public ResultSet getSchemas() {
     LOGGER.debug("Schemas are not supported. Returning an empty result set.");
     return new TimestreamSchemasResultSet();
   }
+  */
 
   @Override
-  public ResultSet getSchemas(String catalog, String schemaPattern) {
-    LOGGER.debug("Schemas are not supported. Returning an empty result set.");
-    return new TimestreamSchemasResultSet();
+  //-AL- no filtering is done here.
+  public ResultSet getSchemas(String catalog, String schemaPattern) throws SQLException {
+    return new TimestreamDatabasesResultSet(this.connection);
+    //return new TimestreamDatabasesResultSet(this.connection, schemaPattern);
   }
 
+  /**
+   public ResultSet getSchemas(String catalog, String schemaPattern) {
+   LOGGER.debug("Schemas are not supported. Returning an empty result set.");
+   return new TimestreamSchemasResultSet();
+   }
+   * */
   @Override
   public String getSearchStringEscape() {
     return "%";
