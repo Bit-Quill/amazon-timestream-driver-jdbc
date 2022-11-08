@@ -42,9 +42,10 @@ public class TimestreamDatabasesResultSet extends TimestreamBaseResultSet {
    * Constructor.
    *
    * @param connection the parent connection of the result set.
+   * @param schemaPattern the SchemaPattern. null if not provided
    * @throws SQLException if a database access error occurs.
    */
-  TimestreamDatabasesResultSet(TimestreamConnection connection) throws SQLException {
+  TimestreamDatabasesResultSet(TimestreamConnection connection, String schemaPattern) throws SQLException {
     super(null, 20);
     this.rsMeta = createColumnMetadata(COLUMNS);
 

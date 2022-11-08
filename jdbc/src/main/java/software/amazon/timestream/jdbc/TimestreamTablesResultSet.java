@@ -138,7 +138,7 @@ public class TimestreamTablesResultSet extends TimestreamBaseResultSet {
       return ImmutableList.of(database).iterator();
     }
 
-    try (ResultSet rs = new TimestreamDatabasesResultSet(connection)) {
+    try (ResultSet rs = new TimestreamDatabasesResultSet(connection, null)) {
       final List<String> databases = new ArrayList<>();
       while (rs.next()) {
         databases.add(rs.getString(1));

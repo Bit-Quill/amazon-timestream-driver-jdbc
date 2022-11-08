@@ -473,7 +473,7 @@ public class TimestreamDatabaseMetaData implements java.sql.DatabaseMetaData {
 
   @Override
   public ResultSet getSchemas() throws SQLException {
-    return new TimestreamDatabasesResultSet(this.connection);
+    return new TimestreamDatabasesResultSet(this.connection, null);
     //return new TimestreamDatabasesResultSet(this.connection, null);
   }
   /*
@@ -486,7 +486,7 @@ public class TimestreamDatabaseMetaData implements java.sql.DatabaseMetaData {
   @Override
   //-AL- no filtering is done here.
   public ResultSet getSchemas(String catalog, String schemaPattern) throws SQLException {
-    return new TimestreamDatabasesResultSet(this.connection);
+    return new TimestreamDatabasesResultSet(this.connection, schemaPattern);
     //return new TimestreamDatabasesResultSet(this.connection, schemaPattern);
   }
 
