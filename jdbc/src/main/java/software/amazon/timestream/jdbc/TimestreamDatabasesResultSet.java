@@ -96,11 +96,8 @@ public class TimestreamDatabasesResultSet extends TimestreamBaseResultSet {
     try (Statement statement = connection.createStatement()) {
       LOGGER.debug("Retrieving a list of databases." + (Strings.isNullOrEmpty(schemaPattern) ? "" : " Schema pattern is " + schemaPattern + "."));
       final String query = "SHOW DATABASES" +
-              (Strings.isNullOrEmpty(schemaPattern) ? "" : " LIKE '" + schemaPattern + "'"); //-AL- passing this patten
-      // somehow makes tests fail?? Reason: "SHOW DATABASES " makes tests fail, but "SHOW DATABASES" doesn't.
+              (Strings.isNullOrEmpty(schemaPattern) ? "" : " LIKE '" + schemaPattern + "'");
       try (ResultSet rs = statement.executeQuery(query)) {
-   //   try (ResultSet rs = statement.executeQuery("SHOW DATABASES")) { //-AL- if I use this line instead, tests pass.
-        // but,getSchemas(...) is not called in our code???
         while (rs.next()) {
           databases.add(rs.getString(1));
         }
