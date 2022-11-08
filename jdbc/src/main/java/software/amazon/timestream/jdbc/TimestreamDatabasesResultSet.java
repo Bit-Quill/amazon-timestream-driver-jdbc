@@ -49,7 +49,7 @@ public class TimestreamDatabasesResultSet extends TimestreamBaseResultSet {
     super(null, 20);
     this.rsMeta = createColumnMetadata(COLUMNS);
 
-    populateCurrentRows(connection);
+    populateCurrentRows(connection, schemaPattern);
   }
 
   @Override
@@ -87,9 +87,10 @@ public class TimestreamDatabasesResultSet extends TimestreamBaseResultSet {
    * retrieval path.
    *
    * @param connection The parent connection to retrieve databases from.
+   * @param schemaPattern The schemaPattern to filter databases
    * @throws SQLException if there is an error listing the databases.
    */
-  private void populateCurrentRows(TimestreamConnection connection) throws SQLException {
+  private void populateCurrentRows(TimestreamConnection connection, String schemaPattern) throws SQLException {
     final List<String> databases = new ArrayList<>();
     try (Statement statement = connection.createStatement()) {
       LOGGER.debug("Retrieving a list of databases.");
