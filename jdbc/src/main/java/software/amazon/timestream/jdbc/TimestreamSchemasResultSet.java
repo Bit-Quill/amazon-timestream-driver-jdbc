@@ -117,7 +117,6 @@ public class TimestreamSchemasResultSet extends TimestreamBaseResultSet {
         }
       }
     }
-    //-AL- todo IMPORTANT put NULL for catalog.
     LOGGER.debug("Retrieved {} databases.", databases.size());
 
     this.rowItr = databases.iterator();
