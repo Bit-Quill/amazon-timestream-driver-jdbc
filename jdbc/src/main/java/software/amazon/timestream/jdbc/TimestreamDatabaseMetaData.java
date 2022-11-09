@@ -189,11 +189,11 @@ public class TimestreamDatabaseMetaData implements java.sql.DatabaseMetaData {
   }
 
   @Override
-  public ResultSet getColumns(String catalog, String schemaNamePattern, String tableNamePattern,
+  public ResultSet getColumns(String catalog, String schemaPattern, String tableNamePattern,
     String columnNamePattern) throws SQLException {
     return new TimestreamColumnsResultSet(
       connection,
-      catalog,
+      schemaPattern,
       tableNamePattern,
       convertPattern(columnNamePattern));
   }
