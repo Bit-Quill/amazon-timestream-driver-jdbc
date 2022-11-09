@@ -134,7 +134,7 @@ public class TimestreamColumnsResultSet extends TimestreamBaseResultSet {
     }
 
     // Get the columns for the next table.
-    curDatabase = tablesResult.getString(1);
+    curDatabase = tablesResult.getString(2);
     curTable = tablesResult.getString(3);
     result = statement.executeQuery(String.format("DESCRIBE \"%s\".\"%s\"", curDatabase, curTable));
 
