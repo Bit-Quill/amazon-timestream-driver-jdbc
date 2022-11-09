@@ -66,11 +66,18 @@ class TimestreamDatabaseMetaDataTest {
   @Test
   void testGetSchemasWithResult() throws SQLException {
     initializeWithResult();
+
     // test getSchemas()
     try (ResultSet resultSet = dbMetaData
             .getSchemas()) {
       testGetSchemasResult(resultSet);
     }
+  }
+
+  @Test
+  void testGetSchemasNullParamWithResult() throws SQLException {
+    initializeWithResult();
+
     // test getSchemas(String, String)
     try (ResultSet resultSet = dbMetaData
             .getSchemas(null, null)) {
@@ -78,8 +85,8 @@ class TimestreamDatabaseMetaDataTest {
     }
   }
 
-  /*
-  @ParameterizedTest
+
+/*  @ParameterizedTest
   //@ValueSource(strings = {"%test%", "%", "%DB"})
   @ValueSource(strings = {"%"})
   void testGetSchemasWithSchemaPattern(String schemaPattern) throws SQLException {
