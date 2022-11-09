@@ -52,6 +52,17 @@ class TimestreamDatabaseMetaDataTest {
     dbMetaData = new TimestreamDatabaseMetaData(mockConnection);
   }
 
+  /**
+   * Checks that an empty result set is returned for getCatalogs
+   */
+  @Test
+  void testGetCatalogsWithResult() throws SQLException {
+    initializeWithResult();
+    try (ResultSet resultSet = dbMetaData
+            .getCatalogs()) {
+      Assertions.assertFalse(resultSet.next());
+    }
+  }
   @Test
   void testGetSchemasWithResult() throws SQLException {
     initializeWithResult();
