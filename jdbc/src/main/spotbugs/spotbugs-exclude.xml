@@ -21,7 +21,7 @@
   </Match>
   <Match>
     <Bug pattern="SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE"/>
-    <Class name="software.amazon.timestream.jdbc.TimestreamDatabasesResultSet"/>
+    <Class name="software.amazon.timestream.jdbc.TimestreamSchemasResultSet"/>
     <Method name="populateCurrentRows" params="software.amazon.timestream.jdbc.TimestreamConnection,java.lang.String" returns="void" />
   </Match>
 </FindBugsFilter>

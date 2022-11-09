@@ -32,20 +32,28 @@ import java.util.List;
 /**
  * ResultSet for returning the list of databases in Timestream.
  */
-public class TimestreamDatabasesResultSet extends TimestreamBaseResultSet {
-  private static final Logger LOGGER = LoggerFactory.getLogger(TimestreamDatabasesResultSet.class);
+public class TimestreamDatabasesResultSet extends TimestreamEmptyBaseResultSet {
+ // public class TimestreamDatabasesResultSet extends TimestreamBaseResultSet {
+ // private static final Logger LOGGER = LoggerFactory.getLogger(TimestreamDatabasesResultSet.class);
   private static final List<ColumnInfo> COLUMNS = ImmutableList.of(
     TimestreamDataType.createColumnInfo(TimestreamDataType.VARCHAR, "TABLE_CAT"));
 
-  private boolean isAfterLast = false;
-
   /**
+   * Constructor.
+   */
+  public TimestreamDatabasesResultSet() {
+    super(COLUMNS);
+  }
+
+/*  private boolean isAfterLast = false;
+
+  *//**
    * Constructor.
    *
    * @param connection the parent connection of the result set.
    * @param schemaPattern the SchemaPattern. null if not provided
    * @throws SQLException if a database access error occurs.
-   */
+   *//*
   TimestreamDatabasesResultSet(TimestreamConnection connection, String schemaPattern) throws SQLException {
     super(null, 20);
     this.rsMeta = createColumnMetadata(COLUMNS);
@@ -71,11 +79,11 @@ public class TimestreamDatabasesResultSet extends TimestreamBaseResultSet {
     LOGGER.debug("Closed is called on this TimestreamDatabasesResultSet, do nothing as the result set has already been closed.");
   }
 
-  /**
+  *//**
    * Retrieve the next page of the results.
    *
    * @return {@code true} if there is another page; {@code false} otherwise.
-   */
+   *//*
   @Override
   protected boolean doNextPage() {
     LOGGER.debug("Attempting to retrieve the next page of results. There are no more pages, return false.");
@@ -83,14 +91,14 @@ public class TimestreamDatabasesResultSet extends TimestreamBaseResultSet {
     return false;
   }
 
-  /**
+  *//**
    * Map the list of databases into a Timestream Row type to allow reuse of the common ResultSet
    * retrieval path.
    *
    * @param connection The parent connection to retrieve databases from.
    * @param schemaPattern The schemaPattern to filter databases
    * @throws SQLException if there is an error listing the databases.
-   */
+   *//*
   private void populateCurrentRows(TimestreamConnection connection, String schemaPattern) throws SQLException {
     final List<String> databases = new ArrayList<>();
     try (Statement statement = connection.createStatement()) {
@@ -108,5 +116,6 @@ public class TimestreamDatabasesResultSet extends TimestreamBaseResultSet {
       .map(d -> new Datum().withScalarValue(d))
       .map(d -> new Row().withData(d))
       .iterator();
-  }
+  }*/
+
 }

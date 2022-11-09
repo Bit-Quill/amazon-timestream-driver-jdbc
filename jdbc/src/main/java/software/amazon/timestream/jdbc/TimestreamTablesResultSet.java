@@ -139,7 +139,8 @@ public class TimestreamTablesResultSet extends TimestreamBaseResultSet {
     } */
     //-AL- this part is the causaion of Tableau not having filtered databases, I think
 
-    try (ResultSet rs = new TimestreamDatabasesResultSet(connection, database)) {
+    try (ResultSet rs = new TimestreamSchemasResultSet(connection, database)) {
+    //try (ResultSet rs = new TimestreamDatabasesResultSet(connection, database)) {
       final List<String> databases = new ArrayList<>();
       while (rs.next()) {
         databases.add(rs.getString(1));
