@@ -299,10 +299,10 @@ class TimestreamDatabaseMetaDataTest {
    * @throws SQLException If an error occurs while retrieving the value.
    */
   private void testGetColumnsResult(ResultSet resultSet) throws SQLException {
-    final String[] string1 = {"", "testDB", null, "testTable", "ColName", "12", "UNKNOWN",
+    final String[] string1 = {"", null, "testDB", "testTable", "ColName", "12", "UNKNOWN",
       "2147483647", null, null, null, "1", null, null, "12", null, "2147483647", "1",
       "YES", null, null, null, null, "NO", "NO"};
-    final String[] string2 = {"", "testDB", null, "testTable", "ColName", "12", "UNKNOWN",
+    final String[] string2 = {"", null, "testDB", "testTable", "ColName", "12", "UNKNOWN",
       "2147483647", null, null, null, "1", null, null, "12", null, "2147483647", "2",
       "YES", null, null, null, null, "NO", "NO"};
     final List<String[]> strings = new ArrayList<>();
@@ -326,7 +326,7 @@ class TimestreamDatabaseMetaDataTest {
    * @throws SQLException If an error occurs while retrieving the value.
    */
   private void testGetTableResult(ResultSet resultSet) throws SQLException {
-    final String[] strings = {"", "testDB", null, "testTable", "TABLE", null, null, null, null,
+    final String[] strings = {"", null, "testDB", "testTable", "TABLE", null, null, null, null,
       null, null};
 
     int numRows = 0;
