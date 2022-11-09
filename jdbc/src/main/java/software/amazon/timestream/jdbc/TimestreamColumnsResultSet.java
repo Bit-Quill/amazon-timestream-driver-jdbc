@@ -168,8 +168,8 @@ public class TimestreamColumnsResultSet extends TimestreamBaseResultSet {
     for (int i = 1; i <= numColumns; ++i) {
       final int columnType = rsMeta.getColumnType(i);
       columns.add(new Row().withData(
-        createDatum(curDatabase),
-        NULL_DATUM,
+        NULL_DATUM, //TABLE_CAT -AL-
+        createDatum(curDatabase), //TABLE_SCHEM -AL-
         createDatum(curTable),
         createDatum(rsMeta.getColumnName(i)),
         createDatum(columnType),

@@ -176,10 +176,6 @@ public class TimestreamDatabaseMetaData implements java.sql.DatabaseMetaData {
     return new TimestreamSchemasResultSet();
   }
 
-/*  public ResultSet getCatalogs() throws SQLException {
-    return new TimestreamDatabasesResultSet(this.connection);
-  }*/
-
   @Override
   public ResultSet getClientInfoProperties() {
     return new TimestreamPropertiesResultSet();
@@ -474,28 +470,13 @@ public class TimestreamDatabaseMetaData implements java.sql.DatabaseMetaData {
   @Override
   public ResultSet getSchemas() throws SQLException {
     return new TimestreamDatabasesResultSet(this.connection, null);
-    //return new TimestreamDatabasesResultSet(this.connection, null);
   }
-  /*
-  public ResultSet getSchemas() {
-    LOGGER.debug("Schemas are not supported. Returning an empty result set.");
-    return new TimestreamSchemasResultSet();
-  }
-  */
 
   @Override
-  //-AL- no filtering is done here.
   public ResultSet getSchemas(String catalog, String schemaPattern) throws SQLException {
     return new TimestreamDatabasesResultSet(this.connection, schemaPattern);
-    //return new TimestreamDatabasesResultSet(this.connection, schemaPattern);
   }
 
-  /**
-   public ResultSet getSchemas(String catalog, String schemaPattern) {
-   LOGGER.debug("Schemas are not supported. Returning an empty result set.");
-   return new TimestreamSchemasResultSet();
-   }
-   * */
   @Override
   public String getSearchStringEscape() {
     return "%";
@@ -541,7 +522,7 @@ public class TimestreamDatabaseMetaData implements java.sql.DatabaseMetaData {
     String tableNamePattern,
     String[] types) throws SQLException {
     return new TimestreamTablesResultSet(connection, schemaPattern, tableNamePattern, types);
-  } // -AL- need to update this here.
+  } // -AL- def need to update this function here for JDBC Enhancement.
 
   @Override
   public String getTimeDateFunctions() {

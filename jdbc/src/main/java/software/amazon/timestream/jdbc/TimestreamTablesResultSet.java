@@ -58,12 +58,12 @@ public class TimestreamTablesResultSet extends TimestreamBaseResultSet {
    * Constructor.
    *
    * @param connection       the parent connection of the result set.
-   * @param database         the database to search within.
+   * @param databaseNamePattern         the database pattern to search within.
    * @param tableNamePattern the regex pattern to use to match table names.
    * @param types            the types that should be returned.
    * @throws SQLException if a database access error occurs.
    */
-  TimestreamTablesResultSet(TimestreamConnection connection, String database,
+  TimestreamTablesResultSet(TimestreamConnection connection, String databaseNamePattern,
     String tableNamePattern,
     String[] types) throws SQLException {
     super(null, 20);
@@ -72,7 +72,7 @@ public class TimestreamTablesResultSet extends TimestreamBaseResultSet {
     this.namePattern = tableNamePattern;
 
     if ((null == types) || ((1 == types.length) && (Constants.TABLE_TYPE.equals(types[0])))) {
-      this.databaseItr = getDatabases(database);
+      this.databaseItr = getDatabases(databaseNamePattern);
       doNextPage();
     } else {
       // There's currently only a single type of table, if the specified type doesn't match there are now rows,
