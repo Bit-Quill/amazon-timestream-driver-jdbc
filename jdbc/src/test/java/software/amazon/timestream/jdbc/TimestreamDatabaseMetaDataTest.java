@@ -66,8 +66,14 @@ class TimestreamDatabaseMetaDataTest {
   @Test
   void testGetSchemasWithResult() throws SQLException {
     initializeWithResult();
+    // test getSchemas()
     try (ResultSet resultSet = dbMetaData
             .getSchemas()) {
+      testGetSchemasResult(resultSet);
+    }
+    // test getSchemas(String, String)
+    try (ResultSet resultSet = dbMetaData
+            .getSchemas(null, null)) {
       testGetSchemasResult(resultSet);
     }
   }
