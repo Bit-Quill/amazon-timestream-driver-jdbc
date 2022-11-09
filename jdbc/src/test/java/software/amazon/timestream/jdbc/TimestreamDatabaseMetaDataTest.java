@@ -53,6 +53,27 @@ class TimestreamDatabaseMetaDataTest {
   }
 
   @Test
+  void testGetSchemasWithResult() throws SQLException {
+    initializeWithResult();
+    try (ResultSet resultSet = dbMetaData
+            .getSchemas()) {
+      testGetSchemasResult(resultSet);
+    }
+  }
+
+  /*
+  @ParameterizedTest
+  //@ValueSource(strings = {"%test%", "%", "%DB"})
+  @ValueSource(strings = {"%"})
+  void testGetSchemasWithSchemaPattern(String schemaPattern) throws SQLException {
+    initializeWithResult();
+    try (ResultSet resultSet = dbMetaData
+            .getSchemas(null, schemaPattern)) {
+      testGetSchemasResult(resultSet);
+    }
+  }*/
+
+  @Test
   void testGetColumnsWithResult() throws SQLException {
     initializeWithResult();
     try (ResultSet resultSet = dbMetaData
@@ -290,6 +311,27 @@ class TimestreamDatabaseMetaDataTest {
       Assertions.assertEquals(expectation.getColumnName(i), actual.getColumnName(i));
       Assertions.assertEquals(expectation.getColumnType(i), actual.getColumnType(i));
     }
+  }
+
+  /**
+   * Validate resultSet MetaData returned from getSchemas.
+   *
+   * @param resultSet ResultSet need to be validated.
+   * @throws SQLException If an error occurs while retrieving the value.
+   */
+  private void testGetSchemasResult(ResultSet resultSet) throws SQLException {
+    final String[] string1 = {"", "testDB", null};
+    final List<String[]> strings = new ArrayList<>();
+    strings.add(string1);
+
+    int numRows = 0;
+    while (resultSet.next()) {
+      for (int i = 1; i <= resultSet.getMetaData().getColumnCount(); ++i) {
+        Assertions.assertEquals(strings.get(numRows)[i], resultSet.getString(i));
+      }
+      numRows++;
+    }
+    Assertions.assertEquals(1, numRows);
   }
 
   /**
