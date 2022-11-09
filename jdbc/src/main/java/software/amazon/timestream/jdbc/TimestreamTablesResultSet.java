@@ -165,7 +165,7 @@ public class TimestreamTablesResultSet extends TimestreamBaseResultSet {
         (Strings.isNullOrEmpty(namePattern) ? "" : " LIKE '" + namePattern + "'");
       LOGGER.debug("Retrieving tables using query: \"{}\"", query);
       try (ResultSet rs = statement.executeQuery(query)) {
-        while (rs.next()) {
+        while (rs != null & rs.next()) {
           tables.add(new Row().withData(
             NULL_DATUM, //TABLE_CAT
             new Datum().withScalarValue(database), //TABLE_SCHME -AL-

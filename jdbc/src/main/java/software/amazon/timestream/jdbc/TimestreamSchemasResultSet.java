@@ -109,7 +109,7 @@ public class TimestreamSchemasResultSet extends TimestreamBaseResultSet {
       final String query = "SHOW DATABASES" +
               (Strings.isNullOrEmpty(schemaPattern) ? "" : " LIKE '" + schemaPattern + "'");
       try (ResultSet rs = statement.executeQuery(query)) {
-        while (rs.next()) {
+        while (rs != null && rs.next()) {
           databases.add(new Row().withData(
                   new Datum().withScalarValue(rs.getString(1)), //TABLE_SCHEM
                   NULL_DATUM //TABLE_CATALOG ,
