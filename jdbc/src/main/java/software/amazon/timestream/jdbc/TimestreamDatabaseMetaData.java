@@ -525,7 +525,7 @@ public class TimestreamDatabaseMetaData implements java.sql.DatabaseMetaData {
     String tableNamePattern,
     String[] types) throws SQLException {
     return new TimestreamTablesResultSet(connection, schemaPattern, tableNamePattern, types);
-  } // -AL- def need to update this function here for JDBC Enhancement.
+  }
 
   @Override
   public String getTimeDateFunctions() {
