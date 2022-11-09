@@ -12,7 +12,6 @@
      express or implied. See the License for the specific language governing
      permissions and limitations under the License.
 -->
-<!-- Comment this line out because I want to pass nonconstant string to execute and filter schemas. -->
 <FindBugsFilter>
   <Match>
     <Bug pattern="SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE"/>
