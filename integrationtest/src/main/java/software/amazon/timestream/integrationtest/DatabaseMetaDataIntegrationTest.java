@@ -68,7 +68,7 @@ class DatabaseMetaDataIntegrationTest {
   }
 
   @Test
-  @DisplayName("Test getCatalogs.")
+  @DisplayName("Test getCatalogs(). Empty result set should be returned")
   void testCatalogs() throws SQLException {
     final List<String> databasesList = Arrays.asList(Constants.DATABASES_NAMES);
     final List<String> catalogsList = new ArrayList<>();
@@ -78,17 +78,6 @@ class DatabaseMetaDataIntegrationTest {
       }
     }
     Assertions.assertTrue(catalogsList.isEmpty());
-  }
-
-  @ParameterizedTest
-  @ValueSource(strings = {"JDBC_%", "%_Integration%", "%Test_DB"})
-  @DisplayName("Test retrieving database name JDBC_Integration07_Test_DB with pattern.")
-  void testGetSchemasWithSchemaPattern(String schemaPattern) throws SQLException {
-    try (ResultSet schemas = metaData.getSchemas(null, schemaPattern)) {
-      while (schemas.next()) {
-        Assertions.assertEquals(Constants.DATABASE_NAME, schemas.getString("TABLE_SCHEM"));
-      }
-    }
   }
 
   @Test
@@ -102,6 +91,17 @@ class DatabaseMetaDataIntegrationTest {
       }
     }
     Assertions.assertTrue(schemasList.containsAll(databasesList));
+  }
+
+  @ParameterizedTest
+  @ValueSource(strings = {"JDBC_%", "%_Integration%", "%Test_DB"})
+  @DisplayName("Test retrieving database name JDBC_Integration07_Test_DB with pattern.")
+  void testGetSchemasWithSchemaPattern(String schemaPattern) throws SQLException {
+    try (ResultSet schemas = metaData.getSchemas(null, schemaPattern)) {
+      while (schemas.next()) {
+        Assertions.assertEquals(Constants.DATABASE_NAME, schemas.getString("TABLE_SCHEM"));
+      }
+    }
   }
 
   @ParameterizedTest
