@@ -80,6 +80,17 @@ class DatabaseMetaDataIntegrationTest {
     Assertions.assertTrue(catalogsList.isEmpty());
   }
 
+  @ParameterizedTest
+  @ValueSource(strings = {"JDBC_%", "%_Integration%", "%Test_DB"})
+  @DisplayName("Test retrieving database name JDBC_Integration07_Test_DB with pattern.")
+  void testGetSchemasWithSchemaPattern(String schemaPattern) throws SQLException {
+    try (ResultSet schemas = metaData.getSchemas(null, schemaPattern)) {
+      while (schemas.next()) {
+        Assertions.assertEquals(Constants.DATABASE_NAME, schemas.getString("TABLE_SCHEM"));
+      }
+    }
+  }
+
   @Test
   @DisplayName("Test retrieving all databases.")
   void testSchemas() throws SQLException {
