@@ -63,11 +63,11 @@ class TimestreamDatabaseMetaDataTest {
       Assertions.assertFalse(resultSet.next());
     }
   }
+
   @Test
   void testGetSchemasWithResult() throws SQLException {
     initializeWithResult();
 
-    // test getSchemas()
     try (ResultSet resultSet = dbMetaData
             .getSchemas()) {
       testGetSchemasResult(resultSet);
@@ -78,13 +78,11 @@ class TimestreamDatabaseMetaDataTest {
   void testGetSchemasNullParamWithResult() throws SQLException {
     initializeWithResult();
 
-    // test getSchemas(String, String)
     try (ResultSet resultSet = dbMetaData
             .getSchemas(null, null)) {
       testGetSchemasResult(resultSet);
     }
   }
-
 
   @ParameterizedTest
   @ValueSource(strings = {"%", "testDB", "%testDB%"})
