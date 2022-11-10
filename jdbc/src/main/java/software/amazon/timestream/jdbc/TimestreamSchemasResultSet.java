@@ -101,8 +101,8 @@ public class TimestreamSchemasResultSet extends TimestreamBaseResultSet {
       try (ResultSet rs = statement.executeQuery(query)) {
         while (rs != null && rs.next()) {
           databases.add(new Row().withData(
-                  new Datum().withScalarValue(rs.getString(1)), //TABLE_SCHEM
-                  NULL_DATUM //TABLE_CATALOG ,
+                  new Datum().withScalarValue(rs.getString(1)),
+                  NULL_DATUM
           ));
         }
       }
