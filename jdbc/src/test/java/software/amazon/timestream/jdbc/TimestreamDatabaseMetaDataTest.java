@@ -86,16 +86,15 @@ class TimestreamDatabaseMetaDataTest {
   }
 
 
-/*  @ParameterizedTest
-  //@ValueSource(strings = {"%test%", "%", "%DB"})
-  @ValueSource(strings = {"%"})
+  @ParameterizedTest
+  @ValueSource(strings = {"%", "testDB", "%testDB%"})
   void testGetSchemasWithSchemaPattern(String schemaPattern) throws SQLException {
     initializeWithResult();
     try (ResultSet resultSet = dbMetaData
             .getSchemas(null, schemaPattern)) {
       testGetSchemasResult(resultSet);
     }
-  }*/
+  }
 
   @Test
   void testGetColumnsWithResult() throws SQLException {
@@ -300,6 +299,10 @@ class TimestreamDatabaseMetaDataTest {
     Mockito.when(dbResultSet.next()).thenReturn(true).thenReturn(false);
     Mockito.when(dbResultSet.getString(1)).thenReturn("testDB");
     Mockito.when(mockStatement.executeQuery("SHOW DATABASES")).thenReturn(dbResultSet);
+    Mockito.when(mockStatement.executeQuery("SHOW DATABASES LIKE '%'")).thenReturn(dbResultSet);
+    Mockito.when(mockStatement.executeQuery("SHOW DATABASES LIKE '%test%'")).thenReturn(dbResultSet);
+    Mockito.when(mockStatement.executeQuery("SHOW DATABASES LIKE 'testDB'")).thenReturn(dbResultSet);
+    Mockito.when(mockStatement.executeQuery("SHOW DATABASES LIKE '%testDB%'")).thenReturn(dbResultSet);
 
     final ResultSet tableResultSet = Mockito.mock(ResultSet.class);
     Mockito.when(tableResultSet.next()).thenReturn(true).thenReturn(false);
