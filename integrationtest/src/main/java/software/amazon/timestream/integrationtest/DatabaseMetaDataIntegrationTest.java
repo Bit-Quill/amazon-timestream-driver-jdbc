@@ -68,7 +68,7 @@ class DatabaseMetaDataIntegrationTest {
   }
 
   @Test
-  @DisplayName("Test retrieving all databases.")
+  @DisplayName("Test getCatalogs.")
   void testCatalogs() throws SQLException {
     final List<String> databasesList = Arrays.asList(Constants.DATABASES_NAMES);
     final List<String> catalogsList = new ArrayList<>();
@@ -78,6 +78,19 @@ class DatabaseMetaDataIntegrationTest {
       }
     }
     Assertions.assertTrue(catalogsList.isEmpty());
+  }
+
+  @Test
+  @DisplayName("Test retrieving all databases.")
+  void testSchemas() throws SQLException {
+    final List<String> databasesList = Arrays.asList(Constants.DATABASES_NAMES);
+    final List<String> schemasList = new ArrayList<>();
+    try (ResultSet schemas = metaData.getSchemas()) {
+      while (schemas.next()) {
+        schemasList.add(schemas.getString("TABLE_SCHEM"));
+      }
+    }
+    Assertions.assertTrue(schemasList.containsAll(databasesList));
   }
 
   @ParameterizedTest
