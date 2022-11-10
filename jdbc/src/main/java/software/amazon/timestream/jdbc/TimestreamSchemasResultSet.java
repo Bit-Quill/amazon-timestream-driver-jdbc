@@ -32,21 +32,11 @@ import java.util.List;
  * Result set to return an empty list of schemas in Timestream.
  */
 public class TimestreamSchemasResultSet extends TimestreamBaseResultSet {
-//  public class TimestreamSchemasResultSet extends TimestreamEmptyBaseResultSet {
   private static final Logger LOGGER = LoggerFactory.getLogger(TimestreamDatabasesResultSet.class);
   private static final Datum NULL_DATUM = new Datum().withNullValue(Boolean.TRUE);
   private static final List<ColumnInfo> COLUMNS = ImmutableList.of(
     TimestreamDataType.createColumnInfo(TimestreamDataType.VARCHAR, "TABLE_SCHEM"),
     TimestreamDataType.createColumnInfo(TimestreamDataType.VARCHAR, "TABLE_CATALOG"));
-
-  /**
-   * Constructor.
-   */
-/*
-  public TimestreamSchemasResultSet() {
-    super(COLUMNS);
-  }
-*/
 
   private boolean isAfterLast = false;
 
@@ -120,11 +110,5 @@ public class TimestreamSchemasResultSet extends TimestreamBaseResultSet {
     LOGGER.debug("Retrieved {} databases.", databases.size());
 
     this.rowItr = databases.iterator();
-/*    this.rowItr = databases.stream()
-            .map(d -> new Datum().withScalarValue(d))
-            .map(d -> new Row().withData(d))
-            .iterator();*/
   }
-
-
 }

@@ -174,7 +174,6 @@ public class TimestreamDatabaseMetaData implements java.sql.DatabaseMetaData {
   public ResultSet getCatalogs(){
     LOGGER.debug("Catalogs are not supported. Returning an empty result set.");
     return new TimestreamDatabasesResultSet();
-   // return new TimestreamSchemasResultSet();
   }
 
   @Override
@@ -471,13 +470,11 @@ public class TimestreamDatabaseMetaData implements java.sql.DatabaseMetaData {
   @Override
   public ResultSet getSchemas() throws SQLException {
     return new TimestreamSchemasResultSet(this.connection, null);
-   // return new TimestreamDatabasesResultSet(this.connection, null);
   }
 
   @Override
   public ResultSet getSchemas(String catalog, String schemaPattern) throws SQLException {
     return new TimestreamSchemasResultSet(this.connection, schemaPattern);
-    // return new TimestreamDatabasesResultSet(this.connection, schemaPattern);
   }
 
   @Override

@@ -132,16 +132,7 @@ public class TimestreamTablesResultSet extends TimestreamBaseResultSet {
    * @throws SQLException if there is an error reading from Timestream.
    */
   private Iterator<String> getDatabases(String schemaPattern) throws SQLException {
-   /* if (null != schemaPattern) {
-      LOGGER.debug("Specific database: \"{}\" provided for table retrieval.", schemaPattern);
-      // A database was specified, so use that.
-      return ImmutableList.of(schemaPattern).iterator();
-    } */
-    //-AL- this part is the causaion of Tableau not having filtered databases, I think
-    // -AL- delete this part after all tests pass
-
     try (ResultSet rs = new TimestreamSchemasResultSet(connection, schemaPattern)) {
-    //try (ResultSet rs = new TimestreamDatabasesResultSet(connection, schemaPattern)) {
       final List<String> databases = new ArrayList<>();
       while (rs.next()) {
         databases.add(rs.getString(1));
@@ -167,8 +158,8 @@ public class TimestreamTablesResultSet extends TimestreamBaseResultSet {
       try (ResultSet rs = statement.executeQuery(query)) {
         while (rs != null & rs.next()) {
           tables.add(new Row().withData(
-            NULL_DATUM, //TABLE_CAT
-            new Datum().withScalarValue(database), //TABLE_SCHME -AL-
+            NULL_DATUM,
+            new Datum().withScalarValue(database),
             new Datum().withScalarValue(rs.getString(1)),
             new Datum().withScalarValue(Constants.TABLE_TYPE),
             NULL_DATUM,
