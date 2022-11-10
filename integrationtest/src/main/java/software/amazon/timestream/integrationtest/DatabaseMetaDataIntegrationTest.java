@@ -77,7 +77,7 @@ class DatabaseMetaDataIntegrationTest {
         catalogsList.add(catalogs.getString("TABLE_CAT"));
       }
     }
-    Assertions.assertTrue(catalogsList.containsAll(databasesList));
+    Assertions.assertTrue(catalogsList.isEmpty());
   }
 
   @ParameterizedTest
