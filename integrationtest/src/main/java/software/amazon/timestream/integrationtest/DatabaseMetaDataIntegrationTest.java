@@ -70,7 +70,6 @@ class DatabaseMetaDataIntegrationTest {
   @Test
   @DisplayName("Test getCatalogs(). Empty result set should be returned")
   void testCatalogs() throws SQLException {
-    final List<String> databasesList = Arrays.asList(Constants.DATABASES_NAMES);
     final List<String> catalogsList = new ArrayList<>();
     try (ResultSet catalogs = metaData.getCatalogs()) {
       while (catalogs.next()) {
