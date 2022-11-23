@@ -67,6 +67,10 @@ class DatabaseMetaDataIntegrationTest {
     connection.close();
   }
 
+  /**
+   * Test getCatalogs returns empty ResultSet.
+   * @throws SQLException
+   */
   @Test
   @DisplayName("Test getCatalogs(). Empty result set should be returned")
   void testCatalogs() throws SQLException {
@@ -79,6 +83,10 @@ class DatabaseMetaDataIntegrationTest {
     Assertions.assertTrue(catalogsList.isEmpty());
   }
 
+  /**
+   * Test getSchemas returns the list of all databases.
+   * @throws SQLException
+   */
   @Test
   @DisplayName("Test retrieving all databases.")
   void testSchemas() throws SQLException {
@@ -92,6 +100,10 @@ class DatabaseMetaDataIntegrationTest {
     Assertions.assertTrue(schemasList.containsAll(databasesList));
   }
 
+  /**
+   * Test getSchemas returns database "JDBC_Integration07_Test_DB" when given matching patterns.
+   * @throws SQLException
+   */
   @ParameterizedTest
   @ValueSource(strings = {"JDBC_%", "%_Integration%", "%Test_DB"})
   @DisplayName("Test retrieving database name JDBC_Integration07_Test_DB with pattern.")
