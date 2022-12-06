@@ -69,7 +69,7 @@ class DatabaseMetaDataIntegrationTest {
 
   /**
    * Test getCatalogs returns empty ResultSet.
-   * @throws SQLException
+   * @throws SQLException the exception thrown
    */
   @Test
   @DisplayName("Test getCatalogs(). Empty result set should be returned")
@@ -85,7 +85,7 @@ class DatabaseMetaDataIntegrationTest {
 
   /**
    * Test getSchemas returns the list of all databases.
-   * @throws SQLException
+   * @throws SQLException the exception thrown
    */
   @Test
   @DisplayName("Test retrieving all databases.")
@@ -102,7 +102,8 @@ class DatabaseMetaDataIntegrationTest {
 
   /**
    * Test getSchemas returns database "JDBC_Integration07_Test_DB" when given matching patterns.
-   * @throws SQLException
+   * @param schemaPattern the schema pattern to be tested
+   * @throws SQLException the exception thrown
    */
   @ParameterizedTest
   @ValueSource(strings = {"JDBC_%", "%_Integration%", "%Test_DB"})
