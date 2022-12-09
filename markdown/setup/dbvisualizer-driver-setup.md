@@ -11,7 +11,7 @@
 
     a. For the **Name:** field, enter **Timestream**
 
-    b. For the **URL Format:** field, enter ```jdbc:timestream://PropertyName1=value1;PropertyName2=value2...```
+    b. For the **URL Format:** field, enter ```jdbc:timestream://PropertyName1=value1;PropertyName2=value2...```. For a list of connection properties, see [README](../../README.md#optional-connection-properties).
 
     c. Click the **+** on the right side to select the Timestream JDBC JAR file.
 
@@ -29,7 +29,7 @@
 
     c. For the **Driver Type** field, ensure the **Timesteam** is selected.
 
-    d. For the **Database URL** field, enter your JDBC connection string. For example, ```jdbc:timestream://region=us-east-1;```
+    d. For the **Database URL** field, enter your [JDBC connection string](../../README.md#optional-connection-properties). For example, ```jdbc:timestream://Region=us-east-1;```
 
     e. For the **Database Userid** field, enter your Amazon Timestream user ID.
 
