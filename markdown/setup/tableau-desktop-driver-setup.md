@@ -27,5 +27,5 @@
 
 4. Open Tableau > Connect > Other Databases (JDBC)
 
-5. Enter URL: `jdbc:timestream` and select dialect as `postgreSQL`. Click `sign in` after adding [connection properties](../../readme.md#optional-connection-properties).
+5. Enter URL: `jdbc:timestream` and select dialect as `postgreSQL`. Click `sign in` after adding [connection properties](../../README.md#optional-connection-properties).
 ![Tableau Sign In page](../images/tableau/tableau-sign-in.png)
