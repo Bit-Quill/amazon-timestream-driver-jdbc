@@ -3,9 +3,11 @@
 
 #### Adding the Amazon Timestream JDBC Driver
 1. [Download](https://github.com/awslabs/amazon-timestream-driver-jdbc/releases/latest) the Timestream JDBC driver shaded JAR file (e.g., `amazon-timestream-jdbc-2.0.0-shaded.jar`)
-2. Start the DbVisualizer application and navigate to the menu path: **Tools > Driver Manager...**. In the popped up window, click the "Custom" link on the right side.
+2. Start the DbVisualizer application and navigate to the menu path: **Tools > Driver Manager...**. In the popped up window, click the "Custom" link on the right side. Or find the **Custom** row on the left side and click it.
 
     ![Example](../images/dbvisualizer/DbVisualizer1.png)
+
+    ![Example](../images/dbvisualizer/DbVisualizer4.png)
 
 3. In the new popped up window, find **Driver Settings** tab and fill the following info.
 
@@ -39,4 +41,6 @@
 
     ![Example](../images/dbvisualizer/DbVisualizer3.png)
 
-    h. Then click **Connect** button to connect to Timestream.
+    h. Click **Connect** button to connect to Timestream. Then you could connect to the Timestream database. You should be able to see all databases on the left side under the connection name as the example below.
+
+     ![Example](../images/dbvisualizer/DbVisualizer5.png)

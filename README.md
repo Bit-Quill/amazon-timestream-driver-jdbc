@@ -31,7 +31,7 @@ To create a connection, construct a connection URL by appending optional connect
 The default URL for Timestream is `jdbc:timestream`.
 
 ### Constructing the Connection URL
-Timestream supports optional connection properties that could be specified through the JDBC URL. To specify these optional properties use the following URL format: `jdbc:timestream://PropertyName1=value1;PropertyName2=value2...`.
+Timestream supports optional connection properties that could be specified through the JDBC URL. To specify these optional properties use the following URL format: `jdbc:timestream://PropertyName1=value1;PropertyName2=value2...`. Note the property name is **case sensitive**.
 
 An example of the JDBC URL with properties: `jdbc:timestream://AccessKeyId=myAccessKeyId;SecretAccessKey=mySecretAccessKey;SessionToken=mySessionToken;Region=myRegion`
 
