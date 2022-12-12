@@ -17,20 +17,20 @@
         jdbc:timestream://Region=<region>;
         ```
 
-        If your database requires an username and password, it can be entered in the connection string when setting up the driver
+    If your database requires an username and password, it can be entered in the connection string when setting up the driver
 
         ```
         -- replace the values in "<>" with your own value
         jdbc:timestream://AccessKeyId=<myAccessKeyId>;SecretAccessKey=<mySecretAccessKey>;SessionToken=<mySessionToken>;Region=<myRegion>
         ```
 
-        or username and password can be entered later when connecting to Amazon Timestream using DBeaver.
+    or username and password can be entered later when connecting to Amazon Timestream using DBeaver.
 
-        ![Example](../images/dbeaver/dbeaver1.png)
+    ![Example](../images/dbeaver/dbeaver1.png)
 
     c. In **Libraries** tab, click Add file and navigate and select your Amazon Timestream JDBC driver JAR file.
 
-    d. In **Libraries** tab, after adding the JAR file, click **Find Class**. There maybe nothing listed in the **Driver class:** listbox. If that is the case, ignore it and continue the next step. 
+    d. In **Libraries** tab, after adding the JAR file, click **Find Class**. There maybe nothing listed in the **Driver class:**. If that is the case, ignore it and continue the next step. 
 
     ![Example](../images/dbeaver/dbeaver2.png)
 
