@@ -64,6 +64,9 @@ class TimestreamDatabaseMetaDataTest {
     }
   }
 
+  /**
+   * Checks that a result set containing database name "testDB" is returned for getSchemas with no parameters
+   */
   @Test
   void testGetSchemasWithResult() throws SQLException {
     initializeWithResult();
@@ -74,6 +77,9 @@ class TimestreamDatabaseMetaDataTest {
     }
   }
 
+  /**
+   * Checks that a result set containing database name "testDB" is returned for getSchemas with null parameters
+   */
   @Test
   void testGetSchemasNullParamWithResult() throws SQLException {
     initializeWithResult();
@@ -84,6 +90,11 @@ class TimestreamDatabaseMetaDataTest {
     }
   }
 
+  /**
+   * Checks that a result set containing database name "testDB" is returned for getSchemas with schemaPattern
+   * @param schemaPattern Schema pattern to be tested
+   * Input values tested for schemaPattern: {"%", "testDB", "%testDB%"}
+   */
   @ParameterizedTest
   @ValueSource(strings = {"%", "testDB", "%testDB%"})
   void testGetSchemasWithSchemaPattern(String schemaPattern) throws SQLException {
