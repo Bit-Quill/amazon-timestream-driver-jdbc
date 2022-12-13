@@ -6,11 +6,11 @@
 1. Launch the SQuirreL SQL Client application.
 2. Ensure the **Drivers** tab is selected.
 
-    ![Example](../images/squirrel/squirrel1.png)
+![Example](../images/squirrel/squirrel1.png)
 
 3. Navigate to menu path **Drivers > New Driver ...**
 
-    ![Example](../images/squirrel/squirrel2.png)
+![Example](../images/squirrel/squirrel2.png)
 
 4. For the **Name:** field, enter **Timestream**.
 5. For the **Example JDBC URL:** field, enter `jdbc:timestream://Region=<region>;`
@@ -20,7 +20,7 @@
 9. Click the **List Drivers** button.
 10. For the **Class Name:** field, ensure the `software.amazon.timestream.jdbc.TimestreamDriver` is selected.
 
-    ![Example](../images/squirrel/squirrel3.png)
+![Example](../images/squirrel/squirrel3.png)
 
 11. Click the **OK** button to create and save the driver settings.
 
@@ -29,7 +29,7 @@
 1. Launch the SQuirreL SQL Client application.
 2. Ensure the **Aliases** tab is selected.
 
-    ![Example](../images/squirrel/squirrel4.png)
+![Example](../images/squirrel/squirrel4.png)
 
 3. Navigate the menu path **Aliases > New Alias...**
 4. In the popped up window, fill the following info
@@ -50,8 +50,8 @@
 6. Double-click your alias to start the connection dialog.
 7. Click the **Connect** button to connect.
 
-    ![Example](../images/squirrel/squirrel6.png)
+![Example](../images/squirrel/squirrel6.png)
 
 8. After you succeed to connect to Timestream, you will be able to see a window as the example.
 
-    ![Example](../images/squirrel/squirrel7.png)
+![Example](../images/squirrel/squirrel7.png)
