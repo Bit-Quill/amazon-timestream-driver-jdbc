@@ -13,7 +13,7 @@
     ![Example](../images/squirrel/squirrel2.png)
 
 4. For the **Name:** field, enter **Timestream**.
-5. For the **Example JDBC URL:** field, enter `jdbc:timestream://Region=<region>;`
+5. For the **Example JDBC URL:** field, enter `jdbc:timestream://AccessKeyId=<myAccessKeyId>;SecretAccessKey=<mySecretAccessKey>;SessionToken=<mySessionToken>;Region=<myRegion>;`
 6. Select the **JDBC Driver Class Path** tab.
 7. Click the **Add** button and navigate to the downloaded Amazon Timestream JDBC driver JAR file.
 8. Click **OK** to add the JAR file to the **JDBC Driver Class Path**.
@@ -38,13 +38,11 @@
     
     b. For the **Driver:** field, ensure **Timestream** is selected.
 
-    c. For the **URL:** field, enter your JDBC connection string. For example, `jdbc:timestream://Region=us-east-1;`
+    c. For the **URL:** field, enter your JDBC connection string. For example, `jdbc:timestream://AccessKeyId=myAccessKeyId;SecretAccessKey=mySecretAccessKey;Region=us-east-1;`. For a list of connection properties (e.g., Access Key, Secret Key, etc.), see [README](../../README.md#optional-connection-properties)
+
+    d. Do **NOT** use the **"User Name:"** and **"Password:"** fields to fill credentials, they could not work.
 
     ![Example](../images/squirrel/squirrel5.png)
-
-    d. For the User **User Name:** field, enter your Amazon Timestream account ID.
-    
-    e. For the **Password:** field, enter the corresponding password for the acount ID.
 
 5. Click **OK** to save the alias.
 6. Double-click your alias to start the connection dialog.
