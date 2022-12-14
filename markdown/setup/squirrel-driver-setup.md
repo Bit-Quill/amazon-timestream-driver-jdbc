@@ -50,6 +50,6 @@
 
     ![Example](../images/squirrel/squirrel6.png)
 
-8. After you succeed to connect to Timestream, you will be able to see a window as the example.
+8. After you succeed to connect to Timestream, you will be able to see a window like the below example.
 
     ![Example](../images/squirrel/squirrel7.png)
