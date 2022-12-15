@@ -48,6 +48,6 @@ Aqua Data Studio official [documentation](https://www.aquaclusters.com/app/home/
 
 ![Tables](../images/aqua-data-studio/aqua-data-studio-tables.png)
 
-#### Limitations
+#### Known Limitations
 1. Free version of Aqua Data Studio is unable to filter tables with generic JDBC driver connection.
 2. To load data and join tables with free version of Aqua Data Studio, user needs to manually enter SQL queries by using [**Query Analyzer**](https://www.aquaclusters.com/app/home/project/public/aquadatastudio/wikibook/Documentation22.3/page/145/Query-Analyzer-SQL-Tool) (Ctrl + Q).
