@@ -15,7 +15,11 @@ The Timestream JDBC driver is distributed as two JAR files.
 ### JAR With All Dependencies Shaded Except SLF4J (amazon-timestream-jdbc-\<version\>-jar-with-all-dependencies.jar)
 This is the shaded JAR which bundles up all the required dependencies and can be used directly in Java projects and external applications, without explicitly adding external dependencies. This JAR does not relocate the classpath of SLF4J, allowing logging to be enabled in external applications.
 
-- Instructions for using fully shaded JAR file with [Tableau](markdown/setup/tableau-desktop-driver-setup.md)
+###  Driver Setup in BI Applications
+The JDBC driver is compatible with a number of BI tools. Instructions are outlined here for:
+- [Tableau Desktop](markdown/setup/tableau-desktop-driver-setup.md)
+
+For other BI tools, please refer to that tool's product documentation
 
 ### JAR With No Dependencies (amazon-timestream-jdbc-\<version\>.jar)
 This is the lightweight JAR which does not include any dependencies. This JAR could be used if the application developer does not want duplicate dependencies and want full control over their dependency tree.
