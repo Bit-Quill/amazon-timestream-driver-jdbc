@@ -53,3 +53,6 @@
 8. After you succeed to connect to Timestream, you will be able to see a window like the below example.
 
     ![Example](../images/squirrel/squirrel7.png)
+
+#### Known Limitations
+1. For table name filtering based on pattern "%\_%" wrong result may return. Expected result should be table names which have "_" in the name, but tables with "." in the name may be returned. This is a SQuirreL problem.  
