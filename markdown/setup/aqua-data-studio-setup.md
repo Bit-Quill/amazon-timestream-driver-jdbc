@@ -5,7 +5,9 @@ Aqua Data Studio official [documentation](https://www.aquaclusters.com/app/home/
 
 #### Using Aqua Studio with Generic JDBC driver
 
-1. Access **Server Properties** by using the Keyboard combination "CTRL + SHIFT + P", or follow the steps below. 
+1. [Download](https://github.com/awslabs/amazon-timestream-driver-jdbc/releases/latest) the Timestream JDBC driver fully shaded JAR file (e.g., `amazon-timestream-jdbc-2.0.0-shaded.jar`)
+
+2. Access **Server Properties** by using the Keyboard combination "CTRL + SHIFT + P", or follow the steps below. 
     1. Locate the Server in the Server Browser
 
     2. Right-click on the Server - A Popup Menu Appears
@@ -14,7 +16,7 @@ Aqua Data Studio official [documentation](https://www.aquaclusters.com/app/home/
 
     ![Server Browser](../images/aqua-data-studio/aqua-data-studio-server-browser.png)
 
-2. In the **General** tab, select **Generic - JDBC** and fill in the properties:
+3. In the **General** tab, select **Generic - JDBC** and fill in the properties:
 
     1. In **Name**, enter driver name, e.g., `Timestream JDBC Driver`.
 
