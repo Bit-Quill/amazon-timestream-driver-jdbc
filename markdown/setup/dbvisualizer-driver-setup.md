@@ -44,3 +44,6 @@
     h. Click **Connect** button to connect to Timestream. Then you could connect to the Timestream database. You should be able to see all databases on the left side under the connection name as the example below.
 
      ![Example](../images/dbvisualizer/DbVisualizer5.png)
+
+     #### Limitations
+     1. Unicode string may not be displayed correctly in DbVisualizer. It is not caused by JDBC driver, it is DbVisualizer unicode display limitation.
