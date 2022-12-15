@@ -30,14 +30,14 @@
 
 ![Database](../images/aqua-data-studio/aqua-data-studio-server.png)
 
-2. Double click on “Timestream JDBC Driver“ to connect to database. A pop-up window will occur and ask for authentication. Press **OK** without entering any field, since Timestream authentication can be set in AWS configuration or passed through the connection URL (the entered in the URL field).
+2. Double click on “Timestream JDBC Driver“ to connect to the database. A pop-up window will occur and ask for authentication. Press **OK** without entering any field since Timestream authentication can be set through AWS CLI configuration or passed through the connection string (as entered in the URL field).
 
 ![Log in](../images/aqua-data-studio/aqua-data-studio-pop-up.png)
 
-3. Click on the “+” besides **Database** to expand, and click “+“ to expand on **\<DEFAULT\>**, then click on “+” besides **Schemas** to see the list of databases.
+3. Click on the “+” beside **Database** to expand, and click “+“ to expand on **\<DEFAULT\>**, then click on “+” beside **Schemas** to see the list of databases.
 
 ![Databases](../images/aqua-data-studio/aqua-data-studio-databases.png)
 
-4. To access the list of tables under desired database, click on the “+” besides that database and then click on “+” besides **Table**.
+4. To access the list of tables under desired database, click on the “+” beside that database and then click on “+” beside **Table**.
 
 ![Tables](../images/aqua-data-studio/aqua-data-studio-tables.png)
