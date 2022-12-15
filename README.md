@@ -18,6 +18,7 @@ This is the shaded JAR which bundles up all the required dependencies and can be
 ###  Driver Setup in BI Applications
 The JDBC driver is compatible with a number of BI tools. Instructions are outlined here for:
 
+- [Aqua Data Studio](markdown/setup/aqua-data-studio-setup.md)
 - [DBeaver](markdown/setup/dbeaver-driver-setup.md)
 
 For other BI tools, please refer to that tool's product documentation
