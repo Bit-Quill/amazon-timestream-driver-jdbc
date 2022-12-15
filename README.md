@@ -15,8 +15,13 @@ The Timestream JDBC driver is distributed as two JAR files.
 ### JAR With All Dependencies Shaded Except SLF4J (amazon-timestream-jdbc-\<version\>-jar-with-all-dependencies.jar)
 This is the shaded JAR which bundles up all the required dependencies and can be used directly in Java projects and external applications, without explicitly adding external dependencies. This JAR does not relocate the classpath of SLF4J, allowing logging to be enabled in external applications.
 
+###  Driver Setup in BI Applications
+The JDBC driver is compatible with a number of BI tools. Instructions are outlined here for:
 
-- Instructions for using fully shaded JAR file with [Aqua Data Studio](markdown/setup/aqua-data-studio-setup.md)
+- [Aqua Data Studio](markdown/setup/aqua-data-studio-setup.md)
+- [DBeaver](markdown/setup/dbeaver-driver-setup.md)
+
+For other BI tools, please refer to that tool's product documentation
 
 ### JAR With No Dependencies (amazon-timestream-jdbc-\<version\>.jar)
 This is the lightweight JAR which does not include any dependencies. This JAR could be used if the application developer does not want duplicate dependencies and want full control over their dependency tree.
