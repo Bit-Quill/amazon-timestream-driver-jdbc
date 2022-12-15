@@ -1,6 +1,8 @@
 ### Aqua Data Studio
 [Link to product webpage](https://www.aquafold.com/aquadatastudio/).
 
+Aqua Data Studio official [documentation](https://www.aquaclusters.com/app/home/project/public/aquadatastudio/wikibook/Documentation22.3/page/109/Generic-JDBC) for setting up generic JDBC driver
+
 #### Using Aqua Studio with Generic JDBC driver
 
 1. Access **Server Properties** by using the Keyboard combination "CTRL + SHIFT + P", or follow the steps below. 
@@ -45,3 +47,7 @@
 4. To access the list of tables under desired database, click on the “+” beside that database and then click on “+” beside **Table**.
 
 ![Tables](../images/aqua-data-studio/aqua-data-studio-tables.png)
+
+#### Limitations
+1. Free version of Aqua Data Studio is unable to filter tables with generic JDBC driver connection.
+2. To load data and join tables with free version of Aqua Data Studio, user needs to manually enter SQL queries by using [**Query Analyzer**](https://www.aquaclusters.com/app/home/project/public/aquadatastudio/wikibook/Documentation22.3/page/145/Query-Analyzer-SQL-Tool) (Ctrl + Q).
