@@ -2,27 +2,27 @@
 [Link to product webpage](https://sourceforge.net/projects/squirrel-sql/).
 
 #### Adding the Amazon Timestream JDBC Driver
-
-1. Launch the SQuirreL SQL Client application.
-2. Ensure the **Drivers** tab is selected.
+1. [Download](https://github.com/awslabs/amazon-timestream-driver-jdbc/releases/latest) the Timestream JDBC driver shaded JAR file (e.g., `amazon-timestream-jdbc-<version>-shaded.jar`)
+2. Launch the SQuirreL SQL Client application.
+3. Ensure the **Drivers** tab is selected.
 
     ![Example](../images/squirrel/squirrel1.png)
 
-3. Navigate to menu path **Drivers > New Driver ...**
+4. Navigate to menu path **Drivers > New Driver ...**
 
     ![Example](../images/squirrel/squirrel2.png)
 
-4. For the **Name:** field, enter **Timestream**.
-5. For the **Example JDBC URL:** field, enter `jdbc:timestream://AccessKeyId=<myAccessKeyId>;SecretAccessKey=<mySecretAccessKey>;SessionToken=<mySessionToken>;Region=<myRegion>;`
-6. Select the **JDBC Driver Class Path** tab.
-7. Click the **Add** button and navigate to the downloaded Amazon Timestream JDBC driver JAR file.
-8. Click **OK** to add the JAR file to the **JDBC Driver Class Path**.
-9. Click the **List Drivers** button.
-10. For the **Class Name:** field, ensure the `software.amazon.timestream.jdbc.TimestreamDriver` is selected.
+5. For the **Name:** field, enter **Timestream**.
+6. For the **Example JDBC URL:** field, enter `jdbc:timestream://AccessKeyId=<myAccessKeyId>;SecretAccessKey=<mySecretAccessKey>;SessionToken=<mySessionToken>;Region=<myRegion>;`
+7. Select the **JDBC Driver Class Path** tab.
+8. Click the **Add** button and navigate to the downloaded Amazon Timestream JDBC driver JAR file.
+9. Click **OK** to add the JAR file to the **JDBC Driver Class Path**.
+10. Click the **List Drivers** button.
+11. For the **Class Name:** field, ensure the `software.amazon.timestream.jdbc.TimestreamDriver` is selected.
 
     ![Example](../images/squirrel/squirrel3.png)
 
-11. Click the **OK** button to create and save the driver settings.
+12. Click the **OK** button to create and save the driver settings.
 
 #### Connecting to Amazon Timestream Using SQuirreL SQL Client
 

@@ -2,7 +2,7 @@
 [Link to product webpage](https://dbeaver.io/download/).
 
 #### Adding the Amazon Timestream JDBC Driver
-1. [Download](https://github.com/awslabs/amazon-timestream-driver-jdbc/releases/latest) the Timestream JDBC driver shaded JAR file (e.g., `amazon-timestream-jdbc-2.0.0-shaded.jar`)
+1. [Download](https://github.com/awslabs/amazon-timestream-driver-jdbc/releases/latest) the Timestream JDBC driver shaded JAR file (e.g., `amazon-timestream-jdbc-<version>-shaded.jar`)
 
 2. Launch the DBeaver application.
 
