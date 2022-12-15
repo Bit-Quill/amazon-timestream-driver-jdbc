@@ -12,17 +12,17 @@
 
     b. In **Settings** tab, for **URL Template** field, enter your JDBC connection string. For example:
       
-        ```
+    ```
         -- replace the values in "<>" with your own value
         jdbc:timestream://Region=<region>;
-        ```
+    ```
 
     If your database requires an username and password, it can be entered in the connection string when setting up the driver
 
-        ```
+    ```
         -- replace the values in "<>" with your own value
         jdbc:timestream://AccessKeyId=<myAccessKeyId>;SecretAccessKey=<mySecretAccessKey>;SessionToken=<mySessionToken>;Region=<myRegion>
-        ```
+    ```
 
     or username and password can be entered later when connecting to Amazon Timestream using DBeaver.
 
