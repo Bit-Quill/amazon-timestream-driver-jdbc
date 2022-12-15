@@ -21,6 +21,7 @@ The JDBC driver is compatible with a number of BI tools. Instructions are outlin
 - [Aqua Data Studio](markdown/setup/aqua-data-studio-setup.md)
 - [DBeaver](markdown/setup/dbeaver-driver-setup.md)
 - [DbVisualizer](markdown/setup/dbvisualizer-driver-setup.md)
+- [SQuirreL](markdown/setup/squirrel-driver-setup.md)
 - [Tableau Desktop](markdown/setup/tableau-desktop-driver-setup.md)
 
 For other BI tools, please refer to that tool's product documentation
