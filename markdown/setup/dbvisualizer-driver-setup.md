@@ -45,5 +45,5 @@
 
      ![Example](../images/dbvisualizer/DbVisualizer5.png)
 
-     #### Known Limitations
-     1. Unicode string may not be displayed correctly in DbVisualizer. It is not caused by JDBC driver, it is DbVisualizer unicode display limitation.
+#### Known Limitations
+1. Unicode string may not be displayed correctly in DbVisualizer. It is not caused by JDBC driver, it is DbVisualizer unicode display limitation.
