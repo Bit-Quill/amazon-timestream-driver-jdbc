@@ -20,6 +20,7 @@ The JDBC driver is compatible with a number of BI tools. Instructions are outlin
 
 - [Aqua Data Studio](markdown/setup/aqua-data-studio-setup.md)
 - [DBeaver](markdown/setup/dbeaver-driver-setup.md)
+- [DbVisualizer](markdown/setup/dbvisualizer-driver-setup.md)
 - [Tableau Desktop](markdown/setup/tableau-desktop-driver-setup.md)
 
 For other BI tools, please refer to that tool's product documentation
@@ -40,7 +41,7 @@ To create a connection, construct a connection URL by appending optional connect
 The default URL for Timestream is `jdbc:timestream`.
 
 ### Constructing the Connection URL
-Timestream supports optional connection properties that could be specified through the JDBC URL. To specify these optional properties use the following URL format: `jdbc:timestream://PropertyName1=value1;PropertyName2=value2...`.
+Timestream supports optional connection properties that could be specified through the JDBC URL. To specify these optional properties use the following URL format: `jdbc:timestream://PropertyName1=value1;PropertyName2=value2...`. Note the property name is **case sensitive**.
 
 An example of the JDBC URL with properties: `jdbc:timestream://AccessKeyId=myAccessKeyId;SecretAccessKey=mySecretAccessKey;SessionToken=mySessionToken;Region=myRegion`
 
