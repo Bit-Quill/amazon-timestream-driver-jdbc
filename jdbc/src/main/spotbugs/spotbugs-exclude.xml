@@ -19,7 +19,8 @@
     <Method name="populateCurrentRows"/>
   </Match>
   <Match>
-    <!--The exclude is added as currently driver does not support the prepared statement.
+    <!--The workaround to this issue would be using prepared statement.
+    The exclude is added as currently driver does not support the prepared statement.
     This is not a new exclude, as it has already been added for populateCurrentRows for
     TimestreamTablesResultSet in this file.-->
     <Bug pattern="SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE"/>
