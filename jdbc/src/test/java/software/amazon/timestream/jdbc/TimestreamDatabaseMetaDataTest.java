@@ -213,6 +213,18 @@ class TimestreamDatabaseMetaDataTest {
     }
   }
 
+  /**
+   * Checks that empty result set is returned for invalid database
+   */
+  @Test
+  void testGetTablesWithInvalidDatabase() throws SQLException {
+    initializeWithResult();
+    try (ResultSet resultSet = dbMetaData
+            .getTables(null, "emptyDB", null, null)) {
+      Assertions.assertFalse(resultSet.next());
+    }
+  }
+
   @ParameterizedTest
   @ValueSource(strings = {"%test%", "_estTabl_", "%Ta_le"})
   void testGetTablesWithTableNamePattern(String pattern) throws SQLException {
@@ -319,6 +331,10 @@ class TimestreamDatabaseMetaDataTest {
     final ResultSet emptyResultSet = Mockito.mock(ResultSet.class);
     Mockito.when(emptyResultSet.next()).thenReturn(false);
 
+    final ResultSet emptydbResultSet = Mockito.mock(ResultSet.class);
+    Mockito.when(emptydbResultSet.next()).thenReturn(true).thenReturn(false);
+    Mockito.when(emptydbResultSet.getString(1)).thenReturn("emptyDB");
+
     final ResultSet dbResultSet = Mockito.mock(ResultSet.class);
     Mockito.when(dbResultSet.next()).thenReturn(true).thenReturn(false);
     Mockito.when(dbResultSet.getString(1)).thenReturn("testDB");
@@ -328,6 +344,7 @@ class TimestreamDatabaseMetaDataTest {
     Mockito.when(mockStatement.executeQuery("SHOW DATABASES LIKE 'testDB'")).thenReturn(dbResultSet);
     Mockito.when(mockStatement.executeQuery("SHOW DATABASES LIKE '%testDB%'")).thenReturn(dbResultSet);
     Mockito.when(mockStatement.executeQuery("SHOW DATABASES LIKE 'non-existent-db'")).thenReturn(emptyResultSet);
+    Mockito.when(mockStatement.executeQuery("SHOW DATABASES LIKE 'emptyDB'")).thenReturn(emptydbResultSet);
 
     final ResultSet singleTableResultSet = Mockito.mock(ResultSet.class);
     Mockito.when(singleTableResultSet.next()).thenReturn(true).thenReturn(false);
@@ -345,6 +362,8 @@ class TimestreamDatabaseMetaDataTest {
       .thenReturn(singleTableResultSet);
     Mockito.when(mockStatement.executeQuery("SHOW TABLES FROM \"testDB\" LIKE '%Ta_le'"))
       .thenReturn(singleTableResultSet);
+    Mockito.when(mockStatement.executeQuery("SHOW TABLES FROM \"emptyDB\""))
+            .thenReturn(emptyResultSet);
 
     final ResultSet columnsResultSet = Mockito.mock(ResultSet.class);
     Mockito.when(columnsResultSet.next()).thenReturn(true).thenReturn(true).thenReturn(false);
