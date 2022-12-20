@@ -64,6 +64,9 @@ public class TimestreamColumnsResultSet extends TimestreamBaseResultSet {
     TimestreamDataType.createColumnInfo(TimestreamDataType.VARCHAR, "IS_AUTOINCREMENT"),
     TimestreamDataType.createColumnInfo(TimestreamDataType.VARCHAR, "IS_GENERATEDCOLUMN"));
 
+  private final int TABLE_SCHEM_INDX = 2;
+  private final int TABLE_NAME_INDX = 3;
+
   private final TimestreamStatement statement;
   private ResultSet result;
   private final TimestreamTablesResultSet tablesResult;
@@ -134,8 +137,8 @@ public class TimestreamColumnsResultSet extends TimestreamBaseResultSet {
     }
 
     // Get the columns for the next table.
-    curDatabase = tablesResult.getString(2);
-    curTable = tablesResult.getString(3);
+    curDatabase = tablesResult.getString(TABLE_SCHEM_INDX);
+    curTable = tablesResult.getString(TABLE_NAME_INDX);
     result = statement.executeQuery(String.format("DESCRIBE \"%s\".\"%s\"", curDatabase, curTable));
 
     populateCurrentRows();
