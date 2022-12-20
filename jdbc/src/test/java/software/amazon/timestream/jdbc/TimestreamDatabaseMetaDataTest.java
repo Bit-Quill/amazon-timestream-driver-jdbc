@@ -214,10 +214,10 @@ class TimestreamDatabaseMetaDataTest {
   }
 
   /**
-   * Checks that empty result set is returned for invalid database
+   * Checks that empty result set is returned for empty database
    */
   @Test
-  void testGetTablesWithInvalidDatabase() throws SQLException {
+  void testGetTablesWithEmptyDatabase() throws SQLException {
     initializeWithResult();
     try (ResultSet resultSet = dbMetaData
             .getTables(null, "emptyDB", null, null)) {
