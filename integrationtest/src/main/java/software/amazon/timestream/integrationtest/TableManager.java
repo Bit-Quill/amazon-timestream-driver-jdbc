@@ -180,6 +180,20 @@ class TableManager {
   }
 
   /**
+   * Deletes the database. Precondition: database is empty
+   * @param database Database to be deleted
+   */
+  static void deleteDatabase(String database) {
+    final DeleteDatabaseRequest deleteDatabaseRequest = new DeleteDatabaseRequest();
+    deleteDatabaseRequest.setDatabaseName(database);
+    try {
+      buildWriteClient().deleteDatabase(deleteDatabaseRequest);
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
+    }
+  }
+
+  /**
    * Deletes the database {@link Constants#DATABASE_NAME}.
    */
   static void deleteDatabases() {
@@ -202,13 +216,7 @@ class TableManager {
    */
   static void deleteDatabases(String[] databases) {
     for (int i = 1; i < databases.length; i++) {
-      final DeleteDatabaseRequest deleteDatabaseRequest = new DeleteDatabaseRequest();
-      deleteDatabaseRequest.setDatabaseName(databases[i]);
-      try {
-        buildWriteClient().deleteDatabase(deleteDatabaseRequest);
-      } catch (Exception e) {
-        System.out.println(e.getMessage());
-      }
+      deleteDatabase(databases[i]);
     }
   }
 

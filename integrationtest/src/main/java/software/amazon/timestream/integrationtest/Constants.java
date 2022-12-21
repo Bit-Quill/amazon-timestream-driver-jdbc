@@ -26,6 +26,12 @@ final class Constants {
   static final String URL = "jdbc:timestream";
   static final String DATABASE_NAME = "JDBC_Integration07_Test_DB";
   static final String TABLE_NAME = "Integration_Test_Table_07";
+  static final String ONE_DB_MUTLI_TB_DATABASES_NAME = "JDBC_Inte.gration_Te.st_DB_01";
+  static final String[] ONE_DB_MUTLI_TB_TABLE_NAMES = new String[]{
+          "Integ.ration_Te_st_T_able_01",
+          "Integr.ation_Test_Ta_ble_02",
+          "Inte.gration_Tes_t_Tab_le_03"
+  };
   static final String NON_EXISTENT_TABLE_NAME = "NotExistTableName";
   static final String[] DATABASES_NAMES = new String[]{
       "JDBC_Integration07_Test_DB",
