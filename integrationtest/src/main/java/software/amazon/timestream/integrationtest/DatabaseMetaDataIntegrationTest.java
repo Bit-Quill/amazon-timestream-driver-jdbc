@@ -46,12 +46,14 @@ class DatabaseMetaDataIntegrationTest {
 
   @BeforeAll
   private static void setUp() {
+    TableManager.createDatabases();
     TableManager.createTable();
     TableManager.writeRecords();
   }
 
   @AfterAll
   private static void cleanUp() {
+    TableManager.deleteDatabases();
     TableManager.deleteTable();
   }
 

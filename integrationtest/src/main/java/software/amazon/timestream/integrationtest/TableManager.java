@@ -18,12 +18,15 @@ package software.amazon.timestream.integrationtest;
 import com.amazonaws.services.timestreamwrite.AmazonTimestreamWrite;
 import com.amazonaws.services.timestreamwrite.AmazonTimestreamWriteClientBuilder;
 import com.amazonaws.services.timestreamwrite.model.ConflictException;
+import com.amazonaws.services.timestreamwrite.model.CreateDatabaseRequest;
 import com.amazonaws.services.timestreamwrite.model.CreateTableRequest;
+import com.amazonaws.services.timestreamwrite.model.DeleteDatabaseRequest;
 import com.amazonaws.services.timestreamwrite.model.DeleteTableRequest;
 import com.amazonaws.services.timestreamwrite.model.Dimension;
 import com.amazonaws.services.timestreamwrite.model.MeasureValueType;
 import com.amazonaws.services.timestreamwrite.model.Record;
 import com.amazonaws.services.timestreamwrite.model.RetentionProperties;
+import com.amazonaws.services.timestreamwrite.model.ValidationException;
 import com.amazonaws.services.timestreamwrite.model.WriteRecordsRequest;
 import com.google.common.collect.ImmutableList;
 
@@ -35,6 +38,30 @@ import java.util.stream.Collectors;
  * Handles table creation and clean up for the integration tests.
  */
 class TableManager {
+
+  /**
+   * Creates a new database {@link Constants#DATABASE_NAME} if not
+   * already existed. Deletes the database if already existed and then creates a new one.
+   */
+  static void createDatabases() {
+    for (int i = 1; i < Constants.DATABASES_NAMES.length; i++) {
+      final CreateDatabaseRequest createDatabaseRequest = new CreateDatabaseRequest();
+      createDatabaseRequest.setDatabaseName(Constants.DATABASES_NAMES[i]);
+      try {
+        buildWriteClient().createDatabase(createDatabaseRequest);
+      } catch (ConflictException e) {
+        final DeleteDatabaseRequest deleteDatabaseRequest = new DeleteDatabaseRequest();
+        deleteDatabaseRequest.setDatabaseName(Constants.DATABASES_NAMES[i]);
+        try {
+          buildWriteClient().deleteDatabase(deleteDatabaseRequest);
+        } catch (ValidationException conflictException) {
+          deleteTable();
+          buildWriteClient().deleteDatabase(deleteDatabaseRequest);
+        }
+        buildWriteClient().createDatabase(createDatabaseRequest);
+      }
+    }
+  }
 
   /**
    * Creates a new table {@link Constants#TABLE_NAME} in the {@link Constants#DATABASE_NAME} if not
@@ -83,6 +110,22 @@ class TableManager {
         .withTableName(Constants.TABLE_NAME)
         .withRecords(records);
     buildWriteClient().writeRecords(writeRecordsRequest);
+  }
+
+  /**
+   * Deletes the database {@link Constants#DATABASE_NAME}.
+   */
+  static void deleteDatabases() {
+    for (int i = 1; i < Constants.DATABASES_NAMES.length; i++) {
+      final DeleteDatabaseRequest deleteDatabaseRequest = new DeleteDatabaseRequest();
+      deleteDatabaseRequest.setDatabaseName(Constants.DATABASES_NAMES[i]);
+      try {
+        buildWriteClient().deleteDatabase(deleteDatabaseRequest);
+      } catch (ConflictException e) {
+        deleteTable();
+        buildWriteClient().deleteDatabase(deleteDatabaseRequest);
+      }
+    }
   }
 
   /**

@@ -36,8 +36,8 @@ final class Constants {
       "grafana_db",
       "perf07",
       "performance07",
-      "sampleDB",
-      "testDB"
+      "sampleDB01",
+      "testDB02"
   };
   static final String[] COLUMN_NAMES = new String[]{
       "hostname",
