@@ -46,7 +46,7 @@ class QueryExecutionIntegrationTest {
 
   @AfterAll
   private static void cleanUp() {
-    TableManager.deleteTable();
+    TableManager.deleteTable(Constants.TABLE_NAME, Constants.DATABASE_NAME);
   }
 
   @BeforeEach

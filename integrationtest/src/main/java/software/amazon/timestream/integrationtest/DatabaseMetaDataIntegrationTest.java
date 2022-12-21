@@ -54,7 +54,7 @@ class DatabaseMetaDataIntegrationTest {
   @AfterAll
   private static void cleanUp() {
     TableManager.deleteDatabases();
-    TableManager.deleteTable();
+    TableManager.deleteTable(Constants.TABLE_NAME, Constants.DATABASE_NAME);
   }
 
   @BeforeEach

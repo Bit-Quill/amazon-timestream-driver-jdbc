@@ -39,11 +39,11 @@ import java.util.stream.Collectors;
  */
 class TableManager {
   static String region = "us-east-1";
- static void setRegion(String regionVal){
+ static void setRegion(String regionVal) {
     region = regionVal;
   }
 
-  static String getRegion(){
+  static String getRegion() {
     return region;
   }
 
@@ -88,7 +88,7 @@ class TableManager {
         try {
           buildWriteClient().deleteDatabase(deleteDatabaseRequest);
         } catch (ValidationException conflictException) {
-          deleteTable();
+          deleteTable(Constants.TABLE_NAME, Constants.DATABASE_NAME);
           buildWriteClient().deleteDatabase(deleteDatabaseRequest);
         }
         buildWriteClient().createDatabase(createDatabaseRequest);
@@ -125,7 +125,7 @@ class TableManager {
     try {
       buildWriteClient().createTable(createTableRequest);
     } catch (ConflictException e) {
-      deleteTable();
+      deleteTable(Constants.TABLE_NAME, Constants.DATABASE_NAME);
       buildWriteClient().createTable(createTableRequest);
     }
   }
@@ -145,7 +145,7 @@ class TableManager {
     try {
       buildWriteClient().createTable(createTableRequest);
     } catch (ConflictException e) {
-      deleteTable();
+      deleteTable(Constants.TABLE_NAME, Constants.DATABASE_NAME);
       buildWriteClient().createTable(createTableRequest);
     }
   }
@@ -203,7 +203,7 @@ class TableManager {
       try {
         buildWriteClient().deleteDatabase(deleteDatabaseRequest);
       } catch (ConflictException e) {
-        deleteTable();
+        deleteTable(Constants.TABLE_NAME, Constants.DATABASE_NAME);
         buildWriteClient().deleteDatabase(deleteDatabaseRequest);
       }
     }
@@ -218,16 +218,6 @@ class TableManager {
     for (int i = 1; i < databases.length; i++) {
       deleteDatabase(databases[i]);
     }
-  }
-
-  /**
-   * Deletes the table {@link Constants#TABLE_NAME} from {@link Constants#DATABASE_NAME}.
-   */
-  static void deleteTable() {
-    final DeleteTableRequest deleteTableRequest = new DeleteTableRequest();
-    deleteTableRequest.setDatabaseName(Constants.DATABASE_NAME);
-    deleteTableRequest.setTableName(Constants.TABLE_NAME);
-    buildWriteClient().deleteTable(deleteTableRequest);
   }
 
   /**
@@ -252,7 +242,7 @@ class TableManager {
      * @param tables   Tables to be deleted
      * @param database Database to delete the tables from
      */
-    static void deleteTables(String[] tables, String database){
+    static void deleteTables(String[] tables, String database) {
       for (int i = 1; i < tables.length; i++) {
         deleteTable(tables[i], database);
       }

@@ -32,8 +32,6 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 
@@ -48,15 +46,14 @@ class DatabaseMetaDataOneDBMultiTBIntegrationTest {
 
   @BeforeAll
   private static void setUp() {
-    TableManager.setRegion("eu-west-1");
+    TableManager.setRegion(Constants.ONE_DB_MUTLI_TB_REGION);
     TableManager.createDatabase(Constants.ONE_DB_MUTLI_TB_DATABASES_NAME);
     TableManager.createTables(Constants.ONE_DB_MUTLI_TB_TABLE_NAMES, Constants.ONE_DB_MUTLI_TB_DATABASES_NAME);
-    //TableManager.writeRecords(); //-AL- remove for now
   }
 
   @AfterAll
   private static void cleanUp() {
-    TableManager.setRegion("eu-west-1");
+    TableManager.setRegion(Constants.ONE_DB_MUTLI_TB_REGION);
     TableManager.deleteTables(Constants.ONE_DB_MUTLI_TB_TABLE_NAMES, Constants.ONE_DB_MUTLI_TB_DATABASES_NAME);
     TableManager.deleteDatabase(Constants.ONE_DB_MUTLI_TB_DATABASES_NAME);
     //TableManager.deleteDatabase();
@@ -66,6 +63,7 @@ class DatabaseMetaDataOneDBMultiTBIntegrationTest {
   @BeforeEach
   private void init() throws SQLException {
     final Properties p = new Properties();
+    p.setProperty("Region", Constants.ONE_DB_MUTLI_TB_REGION);
     connection = DriverManager.getConnection(Constants.URL, p);
     metaData = connection.getMetaData();
   }
@@ -98,36 +96,37 @@ class DatabaseMetaDataOneDBMultiTBIntegrationTest {
   @Test
   @DisplayName("Test retrieving the database.")
   void testSchemas() throws SQLException {
+    final List<String> databaseList = new ArrayList<>();
+    databaseList.add(Constants.ONE_DB_MUTLI_TB_DATABASES_NAME);
     final List<String> schemasList = new ArrayList<>();
     try (ResultSet schemas = metaData.getSchemas()) {
       while (schemas.next()) {
         schemasList.add(schemas.getString("TABLE_SCHEM"));
       }
     }
-    Assertions.assertTrue(schemasList.contains(Constants.ONE_DB_MUTLI_TB_DATABASES_NAME));
+    Assertions.assertEquals(schemasList, databaseList);
   }
 
   /**
-   * Test getSchemas returns database "JDBC_Integration07_Test_DB" when given matching patterns.
+   * Test getSchemas returns database "JDBC_Inte.gration_Te.st_DB_01" when given matching patterns.
    * @param schemaPattern the schema pattern to be tested
    * @throws SQLException the exception thrown
    */
   @ParameterizedTest
-  @ValueSource(strings = {"JDBC_%", "%_Integration%", "%Test_DB"})
-  @DisplayName("Test retrieving database name JDBC_Integration07_Test_DB with pattern.")
+  @ValueSource(strings = {"%_01", "%_Inte.gration%", "%Te/.st_DB"})
+  @DisplayName("Test retrieving database name JDBC_Inte.gration_Te.st_DB_01 with pattern.")
   void testGetSchemasWithSchemaPattern(String schemaPattern) throws SQLException {
     try (ResultSet schemas = metaData.getSchemas(null, schemaPattern)) {
       while (schemas.next()) {
-        Assertions.assertEquals(Constants.DATABASE_NAME, schemas.getString("TABLE_SCHEM"));
+        Assertions.assertEquals(Constants.ONE_DB_MUTLI_TB_DATABASES_NAME, schemas.getString("TABLE_SCHEM"));
       }
     }
-  } //-AL- todo update
+  }
 
   @ParameterizedTest
   @ValueSource(strings = {"%tion_Test%", "_ntegrat_%", "%_Test_Table_0_"})
   @DisplayName("Test retrieving Integration_Test_Table_07 from JDBC_Integration07_Test_DB.")
   void testTablesWithPattern(final String pattern) throws SQLException {
-    final List<String> columnNamesList = Arrays.asList(Constants.COLUMN_NAMES);
     try (ResultSet tableResultSet = metaData.getTables(null, null, pattern, null)) {
       while (tableResultSet.next()) {
         Assertions.assertEquals(Constants.TABLE_NAME, tableResultSet.getObject("TABLE_NAME"));
