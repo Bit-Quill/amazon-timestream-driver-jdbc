@@ -39,7 +39,7 @@ import java.util.stream.Collectors;
  */
 class TableManager {
   static String region = "us-east-1";
-  void setRegion(String regionVal){
+ static void setRegion(String regionVal){
     region = regionVal;
   }
 
@@ -56,18 +56,18 @@ class TableManager {
       final CreateDatabaseRequest createDatabaseRequest = new CreateDatabaseRequest();
       createDatabaseRequest.setDatabaseName(database);
       try {
-        buildWriteClient().createDatabase(createDatabaseRequest);
+          buildWriteClient().createDatabase(createDatabaseRequest);
       } catch (ConflictException e) {
-        final DeleteDatabaseRequest deleteDatabaseRequest = new DeleteDatabaseRequest();
-        deleteDatabaseRequest.setDatabaseName(database);
-        try {
-          buildWriteClient().deleteDatabase(deleteDatabaseRequest);
-        }       catch (Exception exception) {
-          System.out.println(exception.getMessage());
-        }
-        buildWriteClient().createDatabase(createDatabaseRequest);
+          final DeleteDatabaseRequest deleteDatabaseRequest = new DeleteDatabaseRequest();
+          deleteDatabaseRequest.setDatabaseName(database);
+          try {
+              buildWriteClient().deleteDatabase(deleteDatabaseRequest);
+          } catch (Exception exception) {
+              System.out.println(exception.getMessage());
+          }
+          buildWriteClient().createDatabase(createDatabaseRequest);
       } catch (Exception e) {
-        System.out.println(e.getMessage());
+          System.out.println(e.getMessage());
       }
 
   }
@@ -245,6 +245,18 @@ class TableManager {
       System.out.println(e.getMessage());
     }
   }
+
+    /**
+     * Deletes the tables from database
+     *
+     * @param tables   Tables to be deleted
+     * @param database Database to delete the tables from
+     */
+    static void deleteTables(String[] tables, String database){
+      for (int i = 1; i < tables.length; i++) {
+        deleteTable(tables[i], database);
+      }
+    }
 
   /**
    * Creates a new Timestream write client.

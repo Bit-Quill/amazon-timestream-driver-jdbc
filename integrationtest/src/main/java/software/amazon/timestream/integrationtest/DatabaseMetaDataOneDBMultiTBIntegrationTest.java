@@ -48,6 +48,7 @@ class DatabaseMetaDataOneDBMultiTBIntegrationTest {
 
   @BeforeAll
   private static void setUp() {
+    TableManager.setRegion("eu-west-1");
     TableManager.createDatabase(Constants.ONE_DB_MUTLI_TB_DATABASES_NAME);
     TableManager.createTables(Constants.ONE_DB_MUTLI_TB_TABLE_NAMES, Constants.ONE_DB_MUTLI_TB_DATABASES_NAME);
     //TableManager.writeRecords(); //-AL- remove for now
@@ -55,6 +56,9 @@ class DatabaseMetaDataOneDBMultiTBIntegrationTest {
 
   @AfterAll
   private static void cleanUp() {
+    TableManager.setRegion("eu-west-1");
+    TableManager.deleteTables(Constants.ONE_DB_MUTLI_TB_TABLE_NAMES, Constants.ONE_DB_MUTLI_TB_DATABASES_NAME);
+    TableManager.deleteDatabase(Constants.ONE_DB_MUTLI_TB_DATABASES_NAME);
     //TableManager.deleteDatabase();
     //TableManager.deleteTables();
   }
@@ -117,7 +121,7 @@ class DatabaseMetaDataOneDBMultiTBIntegrationTest {
         Assertions.assertEquals(Constants.DATABASE_NAME, schemas.getString("TABLE_SCHEM"));
       }
     }
-  }
+  } //-AL- todo update
 
   @ParameterizedTest
   @ValueSource(strings = {"%tion_Test%", "_ntegrat_%", "%_Test_Table_0_"})
