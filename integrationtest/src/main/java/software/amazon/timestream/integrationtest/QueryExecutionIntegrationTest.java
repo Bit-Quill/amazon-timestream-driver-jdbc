@@ -40,7 +40,7 @@ class QueryExecutionIntegrationTest {
 
   @BeforeAll
   private static void setUp() {
-    TableManager.createTable();
+    TableManager.createTable(Constants.TABLE_NAME, Constants.DATABASE_NAME);
     TableManager.writeRecords();
   }
 
