@@ -19,7 +19,7 @@
     <Method name="populateCurrentRows"/>
   </Match>
   <Match>
-    <!--The workaround to this issue would be using prepared statement.
+    <!--The proper solution to this issue would be using prepared statement.
     The exclude is added as currently driver does not support the prepared statement.
     This is not a new exclude, as it has already been added for populateCurrentRows for
     TimestreamTablesResultSet in this file.-->
