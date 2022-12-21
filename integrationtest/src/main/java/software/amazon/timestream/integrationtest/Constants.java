@@ -28,16 +28,9 @@ final class Constants {
   static final String TABLE_NAME = "Integration_Test_Table_07";
   static final String NON_EXISTENT_TABLE_NAME = "NotExistTableName";
   static final String[] DATABASES_NAMES = new String[]{
-      "FAST_PATH_TEST_DB",
       "JDBC_Integration07_Test_DB",
-      "TestV1",
-      "devops",
-      "grafanaPerfDB",
-      "grafana_db",
-      "perf07",
-      "performance07",
-      "sampleDB01",
-      "testDB02"
+      "Integration_Test_DB01",
+      "Integration_Test_DB02"
   };
   static final String[] COLUMN_NAMES = new String[]{
       "hostname",

@@ -29,7 +29,6 @@ import com.amazonaws.services.timestreamwrite.model.RetentionProperties;
 import com.amazonaws.services.timestreamwrite.model.ValidationException;
 import com.amazonaws.services.timestreamwrite.model.WriteRecordsRequest;
 import com.google.common.collect.ImmutableList;
-import sun.tools.jconsole.JConsole;
 
 import java.util.Arrays;
 import java.util.List;
