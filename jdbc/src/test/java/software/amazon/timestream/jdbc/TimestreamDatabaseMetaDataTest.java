@@ -30,7 +30,10 @@ import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Properties;
 
 /**
  * Unit tests of TimestreamDatabaseMetaData.
@@ -402,7 +405,7 @@ class TimestreamDatabaseMetaDataTest {
     Mockito.when(tableResultSet.getString(1)).thenReturn("testTable").thenReturn("secondTable");
 
     Mockito.when(mockStatement.executeQuery("SHOW TABLES FROM \"testDB\""))
-      .thenReturn(tableResultSet);
+            .thenReturn(tableResultSet);
     Mockito.when(mockStatement.executeQuery("SHOW TABLES FROM \"testDB\" LIKE '%test%'"))
       .thenReturn(singleTableResultSet);
     Mockito.when(mockStatement.executeQuery("SHOW TABLES FROM \"testDB\" LIKE '_estTabl_'"))
