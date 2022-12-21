@@ -29,6 +29,7 @@ import com.amazonaws.services.timestreamwrite.model.RetentionProperties;
 import com.amazonaws.services.timestreamwrite.model.ValidationException;
 import com.amazonaws.services.timestreamwrite.model.WriteRecordsRequest;
 import com.google.common.collect.ImmutableList;
+import sun.tools.jconsole.JConsole;
 
 import java.util.Arrays;
 import java.util.List;
@@ -129,6 +130,23 @@ class TableManager {
   }
 
   /**
+   * Deletes the databases in provided array.
+   * Precondition: databases are empty
+   * @param databases Databases to be deleted
+   */
+  static void deleteDatabases(String[] databases) {
+    for (int i = 1; i < databases.length; i++) {
+      final DeleteDatabaseRequest deleteDatabaseRequest = new DeleteDatabaseRequest();
+      deleteDatabaseRequest.setDatabaseName(databases[i]);
+      try {
+        buildWriteClient().deleteDatabase(deleteDatabaseRequest);
+      } catch (Exception e) {
+        System.out.println(e.getMessage());
+      }
+    }
+  }
+
+  /**
    * Deletes the table {@link Constants#TABLE_NAME} from {@link Constants#DATABASE_NAME}.
    */
   static void deleteTable() {
@@ -136,6 +154,31 @@ class TableManager {
     deleteTableRequest.setDatabaseName(Constants.DATABASE_NAME);
     deleteTableRequest.setTableName(Constants.TABLE_NAME);
     buildWriteClient().deleteTable(deleteTableRequest);
+  }
+
+  /**
+   * Deletes the table from database
+   * @param table Table to be deleted
+   * @param database Database to delete the table from
+   */
+  static void deleteTable(String table, String database) {
+    final DeleteTableRequest deleteTableRequest = new DeleteTableRequest();
+    deleteTableRequest.setDatabaseName(database);
+    deleteTableRequest.setTableName(table);
+    try {
+      buildWriteClient().deleteTable(deleteTableRequest);
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
+    }
+  }
+
+  /**
+   * Creates a new Timestream write client.
+   * @param region Region
+   * @return the {@link AmazonTimestreamWrite}.
+   */
+  private static AmazonTimestreamWrite buildWriteClient(String region) {
+    return AmazonTimestreamWriteClientBuilder.standard().withRegion(region).build();
   }
 
   /**
