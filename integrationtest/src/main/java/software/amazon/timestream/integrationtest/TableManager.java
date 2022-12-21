@@ -38,6 +38,39 @@ import java.util.stream.Collectors;
  * Handles table creation and clean up for the integration tests.
  */
 class TableManager {
+  static String region = "us-east-1";
+  void setRegion(String regionVal){
+    region = regionVal;
+  }
+
+  static String getRegion(){
+    return region;
+  }
+
+  /**
+   * Creates a new database if not already existed.
+   * Deletes the database if already existed and then creates a new one.
+   * @param database Database to be created
+   */
+  static void createDatabase(String database) {
+      final CreateDatabaseRequest createDatabaseRequest = new CreateDatabaseRequest();
+      createDatabaseRequest.setDatabaseName(database);
+      try {
+        buildWriteClient().createDatabase(createDatabaseRequest);
+      } catch (ConflictException e) {
+        final DeleteDatabaseRequest deleteDatabaseRequest = new DeleteDatabaseRequest();
+        deleteDatabaseRequest.setDatabaseName(database);
+        try {
+          buildWriteClient().deleteDatabase(deleteDatabaseRequest);
+        }       catch (Exception exception) {
+          System.out.println(exception.getMessage());
+        }
+        buildWriteClient().createDatabase(createDatabaseRequest);
+      } catch (Exception e) {
+        System.out.println(e.getMessage());
+      }
+
+  }
 
   /**
    * Creates a new database {@link Constants#DATABASE_NAME} if not
@@ -60,6 +93,40 @@ class TableManager {
         }
         buildWriteClient().createDatabase(createDatabaseRequest);
       }
+    }
+  }
+
+  /**
+   * Creates new tables in the database if not already existed.
+   * Deletes the table if already existed and then creates a new one.
+   * @param tables Tables to be created
+   * @param database Database to contain the tables
+   */
+  static void createTables(String[] tables, String database) {
+    for (int i = 1; i < tables.length; i++) {
+      createTable(tables[i], database);
+    }
+  }
+
+  /**
+   * Creates new tables in the database if not already existed.
+   * Deletes the table if already existed and then creates a new one.
+   * @param table Table to be created
+   * @param database Database to contain the table
+   */
+  static void createTable(String table, String database) {
+    final CreateTableRequest createTableRequest = new CreateTableRequest();
+    createTableRequest.setDatabaseName(database);
+    createTableRequest.setTableName(table);
+    final RetentionProperties retentionProperties = new RetentionProperties()
+            .withMemoryStoreRetentionPeriodInHours(Constants.HT_TTL_HOURS)
+            .withMagneticStoreRetentionPeriodInDays(Constants.CT_TTL_DAYS);
+    createTableRequest.setRetentionProperties(retentionProperties);
+    try {
+      buildWriteClient().createTable(createTableRequest);
+    } catch (ConflictException e) {
+      deleteTable();
+      buildWriteClient().createTable(createTableRequest);
     }
   }
 
@@ -186,6 +253,7 @@ class TableManager {
    * @return the {@link AmazonTimestreamWrite}.
    */
   private static AmazonTimestreamWrite buildWriteClient() {
-    return AmazonTimestreamWriteClientBuilder.standard().withRegion("us-east-1").build();
+    //return AmazonTimestreamWriteClientBuilder.standard().withRegion("us-east-1").build();
+    return AmazonTimestreamWriteClientBuilder.standard().withRegion(getRegion()).build();
   }
 }
