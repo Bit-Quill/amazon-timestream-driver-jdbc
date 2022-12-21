@@ -105,18 +105,6 @@ class TimestreamDatabaseMetaDataTest {
     }
   }
 
-  /**
-   * Checks that empty result set is returned for invalid schema pattern
-   */
-  @Test
-  void testGetSchemasWithInvalidSchemaPattern() throws SQLException {
-    initializeWithResult();
-    try (ResultSet resultSet = dbMetaData
-            .getSchemas(null, "non-existent-db")) {
-      Assertions.assertFalse(resultSet.next());
-    }
-  }
-
   @Test
   void testGetColumnsWithResult() throws SQLException {
     initializeWithResult();
@@ -343,7 +331,6 @@ class TimestreamDatabaseMetaDataTest {
     Mockito.when(mockStatement.executeQuery("SHOW DATABASES LIKE '%test%'")).thenReturn(dbResultSet);
     Mockito.when(mockStatement.executeQuery("SHOW DATABASES LIKE 'testDB'")).thenReturn(dbResultSet);
     Mockito.when(mockStatement.executeQuery("SHOW DATABASES LIKE '%testDB%'")).thenReturn(dbResultSet);
-    Mockito.when(mockStatement.executeQuery("SHOW DATABASES LIKE 'non-existent-db'")).thenReturn(emptyResultSet);
     Mockito.when(mockStatement.executeQuery("SHOW DATABASES LIKE 'emptyDB'")).thenReturn(emptydbResultSet);
 
     final ResultSet singleTableResultSet = Mockito.mock(ResultSet.class);
