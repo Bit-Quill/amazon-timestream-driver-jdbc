@@ -26,7 +26,6 @@ import com.amazonaws.services.timestreamwrite.model.Dimension;
 import com.amazonaws.services.timestreamwrite.model.MeasureValueType;
 import com.amazonaws.services.timestreamwrite.model.Record;
 import com.amazonaws.services.timestreamwrite.model.RetentionProperties;
-import com.amazonaws.services.timestreamwrite.model.ValidationException;
 import com.amazonaws.services.timestreamwrite.model.WriteRecordsRequest;
 import com.google.common.collect.ImmutableList;
 
@@ -72,15 +71,16 @@ class TableManager {
 
   }
 
-    /**
-     * Creates a new database {@link Constants#DATABASE_NAME} if not
-     * already existed. Deletes the database if already existed and then creates a new one.
-     */
-    static void createDatabases(String[] databases) {
-        for (int i = 1; i < databases.length; i++) {
-            createDatabase(databases[i]);
-        }
+  /**
+   * Creates databases if not already existed.
+   * For each database, deletes the database if already existed and then creates a new one.
+   * @param databases Databases to be created
+   */
+  static void createDatabases(String[] databases) {
+    for (int i = 1; i < databases.length; i++) {
+      createDatabase(databases[i]);
     }
+  }
 
   /**
    * Creates new tables in the database if not already existed.
@@ -107,26 +107,6 @@ class TableManager {
     final RetentionProperties retentionProperties = new RetentionProperties()
             .withMemoryStoreRetentionPeriodInHours(Constants.HT_TTL_HOURS)
             .withMagneticStoreRetentionPeriodInDays(Constants.CT_TTL_DAYS);
-    createTableRequest.setRetentionProperties(retentionProperties);
-    try {
-      buildWriteClient().createTable(createTableRequest);
-    } catch (ConflictException e) {
-      deleteTable(Constants.TABLE_NAME, Constants.DATABASE_NAME);
-      buildWriteClient().createTable(createTableRequest);
-    }
-  }
-
-  /**
-   * Creates a new table {@link Constants#TABLE_NAME} in the {@link Constants#DATABASE_NAME} if not
-   * already existed. Deletes the table if already existed and then creates a new one.
-   */
-  static void createTable() {
-    final CreateTableRequest createTableRequest = new CreateTableRequest();
-    createTableRequest.setDatabaseName(Constants.DATABASE_NAME);
-    createTableRequest.setTableName(Constants.TABLE_NAME);
-    final RetentionProperties retentionProperties = new RetentionProperties()
-        .withMemoryStoreRetentionPeriodInHours(Constants.HT_TTL_HOURS)
-        .withMagneticStoreRetentionPeriodInDays(Constants.CT_TTL_DAYS);
     createTableRequest.setRetentionProperties(retentionProperties);
     try {
       buildWriteClient().createTable(createTableRequest);
@@ -220,20 +200,10 @@ class TableManager {
 
   /**
    * Creates a new Timestream write client.
-   * @param region Region
-   * @return the {@link AmazonTimestreamWrite}.
-   */
-  private static AmazonTimestreamWrite buildWriteClient(String region) {
-    return AmazonTimestreamWriteClientBuilder.standard().withRegion(region).build();
-  }
-
-  /**
-   * Creates a new Timestream write client.
    *
    * @return the {@link AmazonTimestreamWrite}.
    */
   private static AmazonTimestreamWrite buildWriteClient() {
-    //return AmazonTimestreamWriteClientBuilder.standard().withRegion("us-east-1").build();
     return AmazonTimestreamWriteClientBuilder.standard().withRegion(getRegion()).build();
   }
 }
