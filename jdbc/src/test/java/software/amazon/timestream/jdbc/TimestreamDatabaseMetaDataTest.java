@@ -30,10 +30,7 @@ import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Properties;
+import java.util.*;
 
 /**
  * Unit tests of TimestreamDatabaseMetaData.
@@ -120,7 +117,7 @@ class TimestreamDatabaseMetaDataTest {
   @ParameterizedTest
   @ValueSource(strings = {"invalidDB"})
   void testGetSchemasWithInvalidSchemaPattern(String schemaPattern) throws SQLException {
-    initializeWithTwoResults();
+    initializeWithResult();
     try (ResultSet resultSet = dbMetaData
             .getSchemas(null, schemaPattern)) {
       testGetSchemasResult(resultSet, 0);
@@ -392,6 +389,7 @@ class TimestreamDatabaseMetaDataTest {
     Mockito.when(mockStatement.executeQuery("SHOW DATABASES LIKE 'testDB'")).thenReturn(dbResultSet);
     Mockito.when(mockStatement.executeQuery("SHOW DATABASES LIKE '%testDB%'")).thenReturn(dbResultSet);
     Mockito.when(mockStatement.executeQuery("SHOW DATABASES LIKE 'emptyDB'")).thenReturn(emptydbResultSet);
+    Mockito.when(mockStatement.executeQuery("SHOW DATABASES LIKE 'invalidDB'")).thenReturn(emptyResultSet);
 
     final ResultSet singleTableResultSet = Mockito.mock(ResultSet.class);
     Mockito.when(singleTableResultSet.next()).thenReturn(true).thenReturn(false);
@@ -467,7 +465,7 @@ class TimestreamDatabaseMetaDataTest {
     while (resultSet.next()) {
       int match = 0;
       for (int i = 1; i <= resultSet.getMetaData().getColumnCount(); ++i) {
-        if (strings.get(numRows)[i-1] == resultSet.getString(i)) {
+        if (Objects.equals(strings.get(numRows)[i - 1], resultSet.getString(i))) {
           match++;
         }
       }
