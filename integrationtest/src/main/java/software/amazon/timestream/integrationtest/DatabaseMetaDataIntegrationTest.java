@@ -46,7 +46,7 @@ class DatabaseMetaDataIntegrationTest {
 
   @BeforeAll
   private static void setUp() {
-    TableManager.createDatabases();
+    TableManager.createDatabases(Constants.DATABASES_NAMES);
     TableManager.createTable(Constants.TABLE_NAME, Constants.DATABASE_NAME);
     TableManager.writeRecords();
   }

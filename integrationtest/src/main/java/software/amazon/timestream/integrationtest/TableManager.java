@@ -72,29 +72,15 @@ class TableManager {
 
   }
 
-  /**
-   * Creates a new database {@link Constants#DATABASE_NAME} if not
-   * already existed. Deletes the database if already existed and then creates a new one.
-   */
-  static void createDatabases() {
-    for (int i = 1; i < Constants.DATABASES_NAMES.length; i++) {
-      final CreateDatabaseRequest createDatabaseRequest = new CreateDatabaseRequest();
-      createDatabaseRequest.setDatabaseName(Constants.DATABASES_NAMES[i]);
-      try {
-        buildWriteClient().createDatabase(createDatabaseRequest);
-      } catch (ConflictException e) {
-        final DeleteDatabaseRequest deleteDatabaseRequest = new DeleteDatabaseRequest();
-        deleteDatabaseRequest.setDatabaseName(Constants.DATABASES_NAMES[i]);
-        try {
-          buildWriteClient().deleteDatabase(deleteDatabaseRequest);
-        } catch (ValidationException conflictException) {
-          deleteTable(Constants.TABLE_NAME, Constants.DATABASE_NAME);
-          buildWriteClient().deleteDatabase(deleteDatabaseRequest);
+    /**
+     * Creates a new database {@link Constants#DATABASE_NAME} if not
+     * already existed. Deletes the database if already existed and then creates a new one.
+     */
+    static void createDatabases(String[] databases) {
+        for (int i = 1; i < databases.length; i++) {
+            createDatabase(databases[i]);
         }
-        buildWriteClient().createDatabase(createDatabaseRequest);
-      }
     }
-  }
 
   /**
    * Creates new tables in the database if not already existed.
