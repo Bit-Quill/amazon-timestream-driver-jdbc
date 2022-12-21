@@ -99,7 +99,6 @@ public class TimestreamSchemasResultSet extends TimestreamBaseResultSet {
       final String query = "SHOW DATABASES" +
               (Strings.isNullOrEmpty(schemaPattern) ? "" : " LIKE '" + schemaPattern + "'");
       try (ResultSet rs = statement.executeQuery(query)) {
-        // ResultSet is not known to be null, so no null check is needed here
         while (rs.next()) {
           databases.add(new Row().withData(
                   new Datum().withScalarValue(rs.getString(1)),

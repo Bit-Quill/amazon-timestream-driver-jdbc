@@ -38,7 +38,8 @@ import java.util.stream.Collectors;
  */
 class TableManager {
   static String region = "us-east-1";
- static void setRegion(String regionVal) {
+
+  static void setRegion(String regionVal) {
     region = regionVal;
   }
 
@@ -49,31 +50,33 @@ class TableManager {
   /**
    * Creates a new database if not already existed.
    * Deletes the database if already existed and then creates a new one.
+   *
    * @param database Database to be created
    */
   static void createDatabase(String database) {
-      final CreateDatabaseRequest createDatabaseRequest = new CreateDatabaseRequest();
-      createDatabaseRequest.setDatabaseName(database);
+    final CreateDatabaseRequest createDatabaseRequest = new CreateDatabaseRequest();
+    createDatabaseRequest.setDatabaseName(database);
+    try {
+      buildWriteClient().createDatabase(createDatabaseRequest);
+    } catch (ConflictException e) {
+      final DeleteDatabaseRequest deleteDatabaseRequest = new DeleteDatabaseRequest();
+      deleteDatabaseRequest.setDatabaseName(database);
       try {
-          buildWriteClient().createDatabase(createDatabaseRequest);
-      } catch (ConflictException e) {
-          final DeleteDatabaseRequest deleteDatabaseRequest = new DeleteDatabaseRequest();
-          deleteDatabaseRequest.setDatabaseName(database);
-          try {
-              buildWriteClient().deleteDatabase(deleteDatabaseRequest);
-          } catch (Exception exception) {
-              System.out.println(exception.getMessage());
-          }
-          buildWriteClient().createDatabase(createDatabaseRequest);
-      } catch (Exception e) {
-          System.out.println(e.getMessage());
+        buildWriteClient().deleteDatabase(deleteDatabaseRequest);
+      } catch (Exception exception) {
+        System.out.println(exception.getMessage());
       }
+      buildWriteClient().createDatabase(createDatabaseRequest);
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
+    }
 
   }
 
   /**
    * Creates databases if not already existed.
    * For each database, deletes the database if already existed and then creates a new one.
+   *
    * @param databases Databases to be created
    */
   static void createDatabases(String[] databases) {
@@ -85,7 +88,8 @@ class TableManager {
   /**
    * Creates new tables in the database if not already existed.
    * Deletes the table if already existed and then creates a new one.
-   * @param tables Tables to be created
+   *
+   * @param tables   Tables to be created
    * @param database Database to contain the tables
    */
   static void createTables(String[] tables, String database) {
@@ -97,7 +101,8 @@ class TableManager {
   /**
    * Creates new tables in the database if not already existed.
    * Deletes the table if already existed and then creates a new one.
-   * @param table Table to be created
+   *
+   * @param table    Table to be created
    * @param database Database to contain the table
    */
   static void createTable(String table, String database) {
@@ -105,8 +110,8 @@ class TableManager {
     createTableRequest.setDatabaseName(database);
     createTableRequest.setTableName(table);
     final RetentionProperties retentionProperties = new RetentionProperties()
-            .withMemoryStoreRetentionPeriodInHours(Constants.HT_TTL_HOURS)
-            .withMagneticStoreRetentionPeriodInDays(Constants.CT_TTL_DAYS);
+        .withMemoryStoreRetentionPeriodInHours(Constants.HT_TTL_HOURS)
+        .withMagneticStoreRetentionPeriodInDays(Constants.CT_TTL_DAYS);
     createTableRequest.setRetentionProperties(retentionProperties);
     try {
       buildWriteClient().createTable(createTableRequest);
@@ -147,6 +152,7 @@ class TableManager {
 
   /**
    * Deletes the database. Precondition: database is empty
+   *
    * @param database Database to be deleted
    */
   static void deleteDatabase(String database) {
@@ -162,6 +168,7 @@ class TableManager {
   /**
    * Deletes the databases in provided array.
    * Precondition: databases are empty
+   *
    * @param databases Databases to be deleted
    */
   static void deleteDatabases(String[] databases) {
@@ -172,7 +179,8 @@ class TableManager {
 
   /**
    * Deletes the table from database
-   * @param table Table to be deleted
+   *
+   * @param table    Table to be deleted
    * @param database Database to delete the table from
    */
   static void deleteTable(String table, String database) {
@@ -186,17 +194,17 @@ class TableManager {
     }
   }
 
-    /**
-     * Deletes the tables from database
-     *
-     * @param tables   Tables to be deleted
-     * @param database Database to delete the tables from
-     */
-    static void deleteTables(String[] tables, String database) {
-      for (int i = 1; i < tables.length; i++) {
-        deleteTable(tables[i], database);
-      }
+  /**
+   * Deletes the tables from database
+   *
+   * @param tables   Tables to be deleted
+   * @param database Database to delete the tables from
+   */
+  static void deleteTables(String[] tables, String database) {
+    for (int i = 1; i < tables.length; i++) {
+      deleteTable(tables[i], database);
     }
+  }
 
   /**
    * Creates a new Timestream write client.
