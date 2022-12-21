@@ -23,6 +23,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import software.amazon.timestream.jdbc.TimestreamDatabaseMetaData;
 
@@ -123,14 +124,46 @@ class DatabaseMetaDataOneDBMultiTBIntegrationTest {
     }
   }
 
-  @ParameterizedTest
-  @ValueSource(strings = {"%tion_Test%", "_ntegrat_%", "%_Test_Table_0_"})
-  @DisplayName("Test retrieving Integration_Test_Table_07 from JDBC_Integration07_Test_DB.")
-  void testTablesWithPattern(final String pattern) throws SQLException {
-    try (ResultSet tableResultSet = metaData.getTables(null, null, pattern, null)) {
-      while (tableResultSet.next()) {
-        Assertions.assertEquals(Constants.TABLE_NAME, tableResultSet.getObject("TABLE_NAME"));
+  //-AL- test for one DB???
+  @Test
+  @DisplayName("Test retrieving Integ.ration_Te_st_T_able_01, Integr.ation_Test_Ta_ble_02, Inte.gration_Tes_t_Tab_le_03 from JDBC_Inte.gration_Te.st_DB_01.")
+  void testTablesWithPattern() throws SQLException {
+    final String[] tablePatterns1 = {"%tion_Te_st%", "_nteg/.rat_%", "%_Te_st_T_able_0_"};
+    final String[] tablePatterns2 = {"%tion_Test%", "_ntegr/.at_%", "%_Test_Ta_ble_02"};
+    final String[] tablePatterns3 = {"%tion_Tes_t%", "_nte/.grat_%", "%_Tes_t_Tab_le_"};
+    final List<String[]> tablePatterns = new ArrayList<>();
+    tablePatterns.add(tablePatterns1);
+    tablePatterns.add(tablePatterns2);
+    tablePatterns.add(tablePatterns3);
+    for (int i = 1; i < Constants.ONE_DB_MUTLI_TB_TABLE_NAMES.length; i++) {
+      for (int j = 1; j < tablePatterns.get(i).length; j++) {
+        try (ResultSet tableResultSet = metaData.getTables(null, null, tablePatterns.get(i)[j], null)) {
+          while (tableResultSet.next()) {
+            Assertions.assertEquals(Constants.ONE_DB_MUTLI_TB_TABLE_NAMES[i], tableResultSet.getObject("TABLE_NAME"));
+          }
+        }
       }
     }
+  }
+
+  @ParameterizedTest
+  @CsvSource(value = {
+          "%g/.ration_Test%, 0",
+          "_nteg/.rat_%, 0",
+          "%_Te_st_T_able_0_, 0",
+          "%tion_Test%, 1",
+          "_ntegr/.at_%, 1",
+          "%_Test_Ta_ble_02, 1",
+          "%tion_Tes_t%, 2",
+          "_nte/.grat_%, 2",
+          "%_Tes_t_Tab_le_, 2"
+  })
+  @DisplayName("Test retrieving Integ.ration_Te_st_T_able_01, Integr.ation_Test_Ta_ble_02, Inte.gration_Tes_t_Tab_le_03 from JDBC_Inte.gration_Te.st_DB_01.")
+  void testTable1WithPattern(final String pattern, final int indx) throws SQLException {
+   try (ResultSet tableResultSet = metaData.getTables(null, Constants.ONE_DB_MUTLI_TB_DATABASES_NAME, pattern, null)) {
+     while (tableResultSet.next()) {
+       Assertions.assertEquals(Constants.ONE_DB_MUTLI_TB_TABLE_NAMES[indx], tableResultSet.getObject("TABLE_NAME"));
+     }
+   }
   }
 }
