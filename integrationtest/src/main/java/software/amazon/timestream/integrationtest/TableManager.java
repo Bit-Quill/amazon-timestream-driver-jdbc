@@ -194,22 +194,6 @@ class TableManager {
   }
 
   /**
-   * Deletes the database {@link Constants#DATABASE_NAME}.
-   */
-  static void deleteDatabases() {
-    for (int i = 1; i < Constants.DATABASES_NAMES.length; i++) {
-      final DeleteDatabaseRequest deleteDatabaseRequest = new DeleteDatabaseRequest();
-      deleteDatabaseRequest.setDatabaseName(Constants.DATABASES_NAMES[i]);
-      try {
-        buildWriteClient().deleteDatabase(deleteDatabaseRequest);
-      } catch (ConflictException e) {
-        deleteTable(Constants.TABLE_NAME, Constants.DATABASE_NAME);
-        buildWriteClient().deleteDatabase(deleteDatabaseRequest);
-      }
-    }
-  }
-
-  /**
    * Deletes the databases in provided array.
    * Precondition: databases are empty
    * @param databases Databases to be deleted
