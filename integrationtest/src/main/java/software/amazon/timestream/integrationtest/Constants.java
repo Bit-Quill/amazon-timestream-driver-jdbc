@@ -53,11 +53,13 @@ final class Constants {
   static final String NO_DB_NO_TB_REGION = "ap-southeast-2";
   static final String[] NO_DB_DATABASE_NAMES = new String[]{};
   static final String[] NO_TB_TABLE_NAMES = new String[]{};
+
   static final String ONE_DB_NO_TB_REGION = "ap-northeast-1";
   static final String[] ONE_DB_NO_TB_DATABASE_NAME = new String[]{
       "EmptyDb_1_2.34"
   };
   static final String[] ONE_DB_NO_TB_TABLE_NAMES = new String[]{};
+
   static final String ONE_DB_ONE_TB_REGION = "eu-central-1";
   static final String[] ONE_DB_ONE_TB_DATABASE_NAME = new String[]{
       "JDBC_.IntegrationTestDB0088"
@@ -65,6 +67,7 @@ final class Constants {
   static final String[] ONE_DB_ONE_TB_TABLE_NAME = new String[]{
       "IntegrationTestTable0888",
   };
+
   static final String ONE_DB_MUTLI_TB_REGION = "eu-west-1";
   static final String[] ONE_DB_MUTLI_TB_DATABASES_NAME = new String[]{
       "JDBC_Inte.gration_Te.st_DB_01"
@@ -74,6 +77,7 @@ final class Constants {
       "Integ.ration_Te_st_T_able_01",
       "Integr.ation_Test_Ta_ble_02"
   };
+
   static final String[] MULTI_DB_MUTLI_TB_DATABASES_NAMES = new String[]{
       "JD_BC_Int.egration_Test_DB_001",
       "JDB.C_Integration-Test_DB_002",
