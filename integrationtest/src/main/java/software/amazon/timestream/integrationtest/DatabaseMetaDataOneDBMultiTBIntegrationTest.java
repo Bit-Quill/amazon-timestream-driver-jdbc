@@ -128,22 +128,21 @@ class DatabaseMetaDataOneDBMultiTBIntegrationTest {
    */
   @ParameterizedTest
   @CsvSource(value = {
-          "%g/.ration_Test%, 0",
-          "_nteg/.rat_%, 0",
+          "%g.ration_Te_st%, 0",
+          "%_nteg.rat_%, 0",
           "%_Te_st_T_able_0_, 0",
           "%tion_Test%, 1",
-          "_ntegr/.at_%, 1",
+          "_ntegr.at_%, 1",
           "%_Test_Ta_ble_02, 1",
           "%tion_Tes_t%, 2",
-          "_nte/.grat_%, 2",
-          "%_Tes_t_Tab_le_, 2"
+          "_nte.grat_%, 2",
+          "%_Tes_t_Tab_le_%, 2"
   })
   @DisplayName("Test retrieving Integ.ration_Te_st_T_able_01, Integr.ation_Test_Ta_ble_02, Inte.gration_Tes_t_Tab_le_03 from JDBC_Inte.gration_Te.st_DB_01.")
   void testTablesWithPattern(final String tablePattern, final int index) throws SQLException {
    try (ResultSet tableResultSet = metaData.getTables(null, Constants.ONE_DB_MUTLI_TB_DATABASES_NAME, tablePattern, null)) {
-     while (tableResultSet.next()) {
-       Assertions.assertEquals(Constants.ONE_DB_MUTLI_TB_TABLE_NAMES[index], tableResultSet.getObject("TABLE_NAME"));
-     }
+     Assertions.assertTrue(tableResultSet.next());
+     Assertions.assertEquals(Constants.ONE_DB_MUTLI_TB_TABLE_NAMES[index], tableResultSet.getObject("TABLE_NAME"));
    }
   }
 }
