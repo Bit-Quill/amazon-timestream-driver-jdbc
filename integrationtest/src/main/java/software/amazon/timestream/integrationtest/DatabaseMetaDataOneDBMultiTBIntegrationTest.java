@@ -122,6 +122,33 @@ class DatabaseMetaDataOneDBMultiTBIntegrationTest {
   /**
    * Test getTables returns tables from JDBC_Inte.gration_Te.st_DB_01 when given matching patterns.
    * @param tablePattern the table pattern to be tested
+   * @param schemaPattern the database pattern to be tested
+   * @param index index of table name in Constants.ONE_DB_MUTLI_TB_TABLE_NAMES
+   * @throws SQLException the exception thrown
+   */
+  @ParameterizedTest
+  @CsvSource(value = {
+      "%g.ration_Te_st%, %_01, 0",
+      "%_nteg.rat_%, %_Inte.gration%, 0",
+      "%_Te_st_T_able_0_, %Te.st_DB%, 0",
+      "%tion_Test%, %_01, 1",
+      "_ntegr.at_%, %_Inte.gration%, 1",
+      "%_Test_Ta_ble_02, %Te.st_DB%, 1",
+      "%tion_Tes_t%, %_01, 2",
+      "_nte.grat_%, %_Inte.gration%, 2",
+      "%_Tes_t_Tab_le_%, %Te.st_DB%, 2"
+  })
+  @DisplayName("Test retrieving Integ.ration_Te_st_T_able_01, Integr.ation_Test_Ta_ble_02, Inte.gration_Tes_t_Tab_le_03 from JDBC_Inte.gration_Te.st_DB_01.")
+  void testTablesWithPatternFromDBWithPattern(final String tablePattern, final String schemaPattern, final int index) throws SQLException {
+    try (ResultSet tableResultSet = metaData.getTables(null, schemaPattern, tablePattern, null)) {
+      Assertions.assertTrue(tableResultSet.next());
+      Assertions.assertEquals(Constants.ONE_DB_MUTLI_TB_TABLE_NAMES[index], tableResultSet.getObject("TABLE_NAME"));
+    }
+  }
+
+  /**
+   * Test getTables returns tables from JDBC_Inte.gration_Te.st_DB_01 when given matching patterns.
+   * @param tablePattern the table pattern to be tested
    * @param index index of table name in Constants.ONE_DB_MUTLI_TB_TABLE_NAMES
    * @throws SQLException the exception thrown
    */
