@@ -99,6 +99,19 @@ class TableManager {
   }
 
   /**
+   * Creates new tables in the databases if not already existed.
+   * Deletes the table if already existed and then creates a new one.
+   *
+   * @param tables   Tables to be created
+   * @param databases List of databases to contain the tables
+   */
+  static void createTables(String[] tables, String[] databases) {
+    for (String database : databases) {
+      createTables(tables, database);
+    }
+  }
+
+  /**
    * Creates new tables in the database if not already existed.
    * Deletes the table if already existed and then creates a new one.
    *
@@ -203,6 +216,18 @@ class TableManager {
   static void deleteTables(String[] tables, String database) {
     for (String table : tables) {
       deleteTable(table, database);
+    }
+  }
+
+  /**
+   * Deletes new tables in the databases
+   *
+   * @param tables   Tables to be created
+   * @param databases List of databases that contain the tables
+   */
+  static void deleteTables(String[] tables, String[] databases) {
+    for (String database : databases) {
+      deleteTables(tables, database);
     }
   }
 
