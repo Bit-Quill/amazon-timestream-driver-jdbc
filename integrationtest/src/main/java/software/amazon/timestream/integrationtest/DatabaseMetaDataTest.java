@@ -111,16 +111,18 @@ class DatabaseMetaDataTest {
    */
   public void testGetSchemasWithSchemaPattern(String schemaPattern) throws SQLException {
     try (ResultSet schemas = metaData.getSchemas(null, schemaPattern)) {
-      while (schemas.next()) {
-        String schema = schemas.getString("TABLE_SCHEM");
-        String match = Arrays
-                .stream(databases)
-                .filter(x -> x.equals(schema))
-                .findFirst()
-                .orElse(null);
-
-        Assertions.assertTrue(match != null);
-      }
+      Assertions.assertTrue(schemas.next());
+      Assertions.assertEquals(databases, schemas.getString("TABLE_SCHEM"));
+//      while (schemas.next()) {
+//        String schema = schemas.getString("TABLE_SCHEM");
+//        String match = Arrays
+//                .stream(databases)
+//                .filter(x -> x.equals(schema))
+//                .findFirst()
+//                .orElse(null);
+//
+//        Assertions.assertTrue(match != null);
+//      }
     }
   }
 
@@ -133,9 +135,8 @@ class DatabaseMetaDataTest {
   public void testTablesWithPattern(final String tablePattern, final int index) throws SQLException {
     for (String database : databases) {
       try (ResultSet tableResultSet = metaData.getTables(null, database, tablePattern, null)) {
-        while (tableResultSet.next()) {
-          Assertions.assertEquals(tables[index], tableResultSet.getObject("TABLE_NAME"));
-        }
+        Assertions.assertTrue(tableResultSet.next());
+        Assertions.assertEquals(tables[index], tableResultSet.getObject("TABLE_NAME"));
       }
     }
   }
