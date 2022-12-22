@@ -124,9 +124,9 @@ class DatabaseMetaDataTest {
    * @throws SQLException the exception thrown
    */
   public void testTablesWithPattern(final String tablePattern, final int index) throws SQLException {
-   try (ResultSet tableResultSet = metaData.getTables(null, Constants.ONE_DB_MUTLI_TB_DATABASES_NAME, tablePattern, null)) {
+   try (ResultSet tableResultSet = metaData.getTables(null, database, tablePattern, null)) {
      while (tableResultSet.next()) {
-       Assertions.assertEquals(Constants.ONE_DB_MUTLI_TB_TABLE_NAMES[index], tableResultSet.getObject("TABLE_NAME"));
+       Assertions.assertEquals(tables[index], tableResultSet.getObject("TABLE_NAME"));
      }
    }
   }
