@@ -65,7 +65,6 @@ final class Constants {
       "JDB.C_Integration-Test_DB_002",
       "JD-BC_Integration.Test_DB_003"
   };
-  //-AL- todo update MULTI_DB_MUTLI_TB_TABLE_NAMES1
   static final String[] MULTI_DB_MUTLI_TB_TABLE_NAMES1 = new String[]{
       "Inte-gration_Tes1t_Table_01_01",
       "Inte-gration2_Te-st_Table_01_02",
@@ -78,8 +77,8 @@ final class Constants {
   static final String[] MULTI_DB_MUTLI_TB_TABLE_NAMES3 = new String[]{
       "JD-BC_Integration-Test_Ta1ble_03_01",
       "JD-BC_Integration.-Te-st_Table_03_02",
-      "JD-BC_Integration--Te-st_Table_03_03",
-      "JD-BC_Integration0-Te-st_Table_03_04"
+      "JD-BC_Integration--Test2_Table_03_03",
+      "JD-BC_Integration0-Te-st_Ta.ble_03_04"
   };
   static final String NON_EXISTENT_TABLE_NAME = "NotExistTableName";
   static final String[] DATABASES_NAMES = new String[]{
