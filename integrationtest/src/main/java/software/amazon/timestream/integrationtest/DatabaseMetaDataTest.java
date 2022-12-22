@@ -120,9 +120,26 @@ class DatabaseMetaDataTest {
   }
 
   /**
-   * Test getTables returns tables from JDBC_Inte.gration_Te.st_DB_01 when given matching patterns.
+   * Test getTables returns the tables from the database.
+   * @throws SQLException the exception thrown
+   */
+  public void testTables() throws SQLException {
+    final List<String> tableList = Arrays.asList(tables);
+    final List<String> returnTableList = new ArrayList<>();
+    for (String database : databases) {
+      try (ResultSet tables = metaData.getTables(null, database, null, null)) {
+        while (tables.next()) {
+          returnTableList.add(tables.getString("TABLE_NAME"));
+        }
+      }
+      Assertions.assertEquals(returnTableList, tableList);
+    }
+  }
+
+  /**
+   * Test getTables returns tables from database when given matching patterns.
    * @param tablePattern the table pattern to be tested
-   * @param index index of table name in Constants.ONE_DB_MUTLI_TB_TABLE_NAMES
+   * @param index index of table name in the database
    * @throws SQLException the exception thrown
    */
   public void testTablesWithPattern(final String tablePattern, final int index) throws SQLException {

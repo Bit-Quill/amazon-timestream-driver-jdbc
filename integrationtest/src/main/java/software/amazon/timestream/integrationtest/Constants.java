@@ -35,8 +35,8 @@ final class Constants {
 
   static final String ONE_DB_NO_TB_REGION = "ap-northeast-1";
 
-  static final String[] ONE_DB_DATABASE_NAMES = new String[] {
-          "JDBC_Inte.gration_Te.st_DB_01"
+  static final String[] ONE_DB_NO_TB_DATABASE_NAME = new String[] {
+          "EmptyDb_1_2.34"
   };
 
   static final String[] ONE_DB_NO_TB_TABLE_NAMES = new String[] {};
