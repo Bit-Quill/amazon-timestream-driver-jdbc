@@ -107,6 +107,24 @@ class DatabaseMetaDataOneDBOneTBIntegrationTest {
   /**
    * Test getTables returns tables from IntegrationTestTable0888 when given matching patterns.
    * @param tablePattern the table pattern to be tested
+   * @param schemaPattern the database pattern to be tested
+   * @param index index of table name in Constants.ONE_DB_ONE_TB_TABLE_NAMES
+   * @throws SQLException the exception thrown
+   */
+  @ParameterizedTest
+  @CsvSource(value = {
+      "%Test%le08%, %0_88, 0",
+      "In_egratio_TestTable_888, %!_.Integration%' escape '!, 0",
+      "%8, JDBC%_ntegrationTestD_00_8, 0",
+  })
+  @DisplayName("Test retrieving IntegrationTestTable0888 from JDBC_.IntegrationTestDB0088.")
+  void testTablesWithPatternFromDBWithPattern(final String tablePattern, final String schemaPattern, final int index) throws SQLException {
+    dbTest.testTablesWithPatternFromDBWithPattern(tablePattern, schemaPattern, index);
+  }
+
+  /**
+   * Test getTables returns tables from IntegrationTestTable0888 when given matching patterns.
+   * @param tablePattern the table pattern to be tested
    * @param index index of table name in Constants.ONE_DB_ONE_TB_TABLE_NAMES
    * @throws SQLException the exception thrown
    */
