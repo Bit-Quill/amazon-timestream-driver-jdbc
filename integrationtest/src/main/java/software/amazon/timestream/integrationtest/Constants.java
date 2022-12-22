@@ -27,7 +27,9 @@ final class Constants {
   static final String DATABASE_NAME = "JDBC_Integration07_Test_DB";
   static final String TABLE_NAME = "Integration_Test_Table_07";
   static final String ONE_DB_MUTLI_TB_REGION = "eu-west-1";
-  static final String ONE_DB_MUTLI_TB_DATABASES_NAME = "JDBC_Inte.gration_Te.st_DB_01";
+  static final String[] ONE_DB_MUTLI_TB_DATABASES_NAME = new String[] {
+          "JDBC_Inte.gration_Te.st_DB_01"
+  };
   static final String[] ONE_DB_MUTLI_TB_TABLE_NAMES = new String[]{
           "Integ.ration_Te_st_T_able_01",
           "Integr.ation_Test_Ta_ble_02",

@@ -33,6 +33,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
@@ -44,24 +45,24 @@ class DatabaseMetaDataTest {
   private Connection connection;
 
   private String region;
-  private String database;
+  private String[] databases;
   private String[] tables;
 
-  public DatabaseMetaDataTest(String r, String d, String[] ts) {
+  public DatabaseMetaDataTest(String r, String[] ds, String[] ts) {
     region = r;
-    database = d;
+    databases = ds;
     tables = ts;
   }
-  static void setUp(String r, String d, String[] ts) {
+  static void setUp(String r, String[] ds, String[] ts) {
     TableManager.setRegion(r);
-    TableManager.createDatabase(d);
-    TableManager.createTables(ts, d);
+    TableManager.createDatabases(ds);
+    TableManager.createTables(ts, ds);
   }
 
-  static void cleanUp(String r, String d, String[] ts) {
+  static void cleanUp(String r, String[] ds, String[] ts) {
     TableManager.setRegion(r);
-    TableManager.deleteTables(ts, d);
-    TableManager.deleteDatabase(d);
+    TableManager.deleteTables(ts, ds);
+    TableManager.deleteDatabases(ds);
   }
   void init() throws SQLException {
     final Properties p = new Properties();
@@ -93,8 +94,7 @@ class DatabaseMetaDataTest {
    * @throws SQLException the exception thrown
    */
   public void testSchemas() throws SQLException {
-    final List<String> databaseList = new ArrayList<>();
-    databaseList.add(database);
+    final List<String> databaseList = Arrays.asList(databases);
     final List<String> schemasList = new ArrayList<>();
     try (ResultSet schemas = metaData.getSchemas()) {
       while (schemas.next()) {
@@ -112,7 +112,14 @@ class DatabaseMetaDataTest {
   public void testGetSchemasWithSchemaPattern(String schemaPattern) throws SQLException {
     try (ResultSet schemas = metaData.getSchemas(null, schemaPattern)) {
       while (schemas.next()) {
-        Assertions.assertEquals(database, schemas.getString("TABLE_SCHEM"));
+        String schema = schemas.getString("TABLE_SCHEM");
+        String match = Arrays
+                .stream(databases)
+                .filter(x -> x.equals(schema))
+                .findFirst()
+                .orElse(null);
+
+        Assertions.assertTrue(match != null);
       }
     }
   }
@@ -124,10 +131,12 @@ class DatabaseMetaDataTest {
    * @throws SQLException the exception thrown
    */
   public void testTablesWithPattern(final String tablePattern, final int index) throws SQLException {
-   try (ResultSet tableResultSet = metaData.getTables(null, database, tablePattern, null)) {
-     while (tableResultSet.next()) {
-       Assertions.assertEquals(tables[index], tableResultSet.getObject("TABLE_NAME"));
-     }
-   }
+    for (String database : databases) {
+      try (ResultSet tableResultSet = metaData.getTables(null, database, tablePattern, null)) {
+        while (tableResultSet.next()) {
+          Assertions.assertEquals(tables[index], tableResultSet.getObject("TABLE_NAME"));
+        }
+      }
+    }
   }
 }
