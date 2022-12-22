@@ -21,16 +21,12 @@ import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import software.amazon.timestream.jdbc.TimestreamDatabaseMetaData;
 
-import java.sql.Connection;
-import java.sql.DatabaseMetaData;
 import java.sql.SQLException;
 
 /**
  * Integration tests for supported getters in {@link TimestreamDatabaseMetaData}
  */
 class DatabaseMetaDataOneDBOneTBIntegrationTest {
-  private DatabaseMetaData metaData;
-  private Connection connection;
 
   private DatabaseMetaDataTest dbTest = new DatabaseMetaDataTest(Constants.ONE_DB_ONE_TB_REGION,
                                        Constants.ONE_DB_ONE_TB_DATABASE_NAMES,
