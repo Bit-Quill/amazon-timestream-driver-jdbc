@@ -56,9 +56,9 @@ final class Constants {
           "JDBC_Inte.gration_Te.st_DB_01"
   };
   static final String[] ONE_DB_MUTLI_TB_TABLE_NAMES = new String[]{
+          "Inte.gration_Tes_t_Tab_le_03",
           "Integ.ration_Te_st_T_able_01",
-          "Integr.ation_Test_Ta_ble_02",
-          "Inte.gration_Tes_t_Tab_le_03"
+          "Integr.ation_Test_Ta_ble_02"
   };
   static final String[] MULTI_DB_MUTLI_TB_DATABASES_NAMES = new String[]{
       "JD_BC_Int.egration_Test_DB_001",
