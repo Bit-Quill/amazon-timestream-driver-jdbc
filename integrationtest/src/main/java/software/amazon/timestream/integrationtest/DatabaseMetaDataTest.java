@@ -120,19 +120,31 @@ class DatabaseMetaDataTest {
   }
 
   /**
+   * Retrieve all tables from database
+   * @param schemaPattern database pattern
+   * @throws SQLException the exception thrown
+   */
+  private void getAllTables(String schemaPattern) throws SQLException {
+    final List<String> tableList = Arrays.asList(tables);
+    final List<String> returnTableList = new ArrayList<>();
+    try (ResultSet tables = metaData.getTables(null, schemaPattern, null, null)) {
+      while (tables.next()) {
+        returnTableList.add(tables.getString("TABLE_NAME"));
+      }
+    }
+    Assertions.assertEquals(tableList, returnTableList);
+  }
+
+  /**
    * Test getTables returns the tables from the database.
    * @throws SQLException the exception thrown
    */
   public void testTables() throws SQLException {
-    final List<String> tableList = Arrays.asList(tables);
-    final List<String> returnTableList = new ArrayList<>();
+    if (databases.length == 0) {
+      getAllTables(null);
+    }
     for (String database : databases) {
-      try (ResultSet tables = metaData.getTables(null, database, null, null)) {
-        while (tables.next()) {
-          returnTableList.add(tables.getString("TABLE_NAME"));
-        }
-      }
-      Assertions.assertEquals(tableList, returnTableList);
+      getAllTables(database);
     }
   }
 

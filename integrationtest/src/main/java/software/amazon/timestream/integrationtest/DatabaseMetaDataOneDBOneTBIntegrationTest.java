@@ -96,9 +96,19 @@ class DatabaseMetaDataOneDBOneTBIntegrationTest {
   }
 
   /**
+   * Test getTables returns the table from database "JDBC_.IntegrationTestDB0088".
+   * @throws SQLException the exception thrown
+   */
+  @Test
+  @DisplayName("Test getTables returns the table from database \"JDBC_.IntegrationTestDB0088\"")
+  void testTables() throws SQLException {
+    dbTest.testTables();
+  }
+
+  /**
    * Test getTables returns tables from IntegrationTestTable0888 when given matching patterns.
    * @param tablePattern the table pattern to be tested
-   * @param index index of table name in Constants.ONE_DB_MUTLI_TB_TABLE_NAMES
+   * @param index index of table name in Constants.ONE_DB_ONE_TB_TABLE_NAMES
    * @throws SQLException the exception thrown
    */
   @ParameterizedTest
