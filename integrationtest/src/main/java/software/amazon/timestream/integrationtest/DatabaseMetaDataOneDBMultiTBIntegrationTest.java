@@ -30,6 +30,7 @@ import java.sql.SQLException;
 
 /**
  * Integration tests for supported getters in {@link TimestreamDatabaseMetaData}
+ * Test case: One database with multiple tables
  */
 class DatabaseMetaDataOneDBMultiTBIntegrationTest {
   private final DatabaseMetaDataTest dbTest = new DatabaseMetaDataTest(Constants.ONE_DB_MUTLI_TB_REGION,

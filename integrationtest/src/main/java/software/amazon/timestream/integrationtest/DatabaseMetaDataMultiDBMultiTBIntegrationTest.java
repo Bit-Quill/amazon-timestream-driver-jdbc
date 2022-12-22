@@ -38,6 +38,7 @@ import java.util.Properties;
 
 /**
  * Integration tests for supported getters in {@link TimestreamDatabaseMetaData}
+ * Test case: Multiples databases with multiple tables
  */
 class DatabaseMetaDataMultiDBMultiTBIntegrationTest {
   private DatabaseMetaData metaData;
