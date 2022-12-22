@@ -33,23 +33,23 @@ import java.sql.SQLException;
  */
 class DatabaseMetaDataOneDBNoTBIntegrationTest {
   private final DatabaseMetaDataTest dbTest = new DatabaseMetaDataTest(Constants.ONE_DB_NO_TB_REGION,
-      Constants.ONE_DB_NO_TB_DATABASE_NAME,
-      Constants.ONE_DB_NO_TB_TABLE_NAMES);
+    Constants.ONE_DB_NO_TB_DATABASE_NAME,
+    Constants.ONE_DB_NO_TB_TABLE_NAMES);
 
   @BeforeAll
   private static void setUp() {
     DatabaseMetaDataTest.setUp(
-        Constants.ONE_DB_NO_TB_REGION,
-        Constants.ONE_DB_NO_TB_DATABASE_NAME,
-        Constants.ONE_DB_NO_TB_TABLE_NAMES);
+      Constants.ONE_DB_NO_TB_REGION,
+      Constants.ONE_DB_NO_TB_DATABASE_NAME,
+      Constants.ONE_DB_NO_TB_TABLE_NAMES);
   }
 
   @AfterAll
   private static void cleanUp() {
     DatabaseMetaDataTest.cleanUp(
-        Constants.ONE_DB_NO_TB_REGION,
-        Constants.ONE_DB_NO_TB_DATABASE_NAME,
-        Constants.ONE_DB_NO_TB_TABLE_NAMES);
+      Constants.ONE_DB_NO_TB_REGION,
+      Constants.ONE_DB_NO_TB_DATABASE_NAME,
+      Constants.ONE_DB_NO_TB_TABLE_NAMES);
   }
 
   @BeforeEach

@@ -34,23 +34,23 @@ import java.sql.SQLException;
  */
 class DatabaseMetaDataOneDBOneTBIntegrationTest {
   private final DatabaseMetaDataTest dbTest = new DatabaseMetaDataTest(Constants.ONE_DB_ONE_TB_REGION,
-      Constants.ONE_DB_ONE_TB_DATABASE_NAME,
-      Constants.ONE_DB_ONE_TB_TABLE_NAME);
+    Constants.ONE_DB_ONE_TB_DATABASE_NAME,
+    Constants.ONE_DB_ONE_TB_TABLE_NAME);
 
   @BeforeAll
   private static void setUp() {
     DatabaseMetaDataTest.setUp(
-        Constants.ONE_DB_ONE_TB_REGION,
-        Constants.ONE_DB_ONE_TB_DATABASE_NAME,
-        Constants.ONE_DB_ONE_TB_TABLE_NAME);
+      Constants.ONE_DB_ONE_TB_REGION,
+      Constants.ONE_DB_ONE_TB_DATABASE_NAME,
+      Constants.ONE_DB_ONE_TB_TABLE_NAME);
   }
 
   @AfterAll
   private static void cleanUp() {
     DatabaseMetaDataTest.cleanUp(
-        Constants.ONE_DB_ONE_TB_REGION,
-        Constants.ONE_DB_ONE_TB_DATABASE_NAME,
-        Constants.ONE_DB_ONE_TB_TABLE_NAME);
+      Constants.ONE_DB_ONE_TB_REGION,
+      Constants.ONE_DB_ONE_TB_DATABASE_NAME,
+      Constants.ONE_DB_ONE_TB_TABLE_NAME);
   }
 
   @BeforeEach
@@ -119,9 +119,9 @@ class DatabaseMetaDataOneDBOneTBIntegrationTest {
    */
   @ParameterizedTest
   @CsvSource(value = {
-      "%Test%le08%, %0_88, 0",
-      "In_egratio_TestTable_888, %!_.Integration%' escape '!, 0",
-      "%8, JDBC%_ntegrationTestD_00_8, 0",
+    "%Test%le08%, %0_88, 0",
+    "In_egratio_TestTable_888, %!_.Integration%' escape '!, 0",
+    "%8, JDBC%_ntegrationTestD_00_8, 0",
   })
   @DisplayName("Test retrieving IntegrationTestTable0888 from JDBC_.IntegrationTestDB0088.")
   void testTablesWithPatternFromDBWithPattern(final String tablePattern, final String schemaPattern, final int index) throws SQLException {
@@ -137,9 +137,9 @@ class DatabaseMetaDataOneDBOneTBIntegrationTest {
    */
   @ParameterizedTest
   @CsvSource(value = {
-      "%Test%le08%, 0",
-      "In_egratio_TestTable_888, 0",
-      "%8, 0",
+    "%Test%le08%, 0",
+    "In_egratio_TestTable_888, 0",
+    "%8, 0",
   })
   @DisplayName("Test retrieving IntegrationTestTable0888 from JDBC_.IntegrationTestDB0088.")
   void testTablesWithPattern(final String tablePattern, final int index) throws SQLException {
