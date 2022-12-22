@@ -34,23 +34,23 @@ import java.sql.SQLException;
 class DatabaseMetaDataOneDBOneTBIntegrationTest {
 
   private final DatabaseMetaDataTest dbTest = new DatabaseMetaDataTest(Constants.ONE_DB_ONE_TB_REGION,
-                                       Constants.ONE_DB_ONE_TB_DATABASE_NAMES,
-                                       Constants.ONE_DB_ONE_TB_TABLE_NAMES);
+                                       Constants.ONE_DB_ONE_TB_DATABASE_NAME,
+                                       Constants.ONE_DB_ONE_TB_TABLE_NAME);
 
   @BeforeAll
   private static void setUp() {
     DatabaseMetaDataTest.setUp(
             Constants.ONE_DB_ONE_TB_REGION,
-            Constants.ONE_DB_ONE_TB_DATABASE_NAMES,
-            Constants.ONE_DB_ONE_TB_TABLE_NAMES);
+            Constants.ONE_DB_ONE_TB_DATABASE_NAME,
+            Constants.ONE_DB_ONE_TB_TABLE_NAME);
   }
 
   @AfterAll
   private static void cleanUp() {
     DatabaseMetaDataTest.cleanUp(
             Constants.ONE_DB_ONE_TB_REGION,
-            Constants.ONE_DB_ONE_TB_DATABASE_NAMES,
-            Constants.ONE_DB_ONE_TB_TABLE_NAMES);
+            Constants.ONE_DB_ONE_TB_DATABASE_NAME,
+            Constants.ONE_DB_ONE_TB_TABLE_NAME);
   }
 
   @BeforeEach
@@ -84,36 +84,30 @@ class DatabaseMetaDataOneDBOneTBIntegrationTest {
   }
 
   /**
-   * Test getSchemas returns database "JDBC_Inte.gration_Te.st_DB_01" when given matching patterns.
+   * Test getSchemas returns database "JDBC_.IntegrationTestDB0088" when given matching patterns.
    * @param schemaPattern the schema pattern to be tested
    * @throws SQLException the exception thrown
    */
   @ParameterizedTest
-  @ValueSource(strings = {"%_01", "%_Inte.gration%", "%Te/.st_DB"})
-  @DisplayName("Test retrieving database name JDBC_Inte.gration_Te.st_DB_01 with pattern.")
+  @ValueSource(strings = {"%0_88", "%!_.Integration%' escape '!", "JDBC%_ntegrationTestD_00_8"})
+  @DisplayName("Test retrieving database name JDBC_.IntegrationTestDB0088 with pattern.")
   void testGetSchemasWithSchemaPattern(String schemaPattern) throws SQLException {
     dbTest.testGetSchemasWithSchemaPattern(schemaPattern);
   }
 
   /**
-   * Test getTables returns tables from JDBC_Inte.gration_Te.st_DB_01 when given matching patterns.
+   * Test getTables returns tables from IntegrationTestTable0888 when given matching patterns.
    * @param tablePattern the table pattern to be tested
    * @param index index of table name in Constants.ONE_DB_MUTLI_TB_TABLE_NAMES
    * @throws SQLException the exception thrown
    */
   @ParameterizedTest
   @CsvSource(value = {
-          "%g/.ration_Test%, 0",
-          "_nteg/.rat_%, 0",
-          "%_Te_st_T_able_0_, 0",
-          "%tion_Test%, 1",
-          "_ntegr/.at_%, 1",
-          "%_Test_Ta_ble_02, 1",
-          "%tion_Tes_t%, 2",
-          "_nte/.grat_%, 2",
-          "%_Tes_t_Tab_le_, 2"
+          "%Test%le08%, 0",
+          "In_egratio_TestTable_888, 0",
+          "%8, 0",
   })
-  @DisplayName("Test retrieving Integ.ration_Te_st_T_able_01, Integr.ation_Test_Ta_ble_02, Inte.gration_Tes_t_Tab_le_03 from JDBC_Inte.gration_Te.st_DB_01.")
+  @DisplayName("Test retrieving IntegrationTestTable0888 from JDBC_.IntegrationTestDB0088.")
   void testTablesWithPattern(final String tablePattern, final int index) throws SQLException {
     dbTest.testTablesWithPattern(tablePattern, index);
   }

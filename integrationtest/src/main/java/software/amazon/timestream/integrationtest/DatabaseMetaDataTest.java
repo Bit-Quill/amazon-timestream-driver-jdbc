@@ -96,12 +96,13 @@ class DatabaseMetaDataTest {
   }
 
   /**
-   * Test getSchemas returns database "JDBC_Inte.gration_Te.st_DB_01" when given matching patterns.
+   * Test getSchemas returns databases when given matching patterns.
    *
    * @param schemaPattern the schema pattern to be tested
    * @throws SQLException the exception thrown
    */
   public void testGetSchemasWithSchemaPattern(final String schemaPattern) throws SQLException {
+    int schemasSize = 0;
     try (ResultSet schemas = metaData.getSchemas(null, schemaPattern)) {
       while (schemas.next()) {
         final String schema = schemas.getString("TABLE_SCHEM");
@@ -110,9 +111,11 @@ class DatabaseMetaDataTest {
             .filter(x -> x.equals(schema))
             .findFirst()
             .orElse(null);
-
         Assertions.assertNotNull(match);
+        schemasSize++;
       }
+      // Check the number of databases found match the actual number of databases
+      Assertions.assertEquals(databases.length, schemasSize);
     }
   }
 
