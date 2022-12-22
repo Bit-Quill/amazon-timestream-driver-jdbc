@@ -105,7 +105,7 @@ class DatabaseMetaDataOneDBNoTBIntegrationTest {
    */
   @Test
   @DisplayName("Test getTables returns no tables from empty database \"EmptyDb_1_2.34\"")
-  void testTablesWithPattern() throws SQLException {
+  void testTables() throws SQLException {
     dbTest.testTables();
   }
 }
