@@ -80,8 +80,8 @@ class TableManager {
    * @param databases Databases to be created
    */
   static void createDatabases(String[] databases) {
-    for (int i = 1; i < databases.length; i++) {
-      createDatabase(databases[i]);
+    for (String database : databases) {
+      createDatabase(database);
     }
   }
 
@@ -93,8 +93,8 @@ class TableManager {
    * @param database Database to contain the tables
    */
   static void createTables(String[] tables, String database) {
-    for (int i = 1; i < tables.length; i++) {
-      createTable(tables[i], database);
+    for (String table : tables) {
+      createTable(table, database);
     }
   }
 
@@ -172,8 +172,8 @@ class TableManager {
    * @param databases Databases to be deleted
    */
   static void deleteDatabases(String[] databases) {
-    for (int i = 1; i < databases.length; i++) {
-      deleteDatabase(databases[i]);
+    for (String database : databases) {
+      deleteDatabase(database);
     }
   }
 
@@ -201,8 +201,8 @@ class TableManager {
    * @param database Database to delete the tables from
    */
   static void deleteTables(String[] tables, String database) {
-    for (int i = 1; i < tables.length; i++) {
-      deleteTable(tables[i], database);
+    for (String table : tables) {
+      deleteTable(table, database);
     }
   }
 
