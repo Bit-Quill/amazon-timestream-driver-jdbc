@@ -132,8 +132,33 @@ class DatabaseMetaDataMultiDBMultiTBIntegrationTest {
     }
   }
 
+  /**
+   * Test getTables returns tables from JDBC_Inte.gration_Te.st_DB_01 when given matching patterns.
+   * @param tablePattern the table pattern to be tested
+   * @param schemaPattern the database pattern to be tested
+   * @param index index of table name in Constants.MULTI_DB_MUTLI_TB_TABLE_NAMES1
+   * @throws SQLException the exception thrown
+   */
+  @ParameterizedTest
+  @CsvSource(value = {
+      "%_Table_01_01, %ion!_T%' escape '!, 0",
+      "%-gration_Tes1t%, JD_BC_Int.%, 0",
+      "_nte-gration_Tes1t_Table_0__01, %DB_001, 0",
+      "%_Table_01_02%, %ion!_T%' escape '!, 1",
+      "%-gration2_Te-st%, JD_BC_Int.%, 1",
+      "_nte-gration2_Te-st_Table_0__02, %DB_001, 1",
+      "%_3Ta-ble_01_03%, %ion!_T%' escape '!, 2",
+      "%-gration_Test%, JD_BC_Int.%, 2",
+      "_nte-gration_Test_3Ta-ble_0__03, %DB_001, 2"
+  })
+  @DisplayName("Test retrieving Inte-gration_Tes1t_Table_01_01, Inte-gration2_Te-st_Table_01_02, Inte-gration_Test_3Ta-ble_01_03 from JD_BC_Int.egration_Test_DB_001.")
+  void testTablesWithPatternFromDB1WithPattern(final String tablePattern, final String schemaPattern, final int index) throws SQLException {
+    try (ResultSet tableResultSet = metaData.getTables(null, schemaPattern, tablePattern, null)) {
+      Assertions.assertTrue(tableResultSet.next());
+      Assertions.assertEquals(Constants.MULTI_DB_MUTLI_TB_TABLE_NAMES1[index], tableResultSet.getObject("TABLE_NAME"));
+    }
+  }
 
-  //-AL- todo test that checks database pattern AND table pattern at the same time?
   /**
    * Test getTables returns tables from JDBC_Inte.gration_Te.st_DB_01 when given matching patterns.
    * @param tablePattern the table pattern to be tested
@@ -159,4 +184,6 @@ class DatabaseMetaDataMultiDBMultiTBIntegrationTest {
      Assertions.assertEquals(Constants.MULTI_DB_MUTLI_TB_TABLE_NAMES1[index], tableResultSet.getObject("TABLE_NAME"));
    }
   }
+
+  //TODO add more test cases for DB2, DB3
 }
