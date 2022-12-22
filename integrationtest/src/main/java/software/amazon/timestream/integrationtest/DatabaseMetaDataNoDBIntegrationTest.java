@@ -31,23 +31,23 @@ import java.sql.SQLException;
  */
 class DatabaseMetaDataNoDBIntegrationTest {
   private final DatabaseMetaDataTest dbTest = new DatabaseMetaDataTest(Constants.NO_DB_NO_TB_REGION,
-          Constants.NO_DB_DATABASE_NAMES,
-          Constants.NO_TB_TABLE_NAMES);
+      Constants.NO_DB_DATABASE_NAMES,
+      Constants.NO_TB_TABLE_NAMES);
 
   @BeforeAll
   private static void setUp() {
     DatabaseMetaDataTest.setUp(
-            Constants.NO_DB_NO_TB_REGION,
-            Constants.NO_DB_DATABASE_NAMES,
-            Constants.NO_TB_TABLE_NAMES);
+        Constants.NO_DB_NO_TB_REGION,
+        Constants.NO_DB_DATABASE_NAMES,
+        Constants.NO_TB_TABLE_NAMES);
   }
 
   @AfterAll
   private static void cleanUp() {
     DatabaseMetaDataTest.cleanUp(
-            Constants.NO_DB_NO_TB_REGION,
-            Constants.NO_DB_DATABASE_NAMES,
-            Constants.NO_TB_TABLE_NAMES);
+        Constants.NO_DB_NO_TB_REGION,
+        Constants.NO_DB_DATABASE_NAMES,
+        Constants.NO_TB_TABLE_NAMES);
   }
 
   @BeforeEach
@@ -62,6 +62,7 @@ class DatabaseMetaDataNoDBIntegrationTest {
 
   /**
    * Test getCatalogs returns empty ResultSet.
+   *
    * @throws SQLException the exception thrown
    */
   @Test
@@ -72,6 +73,7 @@ class DatabaseMetaDataNoDBIntegrationTest {
 
   /**
    * Test getSchemas returns empty ResultSet.
+   *
    * @throws SQLException the exception thrown
    */
   @Test
@@ -82,6 +84,7 @@ class DatabaseMetaDataNoDBIntegrationTest {
 
   /**
    * Test getTables returns no table.
+   *
    * @throws SQLException the exception thrown
    */
   @Test

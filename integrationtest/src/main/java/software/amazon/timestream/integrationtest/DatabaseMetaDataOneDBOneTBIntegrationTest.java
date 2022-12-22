@@ -33,23 +33,23 @@ import java.sql.SQLException;
  */
 class DatabaseMetaDataOneDBOneTBIntegrationTest {
   private final DatabaseMetaDataTest dbTest = new DatabaseMetaDataTest(Constants.ONE_DB_ONE_TB_REGION,
-                                       Constants.ONE_DB_ONE_TB_DATABASE_NAME,
-                                       Constants.ONE_DB_ONE_TB_TABLE_NAME);
+      Constants.ONE_DB_ONE_TB_DATABASE_NAME,
+      Constants.ONE_DB_ONE_TB_TABLE_NAME);
 
   @BeforeAll
   private static void setUp() {
     DatabaseMetaDataTest.setUp(
-            Constants.ONE_DB_ONE_TB_REGION,
-            Constants.ONE_DB_ONE_TB_DATABASE_NAME,
-            Constants.ONE_DB_ONE_TB_TABLE_NAME);
+        Constants.ONE_DB_ONE_TB_REGION,
+        Constants.ONE_DB_ONE_TB_DATABASE_NAME,
+        Constants.ONE_DB_ONE_TB_TABLE_NAME);
   }
 
   @AfterAll
   private static void cleanUp() {
     DatabaseMetaDataTest.cleanUp(
-            Constants.ONE_DB_ONE_TB_REGION,
-            Constants.ONE_DB_ONE_TB_DATABASE_NAME,
-            Constants.ONE_DB_ONE_TB_TABLE_NAME);
+        Constants.ONE_DB_ONE_TB_REGION,
+        Constants.ONE_DB_ONE_TB_DATABASE_NAME,
+        Constants.ONE_DB_ONE_TB_TABLE_NAME);
   }
 
   @BeforeEach
@@ -64,6 +64,7 @@ class DatabaseMetaDataOneDBOneTBIntegrationTest {
 
   /**
    * Test getCatalogs returns empty ResultSet.
+   *
    * @throws SQLException the exception thrown
    */
   @Test
@@ -74,6 +75,7 @@ class DatabaseMetaDataOneDBOneTBIntegrationTest {
 
   /**
    * Test getSchemas returns the database.
+   *
    * @throws SQLException the exception thrown
    */
   @Test
@@ -84,6 +86,7 @@ class DatabaseMetaDataOneDBOneTBIntegrationTest {
 
   /**
    * Test getSchemas returns database "JDBC_.IntegrationTestDB0088" when given matching patterns.
+   *
    * @param schemaPattern the schema pattern to be tested
    * @throws SQLException the exception thrown
    */
@@ -96,6 +99,7 @@ class DatabaseMetaDataOneDBOneTBIntegrationTest {
 
   /**
    * Test getTables returns the table from database "JDBC_.IntegrationTestDB0088".
+   *
    * @throws SQLException the exception thrown
    */
   @Test
@@ -106,9 +110,10 @@ class DatabaseMetaDataOneDBOneTBIntegrationTest {
 
   /**
    * Test getTables returns tables from IntegrationTestTable0888 when given matching patterns.
-   * @param tablePattern the table pattern to be tested
+   *
+   * @param tablePattern  the table pattern to be tested
    * @param schemaPattern the database pattern to be tested
-   * @param index index of table name in Constants.ONE_DB_ONE_TB_TABLE_NAMES
+   * @param index         index of table name in Constants.ONE_DB_ONE_TB_TABLE_NAMES
    * @throws SQLException the exception thrown
    */
   @ParameterizedTest
@@ -124,15 +129,16 @@ class DatabaseMetaDataOneDBOneTBIntegrationTest {
 
   /**
    * Test getTables returns tables from IntegrationTestTable0888 when given matching patterns.
+   *
    * @param tablePattern the table pattern to be tested
-   * @param index index of table name in Constants.ONE_DB_ONE_TB_TABLE_NAMES
+   * @param index        index of table name in Constants.ONE_DB_ONE_TB_TABLE_NAMES
    * @throws SQLException the exception thrown
    */
   @ParameterizedTest
   @CsvSource(value = {
-          "%Test%le08%, 0",
-          "In_egratio_TestTable_888, 0",
-          "%8, 0",
+      "%Test%le08%, 0",
+      "In_egratio_TestTable_888, 0",
+      "%8, 0",
   })
   @DisplayName("Test retrieving IntegrationTestTable0888 from JDBC_.IntegrationTestDB0088.")
   void testTablesWithPattern(final String tablePattern, final int index) throws SQLException {

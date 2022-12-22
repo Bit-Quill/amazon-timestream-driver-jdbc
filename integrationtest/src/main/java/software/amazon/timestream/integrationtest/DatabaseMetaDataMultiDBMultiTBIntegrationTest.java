@@ -73,6 +73,7 @@ class DatabaseMetaDataMultiDBMultiTBIntegrationTest {
 
   /**
    * Test getCatalogs returns empty ResultSet.
+   *
    * @throws SQLException the exception thrown
    */
   @Test
@@ -89,6 +90,7 @@ class DatabaseMetaDataMultiDBMultiTBIntegrationTest {
 
   /**
    * Test getSchemas returns the databases.
+   *
    * @throws SQLException the exception thrown
    */
   @Test
@@ -106,8 +108,9 @@ class DatabaseMetaDataMultiDBMultiTBIntegrationTest {
 
   /**
    * Test getSchemas returns databases when given matching patterns.
+   *
    * @param schemaPattern the schema pattern to be tested
-   * @param index index of database name in Constants.MULTI_DB_MUTLI_TB_DATABASES_NAMES
+   * @param index         index of database name in Constants.MULTI_DB_MUTLI_TB_DATABASES_NAMES
    * @throws SQLException the exception thrown
    */
   @ParameterizedTest
@@ -132,9 +135,10 @@ class DatabaseMetaDataMultiDBMultiTBIntegrationTest {
 
   /**
    * Test getTables returns tables from JDBC_Inte.gration_Te.st_DB_01 when given matching patterns.
-   * @param tablePattern the table pattern to be tested
+   *
+   * @param tablePattern  the table pattern to be tested
    * @param schemaPattern the database pattern to be tested
-   * @param index index of table name in Constants.MULTI_DB_MUTLI_TB_TABLE_NAMES1
+   * @param index         index of table name in Constants.MULTI_DB_MUTLI_TB_TABLE_NAMES1
    * @throws SQLException the exception thrown
    */
   @ParameterizedTest
@@ -159,8 +163,9 @@ class DatabaseMetaDataMultiDBMultiTBIntegrationTest {
 
   /**
    * Test getTables returns tables from JDBC_Inte.gration_Te.st_DB_01 when given matching patterns.
+   *
    * @param tablePattern the table pattern to be tested
-   * @param index index of table name in Constants.MULTI_DB_MUTLI_TB_TABLE_NAMES1
+   * @param index        index of table name in Constants.MULTI_DB_MUTLI_TB_TABLE_NAMES1
    * @throws SQLException the exception thrown
    */
   @ParameterizedTest
@@ -177,17 +182,18 @@ class DatabaseMetaDataMultiDBMultiTBIntegrationTest {
   })
   @DisplayName("Test retrieving Inte-gration_Tes1t_Table_01_01, Inte-gration2_Te-st_Table_01_02, Inte-gration_Test_3Ta-ble_01_03 from JD_BC_Int.egration_Test_DB_001.")
   void testTablesWithPatternFromDB1(final String tablePattern, final int index) throws SQLException {
-   try (ResultSet tableResultSet = metaData.getTables(null, Constants.MULTI_DB_MUTLI_TB_DATABASES_NAMES[0], tablePattern, null)) {
-     Assertions.assertTrue(tableResultSet.next());
-     Assertions.assertEquals(Constants.MULTI_DB_MUTLI_TB_TABLE_NAMES1[index], tableResultSet.getObject("TABLE_NAME"));
-   }
+    try (ResultSet tableResultSet = metaData.getTables(null, Constants.MULTI_DB_MUTLI_TB_DATABASES_NAMES[0], tablePattern, null)) {
+      Assertions.assertTrue(tableResultSet.next());
+      Assertions.assertEquals(Constants.MULTI_DB_MUTLI_TB_TABLE_NAMES1[index], tableResultSet.getObject("TABLE_NAME"));
+    }
   }
 
   /**
    * Test getTables returns tables from Integr.ation_Test_Ta_ble_02 when given matching patterns.
-   * @param tablePattern the table pattern to be tested
+   *
+   * @param tablePattern  the table pattern to be tested
    * @param schemaPattern the database pattern to be tested
-   * @param index index of table name in Constants.MULTI_DB_MUTLI_TB_TABLE_NAMES2
+   * @param index         index of table name in Constants.MULTI_DB_MUTLI_TB_TABLE_NAMES2
    * @throws SQLException the exception thrown
    */
   @ParameterizedTest
@@ -209,8 +215,9 @@ class DatabaseMetaDataMultiDBMultiTBIntegrationTest {
 
   /**
    * Test getTables returns tables from Integr.ation_Test_Ta_ble_02 when given matching patterns.
+   *
    * @param tablePattern the table pattern to be tested
-   * @param index index of table name in Constants.MULTI_DB_MUTLI_TB_TABLE_NAMES2
+   * @param index        index of table name in Constants.MULTI_DB_MUTLI_TB_TABLE_NAMES2
    * @throws SQLException the exception thrown
    */
   @ParameterizedTest
@@ -232,9 +239,10 @@ class DatabaseMetaDataMultiDBMultiTBIntegrationTest {
 
   /**
    * Test getTables returns tables from JD-BC_Integration.Test_DB_003 when given matching patterns.
-   * @param tablePattern the table pattern to be tested
+   *
+   * @param tablePattern  the table pattern to be tested
    * @param schemaPattern the database pattern to be tested
-   * @param index index of table name in Constants.MULTI_DB_MUTLI_TB_TABLE_NAMES2
+   * @param index         index of table name in Constants.MULTI_DB_MUTLI_TB_TABLE_NAMES2
    * @throws SQLException the exception thrown
    */
   @ParameterizedTest
@@ -262,8 +270,9 @@ class DatabaseMetaDataMultiDBMultiTBIntegrationTest {
 
   /**
    * Test getTables returns tables from JD-BC_Integration.Test_DB_003 when given matching patterns.
+   *
    * @param tablePattern the table pattern to be tested
-   * @param index index of table name in Constants.MULTI_DB_MUTLI_TB_TABLE_NAMES2
+   * @param index        index of table name in Constants.MULTI_DB_MUTLI_TB_TABLE_NAMES2
    * @throws SQLException the exception thrown
    */
   @ParameterizedTest

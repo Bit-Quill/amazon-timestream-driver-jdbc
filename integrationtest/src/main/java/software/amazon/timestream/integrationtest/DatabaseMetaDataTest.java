@@ -44,6 +44,7 @@ class DatabaseMetaDataTest {
     databases = ds;
     tables = ts;
   }
+
   static void setUp(String r, String[] ds, String[] ts) {
     TableManager.setRegion(r);
     TableManager.createDatabases(ds);
@@ -55,6 +56,7 @@ class DatabaseMetaDataTest {
     TableManager.deleteTables(ts, ds);
     TableManager.deleteDatabases(ds);
   }
+
   void init() throws SQLException {
     final Properties p = new Properties();
     p.setProperty("Region", region);
@@ -68,6 +70,7 @@ class DatabaseMetaDataTest {
 
   /**
    * Test getCatalogs returns empty ResultSet.
+   *
    * @throws SQLException the exception thrown
    */
   void testCatalogs() throws SQLException {
@@ -82,6 +85,7 @@ class DatabaseMetaDataTest {
 
   /**
    * Test getSchemas returns the database.
+   *
    * @throws SQLException the exception thrown
    */
   public void testSchemas() throws SQLException {
@@ -121,6 +125,7 @@ class DatabaseMetaDataTest {
 
   /**
    * Retrieve all tables from database
+   *
    * @param schemaPattern database pattern
    * @throws SQLException the exception thrown
    */
@@ -137,6 +142,7 @@ class DatabaseMetaDataTest {
 
   /**
    * Test getTables returns the tables from the database.
+   *
    * @throws SQLException the exception thrown
    */
   public void testTables() throws SQLException {
@@ -150,8 +156,9 @@ class DatabaseMetaDataTest {
 
   /**
    * Test getTables returns tables from database when given matching patterns.
+   *
    * @param tablePattern the table pattern to be tested
-   * @param index index of table name in the database
+   * @param index        index of table name in the database
    * @throws SQLException the exception thrown
    */
   public void testTablesWithPattern(final String tablePattern, final int index) throws SQLException {
@@ -165,9 +172,10 @@ class DatabaseMetaDataTest {
 
   /**
    * Test getTables returns tables from database when given matching patterns.
-   * @param tablePattern the table pattern to be tested
+   *
+   * @param tablePattern  the table pattern to be tested
    * @param schemaPattern the database pattern to be tested
-   * @param index index of table name in the database
+   * @param index         index of table name in the database
    * @throws SQLException the exception thrown
    */
   public void testTablesWithPatternFromDBWithPattern(final String tablePattern, final String schemaPattern, final int index) throws SQLException {
