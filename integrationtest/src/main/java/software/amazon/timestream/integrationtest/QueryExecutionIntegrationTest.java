@@ -40,6 +40,7 @@ class QueryExecutionIntegrationTest {
 
   @BeforeAll
   private static void setUp() {
+    TableManager.createDatabase(Constants.DATABASE_NAME);
     TableManager.createTable(Constants.TABLE_NAME, Constants.DATABASE_NAME);
     TableManager.writeRecords();
   }
@@ -47,6 +48,7 @@ class QueryExecutionIntegrationTest {
   @AfterAll
   private static void cleanUp() {
     TableManager.deleteTable(Constants.TABLE_NAME, Constants.DATABASE_NAME);
+    TableManager.deleteDatabase(Constants.DATABASE_NAME);
   }
 
   @BeforeEach
