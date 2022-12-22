@@ -92,7 +92,7 @@ class DatabaseMetaDataTest {
         schemasList.add(schemas.getString("TABLE_SCHEM"));
       }
     }
-    Assertions.assertEquals(schemasList, databaseList);
+    Assertions.assertEquals(databaseList, schemasList);
   }
 
   /**
@@ -132,7 +132,7 @@ class DatabaseMetaDataTest {
           returnTableList.add(tables.getString("TABLE_NAME"));
         }
       }
-      Assertions.assertEquals(returnTableList, tableList);
+      Assertions.assertEquals(tableList, returnTableList);
     }
   }
 
