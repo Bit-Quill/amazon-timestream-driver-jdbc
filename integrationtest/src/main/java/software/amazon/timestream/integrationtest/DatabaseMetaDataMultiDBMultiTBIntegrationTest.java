@@ -116,14 +116,11 @@ class DatabaseMetaDataMultiDBMultiTBIntegrationTest {
    */
   @ParameterizedTest
   @CsvSource(value = {
-    "JD_BC_Int.%, 0",
     "%ion!_T%' escape '!, 0",
     "%DB_001, 0",
     "JDB.C%, 1",
-    "%ion-T%, 1",
     "%DB_002, 1",
     "JD-BC%, 2",
-    "%ion.T%, 2",
     "%DB!_003' escape '!, 2",
   })
   @DisplayName("Test retrieving database name JD_BC_Int.egration_Test_DB_001, JDB.C_Integration-Test_DB_002, JD-BC_Integration.Test_DB_003 with pattern.")
@@ -145,13 +142,7 @@ class DatabaseMetaDataMultiDBMultiTBIntegrationTest {
   @ParameterizedTest
   @CsvSource(value = {
     "%_Table_01_01, %ion!_T%' escape '!, 0",
-    "%-gration_Tes1t%, JD_BC_Int.%, 0",
-    "_nte-gration_Tes1t_Table_0__01, %DB_001, 0",
-    "%_Table_01_02%, %ion!_T%' escape '!, 1",
     "%-gration2_Te-st%, JD_BC_Int.%, 1",
-    "_nte-gration2_Te-st_Table_0__02, %DB_001, 1",
-    "%_3Ta-ble_01_03%, %ion!_T%' escape '!, 2",
-    "%-gration_Test%, JD_BC_Int.%, 2",
     "_nte-gration_Test_3Ta-ble_0__03, %DB_001, 2"
   })
   @DisplayName("Test retrieving Inte-gration_Tes1t_Table_01_01, Inte-gration2_Te-st_Table_01_02, Inte-gration_Test_3Ta-ble_01_03 from JD_BC_Int.egration_Test_DB_001.")
@@ -171,15 +162,9 @@ class DatabaseMetaDataMultiDBMultiTBIntegrationTest {
    */
   @ParameterizedTest
   @CsvSource(value = {
-    "%_Table_01_01, 0",
-    "%-gration_Tes1t%, 0",
     "_nte-gration_Tes1t_Table_0__01, 0",
     "%_Table_01_02%, 1",
-    "%-gration2_Te-st%, 1",
-    "_nte-gration2_Te-st_Table_0__02, 1",
-    "%_3Ta-ble_01_03%, 2",
-    "%-gration_Test%, 2",
-    "_nte-gration_Test_3Ta-ble_0__03, 2"
+    "%-gration_Test%, 2"
   })
   @DisplayName("Test retrieving Inte-gration_Tes1t_Table_01_01, Inte-gration2_Te-st_Table_01_02, Inte-gration_Test_3Ta-ble_01_03 from JD_BC_Int.egration_Test_DB_001.")
   void testTablesWithPatternFromDB1(final String tablePattern, final int index) throws SQLException {
@@ -199,12 +184,8 @@ class DatabaseMetaDataMultiDBMultiTBIntegrationTest {
    */
   @ParameterizedTest
   @CsvSource(value = {
-    "%-Test%, JDB.C%, 0",
     "%!_02!_01' escape '!, %DB_002,  0",
-    "_ntegration_Test_Ta1ble_0__01, %ion-T%, 0",
-    "%_Table_02_02, JDB.C%,1",
-    "%gration.-Te-st%, %ion-T%, 1",
-    "%-Te-st!_%' escape '!, %DB_002, 1"
+    "%gration.-Te-st%, %ion-T%, 1"
   })
   @DisplayName("Test retrieving Integration-Test_Ta1ble_02_01, Integration.-Te-st_Table_02_02 from Integr.ation_Test_Ta_ble_02.")
   void testTablesWithPatternFromDB2WithPattern(final String tablePattern, final String schemaPattern, final int index) throws SQLException {
@@ -223,12 +204,8 @@ class DatabaseMetaDataMultiDBMultiTBIntegrationTest {
    */
   @ParameterizedTest
   @CsvSource(value = {
-    "%-Test%, 0",
     "%!_02!_01' escape '!, 0",
-    "_ntegration_Test_Ta1ble_0__01, 0",
-    "%_Table_02_02, 1",
-    "%gration.-Te-st%, 1",
-    "%-Te-st!_%' escape '!, 1"
+    "%_Table_02_02, 1"
   })
   @DisplayName("Test retrieving Integration-Test_Ta1ble_02_01, Integration.-Te-st_Table_02_02 from Integr.ation_Test_Ta_ble_02.")
   void testTablesWithPatternFromDB2(final String tablePattern, final int index) throws SQLException {
@@ -248,17 +225,9 @@ class DatabaseMetaDataMultiDBMultiTBIntegrationTest {
    */
   @ParameterizedTest
   @CsvSource(value = {
-    "%-BC_Integration-Test_Ta1%, JD-BC%, 0",
-    "%!_03!_01' escape '!, %ion.T%, 0",
     "JD-BC__ntegration-Test_Ta1ble_0__01, %DB!_003' escape '!, 0",
     "%.-Te-st_T%, %ion.T%, 1",
-    "%03_02, JD-BC%, 1",
-    "JD-BC!_Integration.-Te-%' escape '!, %DB!_003' escape '!, 1",
-    "%--Test%, %ion.T%, 2",
     "%3_03, JD-BC%, 2",
-    "%t2!_T%' escape '!, %DB!_003' escape '!, 2",
-    "%0-Te-st%, JD-BC%, 3",
-    "%_3_04, %ion.T%, 3",
     "%a.ble%' escape '!, %DB!_003' escape '!, 3"
   })
   @DisplayName("Test retrieving JD-BC_Integration-Test_Ta1ble_03_01, JD-BC_Integration.-Te-st_Table_03_02, JD-BC_Integration--Test2_Table_03_03, JD-BC_Integration0-Te-st_Ta.ble_03_04 from JD-BC_Integration.Test_DB_003.")
@@ -279,16 +248,8 @@ class DatabaseMetaDataMultiDBMultiTBIntegrationTest {
   @ParameterizedTest
   @CsvSource(value = {
     "%-BC_Integration-Test_Ta1%, 0",
-    "%!_03!_01' escape '!, 0",
-    "JD-BC__ntegration-Test_Ta1ble_0__01, 0",
     "%.-Te-st_T%, 1",
-    "%03_02, 1",
-    "JD-BC!_Integration.-Te-%' escape '!, 1",
-    "%--Test%, 2",
-    "%3_03, 2",
     "%t2!_T%' escape '!, 2",
-    "%0-Te-st%, 3",
-    "%_3_04, 3",
     "%a.ble%' escape '!, 3"
   })
   @DisplayName("Test retrieving JD-BC_Integration-Test_Ta1ble_03_01, JD-BC_Integration.-Te-st_Table_03_02, JD-BC_Integration--Test2_Table_03_03, JD-BC_Integration0-Te-st_Ta.ble_03_04 from JD-BC_Integration.Test_DB_003.")
