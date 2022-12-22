@@ -15,23 +15,14 @@
 
 package software.amazon.timestream.integrationtest;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import com.amazonaws.services.timestreamwrite.model.Database;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import software.amazon.timestream.jdbc.TimestreamDatabaseMetaData;
 
-import java.sql.Connection;
-import java.sql.DatabaseMetaData;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -43,31 +34,34 @@ class DatabaseMetaDataOneDBMultiTBIntegrationTest {
   private DatabaseMetaData metaData;
   private Connection connection;
 
+  private DatabaseMetaDataTest dbTest = new DatabaseMetaDataTest(Constants.ONE_DB_MUTLI_TB_REGION,
+                                       Constants.ONE_DB_MUTLI_TB_DATABASES_NAME,
+                                       Constants.ONE_DB_MUTLI_TB_TABLE_NAMES);
+
   @BeforeAll
   private static void setUp() {
-    TableManager.setRegion(Constants.ONE_DB_MUTLI_TB_REGION);
-    TableManager.createDatabase(Constants.ONE_DB_MUTLI_TB_DATABASES_NAME);
-    TableManager.createTables(Constants.ONE_DB_MUTLI_TB_TABLE_NAMES, Constants.ONE_DB_MUTLI_TB_DATABASES_NAME);
+    DatabaseMetaDataTest.setUp(
+            Constants.ONE_DB_MUTLI_TB_REGION,
+            Constants.ONE_DB_MUTLI_TB_DATABASES_NAME,
+            Constants.ONE_DB_MUTLI_TB_TABLE_NAMES);
   }
 
   @AfterAll
   private static void cleanUp() {
-    TableManager.setRegion(Constants.ONE_DB_MUTLI_TB_REGION);
-    TableManager.deleteTables(Constants.ONE_DB_MUTLI_TB_TABLE_NAMES, Constants.ONE_DB_MUTLI_TB_DATABASES_NAME);
-    TableManager.deleteDatabase(Constants.ONE_DB_MUTLI_TB_DATABASES_NAME);
+    DatabaseMetaDataTest.cleanUp(
+            Constants.ONE_DB_MUTLI_TB_REGION,
+            Constants.ONE_DB_MUTLI_TB_DATABASES_NAME,
+            Constants.ONE_DB_MUTLI_TB_TABLE_NAMES);
   }
 
   @BeforeEach
   private void init() throws SQLException {
-    final Properties p = new Properties();
-    p.setProperty("Region", Constants.ONE_DB_MUTLI_TB_REGION);
-    connection = DriverManager.getConnection(Constants.URL, p);
-    metaData = connection.getMetaData();
+    dbTest.init();
   }
 
   @AfterEach
   private void terminate() throws SQLException {
-    connection.close();
+    dbTest.terminate();
   }
 
   /**
@@ -77,13 +71,7 @@ class DatabaseMetaDataOneDBMultiTBIntegrationTest {
   @Test
   @DisplayName("Test getCatalogs(). Empty result set should be returned")
   void testCatalogs() throws SQLException {
-    final List<String> catalogsList = new ArrayList<>();
-    try (ResultSet catalogs = metaData.getCatalogs()) {
-      while (catalogs.next()) {
-        catalogsList.add(catalogs.getString("TABLE_CAT"));
-      }
-    }
-    Assertions.assertTrue(catalogsList.isEmpty());
+    dbTest.testCatalogs();
   }
 
   /**
@@ -93,15 +81,7 @@ class DatabaseMetaDataOneDBMultiTBIntegrationTest {
   @Test
   @DisplayName("Test retrieving the database.")
   void testSchemas() throws SQLException {
-    final List<String> databaseList = new ArrayList<>();
-    databaseList.add(Constants.ONE_DB_MUTLI_TB_DATABASES_NAME);
-    final List<String> schemasList = new ArrayList<>();
-    try (ResultSet schemas = metaData.getSchemas()) {
-      while (schemas.next()) {
-        schemasList.add(schemas.getString("TABLE_SCHEM"));
-      }
-    }
-    Assertions.assertEquals(schemasList, databaseList);
+    dbTest.testSchemas();
   }
 
   /**
@@ -113,11 +93,7 @@ class DatabaseMetaDataOneDBMultiTBIntegrationTest {
   @ValueSource(strings = {"%_01", "%_Inte.gration%", "%Te/.st_DB"})
   @DisplayName("Test retrieving database name JDBC_Inte.gration_Te.st_DB_01 with pattern.")
   void testGetSchemasWithSchemaPattern(String schemaPattern) throws SQLException {
-    try (ResultSet schemas = metaData.getSchemas(null, schemaPattern)) {
-      while (schemas.next()) {
-        Assertions.assertEquals(Constants.ONE_DB_MUTLI_TB_DATABASES_NAME, schemas.getString("TABLE_SCHEM"));
-      }
-    }
+    dbTest.testGetSchemasWithSchemaPattern(schemaPattern);
   }
 
   /**
@@ -140,10 +116,6 @@ class DatabaseMetaDataOneDBMultiTBIntegrationTest {
   })
   @DisplayName("Test retrieving Integ.ration_Te_st_T_able_01, Integr.ation_Test_Ta_ble_02, Inte.gration_Tes_t_Tab_le_03 from JDBC_Inte.gration_Te.st_DB_01.")
   void testTablesWithPattern(final String tablePattern, final int index) throws SQLException {
-   try (ResultSet tableResultSet = metaData.getTables(null, Constants.ONE_DB_MUTLI_TB_DATABASES_NAME, tablePattern, null)) {
-     while (tableResultSet.next()) {
-       Assertions.assertEquals(Constants.ONE_DB_MUTLI_TB_TABLE_NAMES[index], tableResultSet.getObject("TABLE_NAME"));
-     }
-   }
+    dbTest.testTablesWithPattern(tablePattern, index);
   }
 }
