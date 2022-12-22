@@ -114,10 +114,10 @@ class DatabaseMetaDataMultiDBMultiTBIntegrationTest {
    */
   @ParameterizedTest
   @CsvSource(value = {
-      "JD_BC_Int/.%, 0",
-      "%ion/_T%, 0",
+      "JD_BC_Int.%, 0",
+      "%ion!_T%' escape '!, 0",
       "%DB_001, 0",
-      "JDB/.C%, 1",
+      "JDB.C%, 1",
       "%ion-T%, 1",
       "%DB_002, 1",
       "JD-BC%, 2",
@@ -127,12 +127,13 @@ class DatabaseMetaDataMultiDBMultiTBIntegrationTest {
   @DisplayName("Test retrieving database name JD_BC_Int.egration_Test_DB_001, JDB.C_Integration-Test_DB_002, JD-BC_Integration.Test_DB_003 with pattern.")
   void testGetSchemasWithSchemaPattern(String schemaPattern, int index) throws SQLException {
     try (ResultSet schemas = metaData.getSchemas(null, schemaPattern)) {
-      while (schemas.next()) {
-        Assertions.assertEquals(Constants.MULTI_DB_MUTLI_TB_DATABASES_NAMES[index], schemas.getString("TABLE_SCHEM"));
-      }
+      Assertions.assertTrue(schemas.next());
+      Assertions.assertEquals(Constants.MULTI_DB_MUTLI_TB_DATABASES_NAMES[index], schemas.getString("TABLE_SCHEM"));
     }
   }
 
+
+  //-AL- todo test that checks database pattern AND table pattern at the same time?
   /**
    * Test getTables returns tables from JDBC_Inte.gration_Te.st_DB_01 when given matching patterns.
    * @param tablePattern the table pattern to be tested
@@ -141,15 +142,15 @@ class DatabaseMetaDataMultiDBMultiTBIntegrationTest {
    */
   @ParameterizedTest
   @CsvSource(value = {
-      "%/_Table/_01/_01%, 0",
-      "%-gration/_Tes1t%, 0",
+      "%_Table_01_01, 0",
+      "%-gration_Tes1t%, 0",
       "_nte-gration_Tes1t_Table_0__01, 0",
-      "%/_Table/_01/_02%, 1",
-      "%-gration2/_Te-st%, 1",
-      "_nte-gration_Tes1t_Table_0__02, 1",
-/*      "%/_3Ta-ble/_01/_02%, 2",
-      "%-gration2/_Te-st%, 2",
-      "_nte-gration_Tes1t_Table_0__03, 2"*/
+      "%_Table_01_02%, 1",
+      "%-gration2_Te-st%, 1",
+      "_nte-gration2_Te-st_Table_0__02, 1",
+      "%_3Ta-ble_01_03%, 2",
+      "%-gration_Test%, 2",
+      "_nte-gration_Test_3Ta-ble_0__03, 2"
   })
   @DisplayName("Test retrieving Inte-gration_Tes1t_Table_01_01, Inte-gration2_Te-st_Table_01_02, Inte-gration_Test_3Ta-ble_01_03 from JD_BC_Int.egration_Test_DB_001.")
   void testTablesWithPatternFromDB1(final String tablePattern, final int index) throws SQLException {
