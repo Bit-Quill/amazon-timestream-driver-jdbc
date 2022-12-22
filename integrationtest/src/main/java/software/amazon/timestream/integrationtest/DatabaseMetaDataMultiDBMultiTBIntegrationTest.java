@@ -45,16 +45,19 @@ class DatabaseMetaDataMultiDBMultiTBIntegrationTest {
   private Connection connection;
 
   @BeforeAll
+  //-AL- todo set up the tables, after done, merge to integration fix branch
   private static void setUp() {
     TableManager.createDatabases(Constants.MULTI_DB_MUTLI_TB_DATABASES_NAMES);
-    /*TableManager.createTables(Constants.MULTI_DB_MUTLI_TB_TABLE_NAMES1, Constants.MULTI_DB_MUTLI_TB_DATABASES_NAMES[0]);
+    TableManager.createTables(Constants.MULTI_DB_MUTLI_TB_TABLE_NAMES1, Constants.MULTI_DB_MUTLI_TB_DATABASES_NAMES[0]);
     TableManager.createTables(Constants.MULTI_DB_MUTLI_TB_TABLE_NAMES2, Constants.MULTI_DB_MUTLI_TB_DATABASES_NAMES[1]);
-    TableManager.createTables(Constants.MULTI_DB_MUTLI_TB_TABLE_NAMES3, Constants.MULTI_DB_MUTLI_TB_DATABASES_NAMES[2]);*/
+    TableManager.createTables(Constants.MULTI_DB_MUTLI_TB_TABLE_NAMES3, Constants.MULTI_DB_MUTLI_TB_DATABASES_NAMES[2]);
   }
 
   @AfterAll
   private static void cleanUp() {
-    //TableManager.deleteTables(Constants.ONE_DB_MUTLI_TB_TABLE_NAMES, Constants.ONE_DB_MUTLI_TB_DATABASES_NAME);
+    TableManager.deleteTables(Constants.MULTI_DB_MUTLI_TB_TABLE_NAMES1, Constants.MULTI_DB_MUTLI_TB_DATABASES_NAMES[0]);
+    TableManager.deleteTables(Constants.MULTI_DB_MUTLI_TB_TABLE_NAMES2, Constants.MULTI_DB_MUTLI_TB_DATABASES_NAMES[1]);
+    TableManager.deleteTables(Constants.MULTI_DB_MUTLI_TB_TABLE_NAMES3, Constants.MULTI_DB_MUTLI_TB_DATABASES_NAMES[2]);
     TableManager.deleteDatabases(Constants.MULTI_DB_MUTLI_TB_DATABASES_NAMES);
   }
 
@@ -87,11 +90,11 @@ class DatabaseMetaDataMultiDBMultiTBIntegrationTest {
   }
 
   /**
-   * Test getSchemas returns the database.
+   * Test getSchemas returns the databases.
    * @throws SQLException the exception thrown
    */
   @Test
-  @DisplayName("Test retrieving the database.")
+  @DisplayName("Test retrieving the databases.")
   void testSchemas() throws SQLException {
     final List<String> databasesList = Arrays.asList(Constants.MULTI_DB_MUTLI_TB_DATABASES_NAMES);
     final List<String> schemasList = new ArrayList<>();
@@ -104,17 +107,28 @@ class DatabaseMetaDataMultiDBMultiTBIntegrationTest {
   }
 
   /**
-   * Test getSchemas returns database "JDBC_Inte.gration_Te.st_DB_01" when given matching patterns.
+   * Test getSchemas returns databases when given matching patterns.
    * @param schemaPattern the schema pattern to be tested
+   * @param index index of database name in Constants.MULTI_DB_MUTLI_TB_DATABASES_NAMES
    * @throws SQLException the exception thrown
    */
   @ParameterizedTest
-  @ValueSource(strings = {"%_01", "%_Inte.gration%", "%Te/.st_DB"})
-  @DisplayName("Test retrieving database name JDBC_Inte.gration_Te.st_DB_01 with pattern.")
-  void testGetSchemasWithSchemaPattern(String schemaPattern) throws SQLException {
+  @CsvSource(value = {
+      "JD_BC_Int/.%, 0",
+      "%ion/_T%, 0",
+      "%DB_001, 0",
+      "JDB/.C%, 1",
+      "%ion-T%, 1",
+      "%DB_002, 1",
+      "JD-BC%, 2",
+      "%ion.T%, 2",
+      "%DB_003, 2",
+  })
+  @DisplayName("Test retrieving database name JD_BC_Int.egration_Test_DB_001, JDB.C_Integration-Test_DB_002, JD-BC_Integration.Test_DB_003 with pattern.")
+  void testGetSchemasWithSchemaPattern(String schemaPattern, int index) throws SQLException {
     try (ResultSet schemas = metaData.getSchemas(null, schemaPattern)) {
       while (schemas.next()) {
-        Assertions.assertEquals(Constants.ONE_DB_MUTLI_TB_DATABASES_NAME, schemas.getString("TABLE_SCHEM"));
+        Assertions.assertEquals(Constants.MULTI_DB_MUTLI_TB_DATABASES_NAMES[index], schemas.getString("TABLE_SCHEM"));
       }
     }
   }
@@ -122,27 +136,26 @@ class DatabaseMetaDataMultiDBMultiTBIntegrationTest {
   /**
    * Test getTables returns tables from JDBC_Inte.gration_Te.st_DB_01 when given matching patterns.
    * @param tablePattern the table pattern to be tested
-   * @param index index of table name in Constants.ONE_DB_MUTLI_TB_TABLE_NAMES
+   * @param index index of table name in Constants.MULTI_DB_MUTLI_TB_TABLE_NAMES1
    * @throws SQLException the exception thrown
    */
   @ParameterizedTest
   @CsvSource(value = {
-          "%g/.ration_Test%, 0",
-          "_nteg/.rat_%, 0",
-          "%_Te_st_T_able_0_, 0",
-          "%tion_Test%, 1",
-          "_ntegr/.at_%, 1",
-          "%_Test_Ta_ble_02, 1",
-          "%tion_Tes_t%, 2",
-          "_nte/.grat_%, 2",
-          "%_Tes_t_Tab_le_, 2"
+      "%/_Table/_01/_01%, 0",
+      "%-gration/_Tes1t%, 0",
+      "_nte-gration_Tes1t_Table_0__01, 0",
+      "%/_Table/_01/_02%, 1",
+      "%-gration2/_Te-st%, 1",
+      "_nte-gration_Tes1t_Table_0__02, 1",
+/*      "%/_3Ta-ble/_01/_02%, 2",
+      "%-gration2/_Te-st%, 2",
+      "_nte-gration_Tes1t_Table_0__03, 2"*/
   })
-  @DisplayName("Test retrieving Integ.ration_Te_st_T_able_01, Integr.ation_Test_Ta_ble_02, Inte.gration_Tes_t_Tab_le_03 from JDBC_Inte.gration_Te.st_DB_01.")
-  void testTablesWithPattern(final String tablePattern, final int index) throws SQLException {
-   try (ResultSet tableResultSet = metaData.getTables(null, Constants.ONE_DB_MUTLI_TB_DATABASES_NAME, tablePattern, null)) {
-     while (tableResultSet.next()) {
-       Assertions.assertEquals(Constants.ONE_DB_MUTLI_TB_TABLE_NAMES[index], tableResultSet.getObject("TABLE_NAME"));
-     }
+  @DisplayName("Test retrieving Inte-gration_Tes1t_Table_01_01, Inte-gration2_Te-st_Table_01_02, Inte-gration_Test_3Ta-ble_01_03 from JD_BC_Int.egration_Test_DB_001.")
+  void testTablesWithPatternFromDB1(final String tablePattern, final int index) throws SQLException {
+   try (ResultSet tableResultSet = metaData.getTables(null, Constants.MULTI_DB_MUTLI_TB_DATABASES_NAMES[0], tablePattern, null)) {
+     Assertions.assertTrue(tableResultSet.next());
+     Assertions.assertEquals(Constants.MULTI_DB_MUTLI_TB_TABLE_NAMES1[index], tableResultSet.getObject("TABLE_NAME"));
    }
   }
 }
