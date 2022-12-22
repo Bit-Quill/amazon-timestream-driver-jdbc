@@ -121,7 +121,7 @@ class DatabaseMetaDataMultiDBMultiTBIntegrationTest {
       "%DB_002, 1",
       "JD-BC%, 2",
       "%ion.T%, 2",
-      "%DB_003, 2",
+      "%DB!_003' escape '!, 2",
   })
   @DisplayName("Test retrieving database name JD_BC_Int.egration_Test_DB_001, JDB.C_Integration-Test_DB_002, JD-BC_Integration.Test_DB_003 with pattern.")
   void testGetSchemasWithSchemaPattern(String schemaPattern, int index) throws SQLException {
@@ -185,4 +185,74 @@ class DatabaseMetaDataMultiDBMultiTBIntegrationTest {
   }
 
   //TODO add more test cases for DB2, DB3
+
+  /**
+   * Test getTables returns tables from Integr.ation_Test_Ta_ble_02 when given matching patterns.
+   * @param tablePattern the table pattern to be tested
+   * @param schemaPattern the database pattern to be tested
+   * @param index index of table name in Constants.MULTI_DB_MUTLI_TB_TABLE_NAMES2
+   * @throws SQLException the exception thrown
+   */
+  @ParameterizedTest
+  @CsvSource(value = {
+      "%-Test%, JDB.C%, 0",
+      "%!_02!_01' escape '!, %DB_002,  0",
+      "_ntegration_Test_Ta1ble_0__01, %ion-T%, 0",
+      "%_Table_02_02, JDB.C%,1",
+      "%gration.-Te-st%, %ion-T%, 1",
+      "%-Te-st!_%' escape '!, %DB_002, 1"
+  })
+  @DisplayName("Test retrieving Integration-Test_Ta1ble_02_01, Integration.-Te-st_Table_02_02 from Integr.ation_Test_Ta_ble_02.")
+  void testTablesWithPatternFromDB2WithPattern(final String tablePattern, final String schemaPattern, final int index) throws SQLException {
+    try (ResultSet tableResultSet = metaData.getTables(null, schemaPattern, tablePattern, null)) {
+      Assertions.assertTrue(tableResultSet.next());
+      Assertions.assertEquals(Constants.MULTI_DB_MUTLI_TB_TABLE_NAMES2[index], tableResultSet.getObject("TABLE_NAME"));
+    }
+  }
+
+  /**
+   * Test getTables returns tables from Integr.ation_Test_Ta_ble_02 when given matching patterns.
+   * @param tablePattern the table pattern to be tested
+   * @param index index of table name in Constants.MULTI_DB_MUTLI_TB_TABLE_NAMES2
+   * @throws SQLException the exception thrown
+   */
+  @ParameterizedTest
+  @CsvSource(value = {
+      "%-Test%, 0",
+      "%!_02!_01' escape '!, 0",
+      "_ntegration_Test_Ta1ble_0__01, 0",
+      "%_Table_02_02, 1",
+      "%gration.-Te-st%, 1",
+      "%-Te-st!_%' escape '!, 1"
+  })
+  @DisplayName("Test retrieving Integration-Test_Ta1ble_02_01, Integration.-Te-st_Table_02_02 from Integr.ation_Test_Ta_ble_02.")
+  void testTablesWithPatternFromDB2(final String tablePattern, final int index) throws SQLException {
+    try (ResultSet tableResultSet = metaData.getTables(null, Constants.MULTI_DB_MUTLI_TB_DATABASES_NAMES[1], tablePattern, null)) {
+      Assertions.assertTrue(tableResultSet.next());
+      Assertions.assertEquals(Constants.MULTI_DB_MUTLI_TB_TABLE_NAMES2[index], tableResultSet.getObject("TABLE_NAME"));
+    }
+  }
+
+  /**
+   * Test getTables returns tables from Integr.ation_Test_Ta_ble_02 when given matching patterns.
+   * @param tablePattern the table pattern to be tested
+   * @param index index of table name in Constants.MULTI_DB_MUTLI_TB_TABLE_NAMES2
+   * @throws SQLException the exception thrown
+   *//*
+  @ParameterizedTest
+  @CsvSource(value = {
+      "%-Test%, 0",
+      "%!_02!_01' escape '!, 0",
+      "_ntegration_Test_Ta1ble_0__01, 0",
+      "%_Table_02_02, 1",
+      "%gration.-Te-st%, 1",
+      "%-Te-st!_%' escape '!, 1"
+  })
+  @DisplayName("Test retrieving Integration-Test_Ta1ble_02_01, Integration.-Te-st_Table_02_02 from Integr.ation_Test_Ta_ble_02.")
+  void testTablesWithPatternFromDB3(final String tablePattern, final int index) throws SQLException {
+    try (ResultSet tableResultSet = metaData.getTables(null, Constants.MULTI_DB_MUTLI_TB_DATABASES_NAMES[2], tablePattern, null)) {
+      Assertions.assertTrue(tableResultSet.next());
+      Assertions.assertEquals(Constants.MULTI_DB_MUTLI_TB_TABLE_NAMES3[index], tableResultSet.getObject("TABLE_NAME"));
+    }
+  } */
 }
