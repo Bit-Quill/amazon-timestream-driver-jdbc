@@ -101,7 +101,7 @@ class DatabaseMetaDataOneDBMultiTBIntegrationTest {
         schemasList.add(schemas.getString("TABLE_SCHEM"));
       }
     }
-    Assertions.assertEquals(schemasList, databaseList);
+    Assertions.assertEquals(databaseList, schemasList);
   }
 
   /**
