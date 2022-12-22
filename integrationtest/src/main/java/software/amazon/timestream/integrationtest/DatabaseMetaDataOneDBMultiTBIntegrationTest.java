@@ -110,13 +110,12 @@ class DatabaseMetaDataOneDBMultiTBIntegrationTest {
    * @throws SQLException the exception thrown
    */
   @ParameterizedTest
-  @ValueSource(strings = {"%_01", "%_Inte.gration%", "%Te/.st_DB"})
+  @ValueSource(strings = {"%_01", "%_Inte.gration%", "%Te.st_DB%"})
   @DisplayName("Test retrieving database name JDBC_Inte.gration_Te.st_DB_01 with pattern.")
   void testGetSchemasWithSchemaPattern(String schemaPattern) throws SQLException {
     try (ResultSet schemas = metaData.getSchemas(null, schemaPattern)) {
-      while (schemas.next()) {
-        Assertions.assertEquals(Constants.ONE_DB_MUTLI_TB_DATABASES_NAME, schemas.getString("TABLE_SCHEM"));
-      }
+      Assertions.assertTrue(schemas.next());
+      Assertions.assertEquals(Constants.ONE_DB_MUTLI_TB_DATABASES_NAME, schemas.getString("TABLE_SCHEM"));
     }
   }
 
