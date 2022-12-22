@@ -128,6 +128,16 @@ class DatabaseMetaDataOneDBMultiTBIntegrationTest {
   }
 
   /**
+   * Test getTables returns all tables from database "JDBC_Inte.gration_Te.st_DB_01".
+   * @throws SQLException the exception thrown
+   */
+  @Test
+  @DisplayName("Test getTables returns all tables from database \"JDBC_Inte.gration_Te.st_DB_01\"")
+  void testTables() throws SQLException {
+    dbTest.testTables();
+  }
+
+  /**
    * Test getTables returns tables from JDBC_Inte.gration_Te.st_DB_01 when given matching patterns.
    * @param tablePattern the table pattern to be tested
    * @param index index of table name in Constants.ONE_DB_MUTLI_TB_TABLE_NAMES
