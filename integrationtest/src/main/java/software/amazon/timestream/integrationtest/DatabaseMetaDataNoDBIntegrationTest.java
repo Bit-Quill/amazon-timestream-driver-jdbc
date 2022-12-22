@@ -21,13 +21,8 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
-import org.junit.jupiter.params.provider.ValueSource;
 import software.amazon.timestream.jdbc.TimestreamDatabaseMetaData;
 
-import java.sql.Connection;
-import java.sql.DatabaseMetaData;
 import java.sql.SQLException;
 
 
@@ -35,9 +30,6 @@ import java.sql.SQLException;
  * Integration tests for supported getters in {@link TimestreamDatabaseMetaData}
  */
 class DatabaseMetaDataNoDBIntegrationTest {
-  private DatabaseMetaData metaData;
-  private Connection connection;
-
   private final DatabaseMetaDataTest dbTest = new DatabaseMetaDataTest(Constants.NO_DB_NO_TB_REGION,
           Constants.NO_DB_DATABASE_NAMES,
           Constants.NO_TB_TABLE_NAMES);

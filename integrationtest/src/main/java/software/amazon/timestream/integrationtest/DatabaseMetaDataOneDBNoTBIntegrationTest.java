@@ -22,21 +22,15 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import software.amazon.timestream.jdbc.TimestreamDatabaseMetaData;
 
-import java.sql.Connection;
-import java.sql.DatabaseMetaData;
 import java.sql.SQLException;
 
 /**
  * Integration tests for supported getters in {@link TimestreamDatabaseMetaData}
  */
 class DatabaseMetaDataOneDBNoTBIntegrationTest {
-  private DatabaseMetaData metaData;
-  private Connection connection;
-
   private final DatabaseMetaDataTest dbTest = new DatabaseMetaDataTest(Constants.ONE_DB_NO_TB_REGION,
                                        Constants.ONE_DB_NO_TB_DATABASE_NAME,
                                        Constants.ONE_DB_NO_TB_TABLE_NAMES);

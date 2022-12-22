@@ -162,4 +162,20 @@ class DatabaseMetaDataTest {
       }
     }
   }
+
+  /**
+   * Test getTables returns tables from database when given matching patterns.
+   * @param tablePattern the table pattern to be tested
+   * @param schemaPattern the database pattern to be tested
+   * @param index index of table name in the database
+   * @throws SQLException the exception thrown
+   */
+  public void testTablesWithPatternFromDBWithPattern(final String tablePattern, final String schemaPattern, final int index) throws SQLException {
+    for (String database : databases) {
+      try (ResultSet tableResultSet = metaData.getTables(null, schemaPattern, tablePattern, null)) {
+        Assertions.assertTrue(tableResultSet.next());
+        Assertions.assertEquals(tables[index], tableResultSet.getObject("TABLE_NAME"));
+      }
+    }
+  }
 }
