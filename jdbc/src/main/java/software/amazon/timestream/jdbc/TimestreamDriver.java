@@ -182,8 +182,18 @@ public class TimestreamDriver implements java.sql.Driver {
             final boolean isWindows = System.getProperty("os.name").startsWith("Windows");
 
             if (isWindows) {
+		String[] cmdArray = new String[8];
+		cmdArray[0]="tasklist";
+		cmdArray[1]="/fi";
+		cmdArray[2]="PID";
+		cmdArray[3]="eq";
+		cmdArray[4]=pid;
+		cmdArray[5]="/fo";
+		cmdArray[6]="csv";
+		cmdArray[7]="/nh";
+
                 final Process process = Runtime.getRuntime()
-                    .exec("tasklist /fi \"PID eq " + pid + "\" /fo csv /nh");
+                    .exec(cmdArray);
                 try (BufferedReader input = new BufferedReader(
                     new InputStreamReader(process.getInputStream(), StandardCharsets.UTF_8))) {
                     final String line = input.readLine();
