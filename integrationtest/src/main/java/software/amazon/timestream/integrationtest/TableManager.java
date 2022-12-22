@@ -129,7 +129,7 @@ class TableManager {
     try {
       buildWriteClient().createTable(createTableRequest);
     } catch (ConflictException e) {
-      deleteTable(Constants.TABLE_NAME, Constants.DATABASE_NAME);
+      deleteTable(table, database);
       buildWriteClient().createTable(createTableRequest);
     }
   }
