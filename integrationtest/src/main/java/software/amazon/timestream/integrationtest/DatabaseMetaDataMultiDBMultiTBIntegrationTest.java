@@ -233,6 +233,7 @@ class DatabaseMetaDataMultiDBMultiTBIntegrationTest {
   /**
    * Test getTables returns tables from JD-BC_Integration.Test_DB_003 when given matching patterns.
    * @param tablePattern the table pattern to be tested
+   * @param schemaPattern the database pattern to be tested
    * @param index index of table name in Constants.MULTI_DB_MUTLI_TB_TABLE_NAMES2
    * @throws SQLException the exception thrown
    */

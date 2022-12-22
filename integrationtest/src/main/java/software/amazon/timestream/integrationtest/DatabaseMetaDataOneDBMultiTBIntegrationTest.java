@@ -15,17 +15,21 @@
 
 package software.amazon.timestream.integrationtest;
 
-import com.amazonaws.services.timestreamwrite.model.Database;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import software.amazon.timestream.jdbc.TimestreamDatabaseMetaData;
-
-import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Properties;
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  * Integration tests for supported getters in {@link TimestreamDatabaseMetaData}
@@ -34,7 +38,7 @@ class DatabaseMetaDataOneDBMultiTBIntegrationTest {
   private DatabaseMetaData metaData;
   private Connection connection;
 
-  private DatabaseMetaDataTest dbTest = new DatabaseMetaDataTest(Constants.ONE_DB_MUTLI_TB_REGION,
+  private final DatabaseMetaDataTest dbTest = new DatabaseMetaDataTest(Constants.ONE_DB_MUTLI_TB_REGION,
                                        Constants.ONE_DB_MUTLI_TB_DATABASES_NAME,
                                        Constants.ONE_DB_MUTLI_TB_TABLE_NAMES);
 

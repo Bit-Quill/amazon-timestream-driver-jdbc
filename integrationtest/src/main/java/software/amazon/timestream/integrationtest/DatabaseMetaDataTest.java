@@ -15,16 +15,7 @@
 
 package software.amazon.timestream.integrationtest;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
-import org.junit.jupiter.params.provider.ValueSource;
 import software.amazon.timestream.jdbc.TimestreamDatabaseMetaData;
 
 import java.sql.Connection;
@@ -44,11 +35,11 @@ class DatabaseMetaDataTest {
   private DatabaseMetaData metaData;
   private Connection connection;
 
-  private String region;
-  private String[] databases;
-  private String[] tables;
+  private final String region;
+  private final String[] databases;
+  private final String[] tables;
 
-  public DatabaseMetaDataTest(String r, String[] ds, String[] ts) {
+  DatabaseMetaDataTest(String r, String[] ds, String[] ts) {
     region = r;
     databases = ds;
     tables = ts;
@@ -106,23 +97,22 @@ class DatabaseMetaDataTest {
 
   /**
    * Test getSchemas returns database "JDBC_Inte.gration_Te.st_DB_01" when given matching patterns.
+   *
    * @param schemaPattern the schema pattern to be tested
    * @throws SQLException the exception thrown
    */
-  public void testGetSchemasWithSchemaPattern(String schemaPattern) throws SQLException {
+  public void testGetSchemasWithSchemaPattern(final String schemaPattern) throws SQLException {
     try (ResultSet schemas = metaData.getSchemas(null, schemaPattern)) {
-      Assertions.assertTrue(schemas.next());
-      Assertions.assertEquals(databases, schemas.getString("TABLE_SCHEM"));
-//      while (schemas.next()) {
-//        String schema = schemas.getString("TABLE_SCHEM");
-//        String match = Arrays
-//                .stream(databases)
-//                .filter(x -> x.equals(schema))
-//                .findFirst()
-//                .orElse(null);
-//
-//        Assertions.assertTrue(match != null);
-//      }
+      while (schemas.next()) {
+        final String schema = schemas.getString("TABLE_SCHEM");
+        final String match = Arrays
+            .stream(databases)
+            .filter(x -> x.equals(schema))
+            .findFirst()
+            .orElse(null);
+
+        Assertions.assertNotNull(match);
+      }
     }
   }
 

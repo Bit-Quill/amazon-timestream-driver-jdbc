@@ -15,7 +15,12 @@
 
 package software.amazon.timestream.integrationtest;
 
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -32,7 +37,7 @@ class DatabaseMetaDataOneDBNoTBIntegrationTest {
   private DatabaseMetaData metaData;
   private Connection connection;
 
-  private DatabaseMetaDataTest dbTest = new DatabaseMetaDataTest(Constants.ONE_DB_NO_TB_REGION,
+  private final DatabaseMetaDataTest dbTest = new DatabaseMetaDataTest(Constants.ONE_DB_NO_TB_REGION,
                                        Constants.ONE_DB_DATABASE_NAMES,
                                        Constants.ONE_DB_NO_TB_TABLE_NAMES);
 
