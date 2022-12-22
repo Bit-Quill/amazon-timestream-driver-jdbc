@@ -153,10 +153,10 @@ class DatabaseMetaDataIntegrationTest {
   void testColumns(final String pattern) throws SQLException {
     final List<String> measureValueColList = Arrays.asList(Constants.MEASURE_VALUE_COLUMNS);
     try (ResultSet columnsResultSet = metaData.getColumns(
-        null,
-        null,
-        "Integration_Test_Table_07",
-        pattern)) {
+      null,
+      null,
+      "Integration_Test_Table_07",
+      pattern)) {
       final List<String> actualColumns = new ArrayList<>();
       while (columnsResultSet.next()) {
         Assertions.assertEquals(Constants.TABLE_NAME, columnsResultSet.getObject("TABLE_NAME"));
