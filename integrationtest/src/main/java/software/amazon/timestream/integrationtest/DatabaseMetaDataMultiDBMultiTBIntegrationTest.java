@@ -113,6 +113,39 @@ class DatabaseMetaDataMultiDBMultiTBIntegrationTest {
   }
 
   /**
+   * Test getTables returns all tables.
+   *
+   * @throws SQLException the exception thrown
+   */
+  @Test
+  @DisplayName("Test getTables returns all tables")
+  void testTables() throws SQLException {
+    List<String> allTables = new ArrayList<>();
+
+    // Test all tables from specified database are returned
+    for (int i = 0; i < tables.size(); i++) {
+      final List<String> tableList = Arrays.asList(tables.get(i));
+      allTables.addAll(tableList);
+      final List<String> returnTableList = new ArrayList<>();
+      try (ResultSet tables = metaData.getTables(null, Constants.MULTI_DB_MUTLI_TB_DATABASES_NAMES[i], null, null)) {
+        while (tables.next()) {
+          returnTableList.add(tables.getString("TABLE_NAME"));
+        }
+      }
+      Assertions.assertTrue(returnTableList.containsAll(tableList));
+    }
+
+    // Test all tables from region are returned when no database is specified
+    final List<String> returnAllTableList = new ArrayList<>();
+    try (ResultSet tables = metaData.getTables(null, null, null, null)) {
+      while (tables.next()) {
+        returnAllTableList.add(tables.getString("TABLE_NAME"));
+      }
+    }
+    Assertions.assertTrue(returnAllTableList.containsAll(allTables));
+  }
+
+  /**
    * Test getSchemas returns databases when given matching patterns.
    *
    * @param schemaPattern the schema pattern to be tested
