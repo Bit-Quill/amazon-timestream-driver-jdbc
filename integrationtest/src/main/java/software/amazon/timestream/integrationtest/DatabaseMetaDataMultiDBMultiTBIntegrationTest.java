@@ -120,7 +120,7 @@ class DatabaseMetaDataMultiDBMultiTBIntegrationTest {
   @Test
   @DisplayName("Test getTables returns all tables")
   void testTables() throws SQLException {
-    List<String> allTables = new ArrayList<>();
+    final List<String> allTables = new ArrayList<>();
 
     // Test all tables from specified database are returned
     for (int i = 0; i < tables.size(); i++) {
