@@ -35,13 +35,11 @@ public class TimestreamDriver implements java.sql.Driver {
     static final int DRIVER_MAJOR_VERSION;
     static final int DRIVER_MINOR_VERSION;
     static final String DRIVER_VERSION;
-    static final String APP_NAME_SUFFIX;
     static final String APPLICATION_NAME;
 
     static {
         APPLICATION_NAME = getApplicationName();
-        APP_NAME_SUFFIX = " [" + APPLICATION_NAME + "]";
-        LOGGER.finer("Name of the application using the driver: " + APP_NAME_SUFFIX);
+        LOGGER.finer("Name of the application using the driver: " + APPLICATION_NAME);
 
         // Load the driver version from the associated pom file.
         int majorVersion = 0;
@@ -147,7 +145,7 @@ public class TimestreamDriver implements java.sql.Driver {
      * @return The User Agent Suffix.
      */
     static String getUserAgentSuffix() {
-        return Constants.UA_ID_PREFIX + DRIVER_VERSION + APP_NAME_SUFFIX;
+        return Constants.UA_ID_PREFIX + DRIVER_VERSION;
     }
 
     @Override
@@ -161,10 +159,7 @@ public class TimestreamDriver implements java.sql.Driver {
      * @return the name of the currently running application.
      */
     private static String getApplicationName() {
-        // Currently not supported.
-        // Need to implement logic to get the process ID of the current process, then check the set of running processes and pick out
-        // the one that matches the current process. From there we can grab the name of what is running the process.
-        return "Unknown";
+        return "ts-jdbc." + TimestreamDriver.DRIVER_VERSION;
     }
 
     /**
