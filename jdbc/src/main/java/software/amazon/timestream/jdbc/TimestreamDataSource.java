@@ -43,7 +43,7 @@ public class TimestreamDataSource implements javax.sql.DataSource,
   @VisibleForTesting
   final ClientConfiguration clientConfiguration = new ClientConfiguration()
     .withUserAgentSuffix(
-      Constants.UA_ID_PREFIX + TimestreamDriver.DRIVER_VERSION + TimestreamDriver.APP_NAME_SUFFIX);
+      Constants.UA_ID_PREFIX + TimestreamDriver.DRIVER_VERSION);
   @VisibleForTesting
   final Map<Properties, LinkedList<TimestreamConnection>> availablePools = new HashMap<>();
   private final Properties samlAuthenticationProperties = new Properties();

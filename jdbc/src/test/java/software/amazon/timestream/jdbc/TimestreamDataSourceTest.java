@@ -295,7 +295,7 @@ class TimestreamDataSourceTest {
   void testUserAgentIdentifierSuffix() {
     final String actualSuffix = timestreamDataSource.clientConfiguration.getUserAgentSuffix();
     final String expectedSuffix =
-      Constants.UA_ID_PREFIX + TimestreamDriver.DRIVER_VERSION + TimestreamDriver.APP_NAME_SUFFIX;
+      Constants.UA_ID_PREFIX + TimestreamDriver.DRIVER_VERSION;
     Assertions.assertEquals(expectedSuffix, actualSuffix);
   }
 
