@@ -171,7 +171,7 @@ public class TimestreamDatabaseMetaData implements java.sql.DatabaseMetaData {
   }
 
   @Override
-  public ResultSet getCatalogs(){
+  public ResultSet getCatalogs() {
     LOGGER.debug("Catalogs are not supported. Returning an empty result set.");
     return new TimestreamDatabasesResultSet();
   }
