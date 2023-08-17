@@ -57,6 +57,8 @@ class TimestreamDatabaseMetaDataTest {
 
   /**
    * Checks that an empty result set is returned for getCatalogs
+   *
+   * @throws SQLException The method can throw an SQLException
    */
   @Test
   void testGetCatalogsWithResult() throws SQLException {
@@ -69,6 +71,8 @@ class TimestreamDatabaseMetaDataTest {
 
   /**
    * Checks that all result sets are returned for getSchemas with no parameters
+   *
+   * @throws SQLException The method can throw an SQLException
    */
   @Test
   void testGetSchemasWithResult() throws SQLException {
@@ -82,6 +86,8 @@ class TimestreamDatabaseMetaDataTest {
 
   /**
    * Checks that all result sets are returned for getSchemas with null parameters
+   *
+   * @throws SQLException The method can throw an SQLException
    */
   @Test
   void testGetSchemasNullParamWithResult() throws SQLException {
@@ -97,6 +103,8 @@ class TimestreamDatabaseMetaDataTest {
    * Checks that all result sets are returned for getSchemas with schemaPattern
    * @param schemaPattern Schema pattern to be tested
    * @param expectedValue Expected resultset number
+   *
+   * @throws SQLException The method can throw an SQLException
    */
   @ParameterizedTest
   @CsvSource(value = {
@@ -117,6 +125,8 @@ class TimestreamDatabaseMetaDataTest {
   /**
    * Checks that nothing could be returned for invalid schema
    * @param schemaPattern Schema pattern to be tested
+   *
+   * @throws SQLException The method can throw an SQLException
    */
   @ParameterizedTest
   @ValueSource(strings = {"invalidDB"})
@@ -130,17 +140,19 @@ class TimestreamDatabaseMetaDataTest {
 
   /**
    * Checks that exception "access denied" could be thrown
+   *
+   * @throws SQLException The method can throw an SQLException
    */
   @Test
   void testGetSchemasWithResultException() throws SQLException {
     initializeWithResultException();
 
     try {
-      ResultSet resultSet = dbMetaData.getSchemas();
+      dbMetaData.getSchemas();
       Assertions.fail("unexpected success");
     } catch (AmazonTimestreamQueryException ae) {
       Assertions.assertEquals(ae.getErrorMessage(), "access denied");
-    } catch(Exception e) {
+    } catch (Exception e) {
       Assertions.fail("unexpected exception " + e.getMessage());
     }
   }
@@ -242,6 +254,8 @@ class TimestreamDatabaseMetaDataTest {
 
   /**
    * Checks that empty result set is returned for empty database
+   *
+   * @throws SQLException The method can throw an SQLException
    */
   @Test
   void testGetTablesWithEmptyDatabase() throws SQLException {
